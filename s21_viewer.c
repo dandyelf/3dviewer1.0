@@ -1,14 +1,12 @@
-#include <stdio.h>
+#include "./s21_viewer.h"
 
-int file_work(char * str);
+//int main(int argc, char *argv[]) {
+//    printf("%d %s \n", argc, argv[1]);
+//    file_work(argv[1]);
+//    return 0;
+//}
 
-int main(int argc, char *argv[]) {
-    printf("%d %s \n", argc, argv[1]);
-    file_work(argv[1]);
-    return 0;
-}
-
-int file_work(char * str) {
+int file_work(const char * str) {
   char buffer[100];
     FILE * ptrFile = fopen(str , "r");
     if (ptrFile == NULL) perror ("Ошибка открытия файла");

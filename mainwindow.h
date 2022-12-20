@@ -4,6 +4,11 @@
 #include <QMainWindow>
 #include <QFileDialog>
 
+extern "C" {
+   #include "./s21_viewer.h"
+}
+
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
