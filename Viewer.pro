@@ -14,7 +14,8 @@ SOURCES += \
     s21_viewer.c
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    s21_viewer.h
 
 FORMS += \
     mainwindow.ui
