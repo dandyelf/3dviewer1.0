@@ -13,11 +13,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::on_openFoldefButton_clicked()
 {
-    QString Filepath = QFileDialog::getOpenFileName(this, "Get Any File");
-        ui->PathLine->setText(Filepath);
-
+    QString selfilter = tr("OBJ (*.obj)");
+    QString Filepath = QFileDialog::getOpenFileName(this, "Open File", "/home/", tr("OBJ (*.obj);; All files (*.*)"), &selfilter);
+    ui->PathLine->setText(Filepath);
 }
-

@@ -10,7 +10,8 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    s21_viewer.c
 
 HEADERS += \
     mainwindow.h
