@@ -1,5 +1,6 @@
 #include "glwidget.h"
 #include "QMouseEvent"
+#include "QKeyEvent"
 #include "QDebug"
 #include <QtMath>
 
@@ -16,10 +17,12 @@ glwidget::~glwidget()
 }
 
 void glwidget::initializeGL() {
+    qDebug() << "initializeGL is working..";
     glEnable(GL_DEPTH_TEST);  //  не понял пока зачем
 }
 
 void glwidget::resizeGL(int w, int h) {
+    qDebug() << "resizeGL is working..";
     glViewport(0,0,w,h);  //  и без этого тоже работает, но ругается, что 'w' и 'h' не используются.
     glMatrixMode(GL_PROJECTION);  //  Выбор режима матрицы
     glLoadIdentity();  //  Загрузка единичной матрицы
@@ -28,6 +31,7 @@ void glwidget::resizeGL(int w, int h) {
 
 void glwidget::paintGL() {
 //    glClear(GL_COLOR_BUFFER_BIT);  //  и без этого тоже работает
+    qDebug() << "paintGL is working..";
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -53,7 +57,27 @@ void glwidget::mouseMoveEvent(QMouseEvent * e)
     update();
 }
 
+void glwidget::keyPressEvent(QKeyEvent * e)
+{
+    switch(e->key()) {
+    case(Qt::Key_Left):
+        qDebug() << "Left pressed";
+        break;
+    case(Qt::Key_Right):
+        qDebug() << "Rigth pressed";
+        break;
+    case(Qt::Key_Up):
+        qDebug() << "Up pressed";
+        break;
+    case(Qt::Key_Down):
+        qDebug() << "Down pressed";
+        break;
+    }
+}
+
 void glwidget::draw() {
+    qDebug() << "draw is working..";
+
     double vertex_ar[] = {-0.500000, -0.500000, 0.500000,
                           0.500000, -0.500000, 0.500000,
                           -0.500000, 0.500000, 0.500000,

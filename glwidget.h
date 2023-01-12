@@ -23,6 +23,8 @@ private:
     void mousePressEvent(QMouseEvent*) override;
     void mouseMoveEvent(QMouseEvent*) override;
 
+    void keyPressEvent(QKeyEvent*);
+
     void draw();
 };
 #endif // GLWIDGET_H
