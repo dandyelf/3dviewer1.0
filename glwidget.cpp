@@ -29,6 +29,31 @@ void glwidget::resizeGL(int w, int h) {
 void glwidget::paintGL() {
 //    glClear(GL_COLOR_BUFFER_BIT);  //  и без этого тоже работает
 
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glTranslatef(0, 0, -2);  //  Перевод матрицы. куда?
+    glRotatef(xRot, 1, 0, 0);  // Повороты
+    glRotatef(yRot, 0, 1, 0);
+
+    draw();
+}
+
+void glwidget::mousePressEvent(QMouseEvent * e)
+{
+    mPos = e->pos();
+    qDebug() << "mouse pressed";
+}
+
+void glwidget::mouseMoveEvent(QMouseEvent * e)
+{
+    xRot = 1 / M_PI * (e->pos().y() - mPos.y());
+    yRot = 1 / M_PI * (e->pos().x() - mPos.x());
+    qDebug() << "mouse moved";
+    update();
+}
+
+void glwidget::draw() {
     double vertex_ar[] = {-0.500000, -0.500000, 0.500000,
                           0.500000, -0.500000, 0.500000,
                           -0.500000, 0.500000, 0.500000,
@@ -45,33 +70,6 @@ void glwidget::paintGL() {
     glVertexPointer(3, GL_DOUBLE, 0, vertex_ar);  //  Определил массив вершин: 3 координаты на вершину типа Double без интервалов в массиве
     glEnableClientState(GL_VERTEX_ARRAY);  //  Включил массив вершин
     glDrawElements(GL_LINES, 72, GL_UNSIGNED_INT, indexes_ar);  //  Работает в статическом варианте, рисует каркас куба.
-//        glDrawArrays(GL_TRIANGLES, 1, 12);  //  Данный вариант рисует закрашенные треугольники.
+//    glDrawArrays(GL_TRIANGLES, 1, 12);  //  Данный вариант рисует закрашенные треугольники.
 //    glEnableClientState(GL_INDEX_ARRAY);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glTranslatef(0, 0, -2);
-    glRotatef(xRot, 1, 0, 0);
-    glRotatef(yRot, 0, 1, 0);
-
-    draw();
-}
-
-void glwidget::mousePressEvent(QMouseEvent * e)
-{
-    mPos = e->pos();
-    qDebug() << "left mouse button pressed";
-}
-
-void glwidget::mouseMoveEvent(QMouseEvent * e)
-{
-    xRot = 1 / M_PI * (e->pos().y() - mPos.y());
-    yRot = 1 / M_PI * (e->pos().x() - mPos.x());
-    qDebug() << "mouse move";
-    update();
-}
-
-void glwidget::draw() {
-
 }
