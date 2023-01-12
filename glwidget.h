@@ -1,26 +1,28 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
 
-#include <QGLWidget>
-#include <QtOpenGL>
+#include <QWidget>
 #include <QOpenGLWidget>
-#include <QOpenGLWindow>
-#include <QSurfaceFormat>
-#include <QOpenGLFunctions>
-#include <GL/glu.h>
 
-class glwidget : public QGLWidget
+
+class glwidget : public QOpenGLWidget
 {
     Q_OBJECT
 
 public:
     glwidget(QWidget *parent = nullptr);
     ~glwidget();
-
-    void initializeGL();
-    void resize();
-    void paintGL();
 private:
-//    double vertex_ar[24];
+    float xRot, yRot, zRot;
+    QPoint mPos;
+
+    void initializeGL() override;
+    void resizeGL(int w, int h) override;
+    void paintGL() override;
+
+    void mousePressEvent(QMouseEvent*) override;
+    void mouseMoveEvent(QMouseEvent*) override;
+
+    void draw();
 };
 #endif // GLWIDGET_H
