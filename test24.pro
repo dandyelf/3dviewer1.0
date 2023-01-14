@@ -10,10 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
+    read_obj.c \
     scene.cpp \
     viewer.cpp
 
 HEADERS += \
+    obj.h \
+    read_obj.h \
     scene.h \
     viewer.h
 

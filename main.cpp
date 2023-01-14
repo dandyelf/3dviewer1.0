@@ -5,7 +5,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    viewer w;
-    w.show();
+    viewer window;
+    window.show();
     return a.exec();
 }

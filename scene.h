@@ -1,12 +1,14 @@
-#ifndef GLWIDGET_H
-#define GLWIDGET_H
+#ifndef SCENE_H
+#define SCENE_H
 
 #define GL_SILENCE_DEPRECATION
 
 #include <QWidget>
 #include <QOpenGLWidget>
-//#include <QtOpenGLWidgets/QOpenGLWidget>
 
+extern "C" {
+    #include "obj.h"
+}
 
 class scene : public QOpenGLWidget
 {
@@ -15,9 +17,14 @@ class scene : public QOpenGLWidget
 public:
     scene(QWidget *parent = nullptr);
     ~scene();
+
+    obj_file myobj;
+    obj_file* obj = &myobj;
+
 private:
     float xRot, yRot, zRot;
     QPoint mPos;
+
 
     void initializeGL() override;
     void resizeGL(int w, int h) override;
@@ -30,4 +37,4 @@ private:
 
     void draw();
 };
-#endif // GLWIDGET_H
+#endif // SCENE_H

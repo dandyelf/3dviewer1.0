@@ -1,9 +1,9 @@
-#include "s21_viewer.h"
+#include "read_obj.h"
 
 int parse_num_vertex_facets(const char* filename, obj_file* obj) {
   FILE* fp = fopen(filename, "r");
   if (fp == NULL) return 1;
-  int i = 0;
+//  int ii = 0;
 
   char buffer[5];
   while (fgets(buffer, sizeof(buffer), fp) != NULL) {
@@ -93,24 +93,29 @@ int parse_file(const char* filename, obj_file* obj) {
   return 0;
 }
 
-int main() {
-  const char* str = "./cube.obj";
-  obj_file obj;
+//int main() {
+//  const char* str = "./obj/cube.obj";
+//  obj_file obj;
 
-  parse_num_vertex_facets(str, &obj);
-  printf("%d----%d\n", obj.num_vertex, obj.num_facets);
-  int ff = init_obj_struct(&obj);
-  printf("%d\n", ff);
-  parse_file(str, &obj);
-  // for(int i = 0; i < obj.num_vertex)
-  printf("%lf  %lf  %lf\n", obj.vertex_arr[0], obj.vertex_arr[1],
-         obj.vertex_arr[2]);
-  printf("%lf  %lf  %lf\n", obj.vertex_arr[3], obj.vertex_arr[4],
-         obj.vertex_arr[5]);
-  printf("%d  %d  %d\n", obj.facets_arr[0], obj.facets_arr[1],
-         obj.facets_arr[2]);
-  printf("%d  %d  %d\n", obj.facets_arr[3], obj.facets_arr[4],
-         obj.facets_arr[5]);
+//  parse_num_vertex_facets(str, &obj);
+////  printf("%d----%d\n", obj.num_vertex, obj.num_facets);
+//  int ff = init_obj_struct(&obj);
+////  printf("%d\n", ff);
+//  parse_file(str, &obj);
+//  for(int i = 0; i < 24; i++) {
+//  printf ("%f ", obj.vertex_arr[i]);
+//  }
+//  // for(int i = 0; i < obj.num_vertex)
+////  printf("%lf  %lf  %lf\n", obj.vertex_arr[0], obj.vertex_arr[1],
+////         obj.vertex_arr[2]);
+////  printf("%lf  %lf  %lf\n", obj.vertex_arr[3], obj.vertex_arr[4],
+////         obj.vertex_arr[5]);
+////  printf("%d  %d  %d\n", obj.facets_arr[0], obj.facets_arr[1],
+////         obj.facets_arr[2]);
+////  printf("%d  %d  %d\n", obj.facets_arr[3], obj.facets_arr[4],
+////         obj.facets_arr[5]);
 
-  return 0;
-}
+
+
+//  return 0;
+//}
