@@ -9,8 +9,18 @@ scene::scene(QWidget *parent)
 {
     qDebug() << "scene created";
 
-    obj->num_vertex = 0;
-    obj->num_facets = 0;
+//    double vertex_ar[] = {-0.500000, -0.500000, 0.500000,
+//                          0.500000, -0.500000, 0.500000,
+//                          -0.500000, 0.500000, 0.500000,
+//                          0.500000, 0.500000, 0.500000,
+//                          -0.500000, 0.500000, -0.500000,
+//                          0.500000, 0.500000, -0.500000,
+//                          -0.500000, -0.500000, -0.500000,
+//                          0.500000, -0.500000, -0.500000};
+//    int indexes_ar[] = {0,1,1,2,2,0, 2,1,1,3,3,2, 2,3,3,4,4,2, 4,3,3,5,5,4,
+//                        4,5,5,6,6,4, 6,5,5,7,7,6, 6,7,7,0,0,6, 0,7,7,1,1,0,
+//                        1,7,7,3,3,1, 3,7,7,5,5,3, 6,0,0,4,4,6, 4,0,0,2,2,4};
+
 
 }
 
@@ -19,9 +29,16 @@ scene::~scene()
     qDebug() << "scene destroyed";
 }
 
+QByteArray *scene::parseDataBin(QByteArray *data)
+{
+
+}
+
 void scene::initializeGL() {
     qDebug() << "initializeGL is working..";
 //    glEnable(GL_DEPTH_TEST);  //  не понял пока зачем
+
+
 }
 
 void scene::resizeGL(int w, int h) {
@@ -81,23 +98,15 @@ void scene::keyPressEvent(QKeyEvent * e)
 void scene::draw() {
     qDebug() << "draw is working..";
 
-//    double vertex_ar[] = {-0.500000, -0.500000, 0.500000,
-//                          0.500000, -0.500000, 0.500000,
-//                          -0.500000, 0.500000, 0.500000,
-//                          0.500000, 0.500000, 0.500000,
-//                          -0.500000, 0.500000, -0.500000,
-//                          0.500000, 0.500000, -0.500000,
-//                          -0.500000, -0.500000, -0.500000,
-//                          0.500000, -0.500000, -0.500000};
-//    int indexes_ar[] = {0,1,1,2,2,0, 2,1,1,3,3,2, 2,3,3,4,4,2, 4,3,3,5,5,4,
-//                        4,5,5,6,6,4, 6,5,5,7,7,6, 6,7,7,0,0,6, 0,7,7,1,1,0,
-//                        1,7,7,3,3,1, 3,7,7,5,5,3, 6,0,0,4,4,6, 4,0,0,2,2,4};
 
 
 
-    glVertexPointer(3, GL_DOUBLE, 0, obj->vertex_arr);  //  Определил массив вершин: 3 координаты на вершину типа Double без интервалов в массиве
-    glEnableClientState(GL_VERTEX_ARRAY);  //  Включил массив вершин
-    glDrawElements(GL_LINES, obj->num_facets*2*3, GL_UNSIGNED_INT, obj->facets_arr);  //  Работает в статическом варианте, рисует каркас куба.
+    if (obj!=nullptr) {
+        glVertexPointer(3, GL_DOUBLE, 0, obj->vertex_arr);  //  Определил массив вершин: 3 координаты на вершину типа Double без интервалов в массиве
+        glEnableClientState(GL_VERTEX_ARRAY);  //  Включил массив вершин
+        glDrawElements(GL_LINES, obj->num_facets*2*3, GL_UNSIGNED_INT, obj->facets_arr);  //  Работает в статическом варианте, рисует каркас куба.
+    }
+
 //    glDrawArrays(GL_TRIANGLES, 1, 12);  //  Данный вариант рисует закрашенные треугольники.
 //    glEnableClientState(GL_INDEX_ARRAY);
 }

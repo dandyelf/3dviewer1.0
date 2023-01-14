@@ -5,6 +5,7 @@
 
 #include <QWidget>
 #include <QOpenGLWidget>
+#include <QByteArray>
 
 extern "C" {
     #include "obj.h"
@@ -18,13 +19,16 @@ public:
     scene(QWidget *parent = nullptr);
     ~scene();
 
-    obj_file myobj;
-    obj_file* obj = &myobj;
+    obj_file obj;
+
+//    static QByteArray *parseDataBin(QByteArray* data);
+//    void set_obj(obj_file* other)  {
+//        obj = other;
+//    }
 
 private:
     float xRot, yRot, zRot;
     QPoint mPos;
-
 
     void initializeGL() override;
     void resizeGL(int w, int h) override;
