@@ -19,16 +19,28 @@ public:
     scene(QWidget *parent = nullptr);
     ~scene();
 
-    obj_file obj;
 
-//    static QByteArray *parseDataBin(QByteArray* data);
-//    void set_obj(obj_file* other)  {
-//        obj = other;
-//    }
+    void set() {
+        flag = 1;
+    }
+    void set_vertex_arr(double * v) {
+        vertex_arr = v;
+    }
+    void set_facets_arr(int * f) {
+        facets_arr = f;
+    }
+    void set_lines(int l) {
+        lines = l;
+    }
 
 private:
     float xRot, yRot, zRot;
     QPoint mPos;
+    obj_file* obj = nullptr;
+    double * vertex_arr = nullptr;
+    int * facets_arr = nullptr;
+    int flag = 0;
+    int lines = 0;
 
     void initializeGL() override;
     void resizeGL(int w, int h) override;

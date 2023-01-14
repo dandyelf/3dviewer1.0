@@ -2,9 +2,9 @@
 #define OBJ_H
 
 typedef struct obj_file {
-    int num_vertex;
+    int* num_vertex;
     double* vertex_arr;
-    int num_facets;
+    int* num_facets;
     int* facets_arr;
 } obj_file;
 

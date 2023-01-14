@@ -3,15 +3,15 @@
 int parse_num_vertex_facets(const char* filename, obj_file* obj) {
   FILE* fp = fopen(filename, "r");
   if (fp == NULL) return 1;
-//  int ii = 0;
-
+  obj->num_vertex = (int*) calloc(1, sizeof(int));
+  obj->num_facets = (int*) calloc(1, sizeof(int));
   char buffer[5];
   while (fgets(buffer, sizeof(buffer), fp) != NULL) {
     if (buffer[0] == 'v' && buffer[1] == ' ') {
-      obj->num_vertex += 3;
+      *(obj->num_vertex) += 3;
     }
     if (buffer[0] == 'f' && buffer[1] == ' ') {
-      obj->num_facets += 3;
+      *(obj->num_facets) += 3;
     }
   }
   fclose(fp);
@@ -21,12 +21,14 @@ int parse_num_vertex_facets(const char* filename, obj_file* obj) {
 void free_obj(obj_file* obj) {
   free(obj->vertex_arr);
   free(obj->facets_arr);
+  free(obj->num_facets);
+  free(obj->num_vertex);
 }
 
 int init_obj_struct(obj_file* obj) {
-  obj->vertex_arr = (double*)calloc(obj->num_vertex, sizeof(double));
+  obj->vertex_arr = (double*)calloc(*(obj->num_vertex), sizeof(double));
   if (obj->vertex_arr == NULL) return 1;
-  obj->facets_arr = (int*)calloc(obj->num_facets, sizeof(int));
+  obj->facets_arr = (int*)calloc(*(obj->num_facets), sizeof(int));
   if (obj->facets_arr == NULL) return 1;
   return 0;
 }

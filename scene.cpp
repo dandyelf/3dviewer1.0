@@ -29,10 +29,6 @@ scene::~scene()
     qDebug() << "scene destroyed";
 }
 
-QByteArray *scene::parseDataBin(QByteArray *data)
-{
-
-}
 
 void scene::initializeGL() {
     qDebug() << "initializeGL is working..";
@@ -101,10 +97,13 @@ void scene::draw() {
 
 
 
-    if (obj!=nullptr) {
-        glVertexPointer(3, GL_DOUBLE, 0, obj->vertex_arr);  //  Определил массив вершин: 3 координаты на вершину типа Double без интервалов в массиве
+    if (flag) {
+        qDebug() << "data recieved";
+        glVertexPointer(3, GL_DOUBLE, 0, vertex_arr);  //  Определил массив вершин: 3 координаты на вершину типа Double без интервалов в массиве
         glEnableClientState(GL_VERTEX_ARRAY);  //  Включил массив вершин
-        glDrawElements(GL_LINES, obj->num_facets*2*3, GL_UNSIGNED_INT, obj->facets_arr);  //  Работает в статическом варианте, рисует каркас куба.
+        glDrawElements(GL_LINES, lines, GL_UNSIGNED_INT, facets_arr);  //  Работает в статическом варианте, рисует каркас куба.
+
+        qDebug() << "Image was loaded.." << "lines is:" << lines;
     }
 
 //    glDrawArrays(GL_TRIANGLES, 1, 12);  //  Данный вариант рисует закрашенные треугольники.
