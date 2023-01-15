@@ -8,7 +8,7 @@
 #include <QByteArray>
 
 extern "C" {
-    #include "obj.h"
+    #include "read_obj.h"
 }
 
 class scene : public QOpenGLWidget

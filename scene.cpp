@@ -105,7 +105,7 @@ void scene::draw() {
         qDebug() << "data recieved";
         glVertexPointer(3, GL_DOUBLE, 0, vertex_arr);  //  Определил массив вершин: 3 координаты на вершину типа Double без интервалов в массиве
         glEnableClientState(GL_VERTEX_ARRAY);  //  Включил массив вершин
-        glDrawElements(GL_LINES, 30, GL_UNSIGNED_INT, facets_arr);  //  Работает в статическом варианте, рисует каркас куба.
+        glDrawElements(GL_LINES, lines, GL_UNSIGNED_INT, facets_arr);  //  Работает в статическом варианте, рисует каркас куба.
 
         qDebug() << "Image was loaded.." << "lines is:" << lines;
     }

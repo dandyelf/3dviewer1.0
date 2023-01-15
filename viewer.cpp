@@ -56,9 +56,9 @@ void viewer::on_pushButton_clicked()
         std::cout<< "here___" << std::endl;
     ui->widget->set_vertex_arr(obj.vertex_arr);
     ui->widget->set_facets_arr(obj.facets_arr);
-    ui->widget->set_lines((obj.num_facets)*6);
+    ui->widget->set_lines(obj.num_facets);
     ui->widget->set();
-//    qDebug() << *(obj->num_vertex);
+    qDebug() << obj.num_facets;
     ui->widget->update();
 
 }
