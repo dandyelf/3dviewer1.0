@@ -55,6 +55,10 @@ int readobj(char* file_name, obj_t* obj) {
           if (buf[0] == 'v') {
             sscanf(buf, "%c %lf %lf %lf", &ch, &obj->vertexes[i++],
                    &obj->vertexes[i++], &obj->vertexes[i++]);
+            double temp = obj->vertexes[i-1];
+            obj->vertexes[i-1]=obj->vertexes[i-3];
+            obj->vertexes[i-3]=temp;
+
           } else if (buf[0] == 'f') {
             for (temp_ind = 0, j = 1, str1 = buf + 2;;
                  j++, str1 = NULL, temp_ind++) {
