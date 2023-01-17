@@ -18,7 +18,7 @@ class viewer : public QMainWindow
 public:
     viewer(QWidget *parent = nullptr);
     ~viewer();
-    obj_file obj;
+    obj_t obj;
 
 
 private slots:

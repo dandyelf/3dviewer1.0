@@ -1,24 +1,19 @@
 #ifndef SRC_S21_SMARTCALC_H_
 #define SRC_S21_SMARTCALC_H_
 
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef READ_OBJ_H
+#define READ_OBJ_H
 
-typedef struct obj_file {
-  int num_vertex;
-  double* vertex_arr;
-  int num_facets;
-  int* facets_arr;
-} obj_file;
+typedef struct obj {
+  int count_of_vertexes;
+  int count_of_facets;
+  double* vertexes;
+  int* polygons;
+} obj_t;
 
-int parse_num_vertex_facets(const char* filename, obj_file* obj);
-int init_obj_struct(obj_file* obj);
-void free_obj(obj_file* obj);
-int parse_file(const char* filename, obj_file* obj);
-int check_double_format(char* str);
-int fill_arr(obj_file* obj, int* j, char* buffer, int checkflag);
+int readobj(char* file_name, obj_t*);
 
-#endif  // SRC_S21_SMARTCALC_H_
+#endif
+
+#endif  // READ_OBJ_H
 

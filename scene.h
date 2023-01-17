@@ -7,9 +7,9 @@
 #include <QOpenGLWidget>
 #include <QByteArray>
 
-extern "C" {
-    #include "read_obj.h"
-}
+//extern "C" {
+//    #include "read_obj.h"
+//}
 
 class scene : public QOpenGLWidget
 {
@@ -36,7 +36,7 @@ public:
 private:
     float xRot, yRot, zRot;
     QPoint mPos;
-    obj_file* obj = nullptr;
+//    obj_file* obj = nullptr;
     double * vertex_arr = nullptr;
     int * facets_arr = nullptr;
     int flag = 0;
