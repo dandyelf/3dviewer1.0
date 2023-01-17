@@ -2,7 +2,7 @@
 int parse_num_vertex_facets(const char* filename, obj_file* obj) {
   FILE* fp = fopen(filename, "r");
   if (fp == NULL) return 1;
-//  int i = 0;
+  //  int i = 0;
 
   char buffer[5];
   while (fgets(buffer, sizeof(buffer), fp) != NULL) {
@@ -67,8 +67,8 @@ int fill_arr(obj_file* obj, int* j, char* buffer, int checkflag) {
             if (countelement == 0) {
               firstelemfaset = obj->facets_arr[*j];
             }
-            if (countelement == 1) {
-              obj->facets_arr[++*j] = obj->facets_arr[*j];
+            if (countelement == 1) {                        // else if
+              obj->facets_arr[++*j] = obj->facets_arr[*j];  // ???
             }
             if (countelement == 2) {
               obj->facets_arr[++*j] = obj->facets_arr[*j];
@@ -110,9 +110,9 @@ int parse_file(const char* filename, obj_file* obj) {
   return 0;
 }
 
-//int main() {
-//  const char* str = "./cube.obj";
-//  obj_file obj;
+// int main() {
+//   const char* str = "./cube.obj";
+//   obj_file obj;
 
 //  parse_num_vertex_facets(str, &obj);
 //  printf("%d----%d\n", obj.num_vertex, obj.num_facets);
