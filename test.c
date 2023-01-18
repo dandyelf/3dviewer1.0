@@ -5,9 +5,14 @@
 
 int main() {
   obj_t obj;
-  char* file = "obj/cat.obj";
+  char* file = "obj/easyCube.obj";
   int err = readobj(file, &obj);
   if (err != -1) {
+    for (int i = 0, k = 1; i < obj.count_of_vertexes; i++, k++) {
+      printf("%lf ", obj.vertexes[i]);
+      if (k % 3 == 0) printf("\n");
+    }
+    getchar();
     for (int i = 0, k = 1; i < err; i++, k++) {
       printf("%d ", obj.polygons[i]);
       if (k % 6 == 0) printf("\n");
@@ -17,6 +22,5 @@ int main() {
     
   }
   char *test = "\n";
-  if(!strpbrk(test, "0123456789")) printf("No digits\n");
   return 0;
 }
