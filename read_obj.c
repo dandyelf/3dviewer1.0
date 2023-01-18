@@ -63,7 +63,7 @@ int readobj(char* file_name, obj_t* obj) {
             for (temp_ind = 0, j = 1, str1 = buf + 2;;
                  j++, str1 = NULL, temp_ind++) {
               token = strtok_r(str1, space, &temp_str);
-              if (token == NULL) {
+              if (token == NULL || strchr(token, '\n') == 1) {
                 obj->polygons[p++] = temp_f;
                 break;
               }

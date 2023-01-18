@@ -47,9 +47,20 @@ void viewer::on_pushButton_clicked()
         char* file = tmp.data();
 
         int err = readobj(file, &obj);
-        qDebug() << "Lines: " << err;
 
         if(err!=-1){
+            ////scaling block
+            ///
+            double max_el = 0.0;
+            for (int i = 0; i < obj.count_of_vertexes; i++) {
+                  if (max_el < obj.vertexes[i]) max_el = obj.vertexes[i];
+                }
+
+            for (int i = 0; i < (obj.count_of_vertexes)*3; i++) {
+                  obj.vertexes[i] /= max_el;
+                }
+            ////end scaling block
+            ///
             ui->widget->set_vertex_arr(obj.vertexes);
             ui->widget->set_facets_arr(obj.polygons);
             for(int i = 0; i < err;i++) {
