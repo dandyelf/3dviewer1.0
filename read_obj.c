@@ -17,7 +17,7 @@ int readobj(char* file_name, obj_t* obj) {
     const char* space = " ";
     const char* slash = "/";
     char *temp_str, *token, *str1, *str2, *subtoken, *saveptr2;
-    int* temp_indexes = NULL;
+//    int* temp_indexes = NULL;
     int i = 0, j = 0, p = 0, v_count = 0, dots = 0;
 
     while (1) {
@@ -47,8 +47,8 @@ int readobj(char* file_name, obj_t* obj) {
             (double*)calloc(obj->count_of_vertexes * 3, sizeof(double))) {
       if (obj->polygons = (int*)calloc(dots * 2, sizeof(int))) {
         fseek(file, 0, SEEK_SET);
-        i = 0, j = 0, p = 0, v_count = 0;
-        int temp_cur = 0, temp_f = 0, temp_ind = 0;
+        i = 0, p = 0, v_count = 0;
+        int temp_f = 0, temp_ind = 0;
         while (1) {
           char buf[255] = "";
           fgets(buf, 254, file);
@@ -61,8 +61,8 @@ int readobj(char* file_name, obj_t* obj) {
             obj->vertexes[i-3]=temp;
 
           } else if (buf[0] == 'f') {
-            for (temp_ind = 0, j = 1, str1 = buf + 2;;
-                 j++, str1 = NULL, temp_ind++) {
+            for (temp_ind = 0, str1 = buf + 2;;
+                 str1 = NULL, temp_ind++) {
               token = strtok_r(str1, space, &temp_str);
               if (token == NULL) {
                 obj->polygons[p++] = temp_f;
