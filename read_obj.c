@@ -31,6 +31,7 @@ int readobj(char* file_name, obj_t* obj) {
         for (j = 1, str1 = buf + 2;; j++, str1 = NULL) {
           token = strtok_r(str1, space, &temp_str);
           if (token == NULL) break;
+          if (!strpbrk(token, "0123456789")) break;
           for (str2 = token, v_count = 0;; str2 = NULL) {
             subtoken = strtok_r(str2, slash, &saveptr2);
             if (subtoken == NULL) break;
@@ -63,7 +64,11 @@ int readobj(char* file_name, obj_t* obj) {
             for (temp_ind = 0, j = 1, str1 = buf + 2;;
                  j++, str1 = NULL, temp_ind++) {
               token = strtok_r(str1, space, &temp_str);
-              if (token == NULL || strchr(token, '\n') == 1) {
+              if (token == NULL) {
+                obj->polygons[p++] = temp_f;
+                break;
+              }
+              if (!strpbrk(token, "0123456789")) {
                 obj->polygons[p++] = temp_f;
                 break;
               }
