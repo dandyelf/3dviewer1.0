@@ -11,6 +11,7 @@ QT_END_NAMESPACE
 
 extern "C" {
 #include <read_obj.h>
+#include <aff_transformation.h>
 }
 
 class viewer : public QMainWindow {

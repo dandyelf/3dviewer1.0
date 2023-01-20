@@ -9,12 +9,14 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    aff_transformation.c \
     main.cpp \
     read_obj.c \
     scene.cpp \
     viewer.cpp
 
 HEADERS += \
+    aff_transformation.h \
     read_obj.h \
     scene.h \
     viewer.h
