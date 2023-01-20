@@ -57,6 +57,12 @@ void viewer::on_pushButton_clicked() {
       }
       ////end scaling block
       ///
+      ////set stats
+      ///
+      ui->label_9->setText(QString::number(obj.count_of_vertexes));
+      ui->label_10->setText(QString::number(obj.count_of_facets));
+      ///
+      ////end stats
       ui->widget->set_vertex_arr(obj.vertexes);
       ui->widget->set_facets_arr(obj.polygons);
       for (int i = 0; i < err; i++) {

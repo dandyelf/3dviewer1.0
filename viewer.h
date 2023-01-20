@@ -34,7 +34,7 @@ private slots:
 
 private:
     Ui::viewer *ui;
-    int dots = 0;
+    int dots = 0, lines = 0;
 
 
 };
