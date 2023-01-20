@@ -16,4 +16,3 @@ int readobj(char* file_name, obj_t*);
 #endif
 
 #endif  // READ_OBJ_H
-

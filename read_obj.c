@@ -17,7 +17,6 @@ int readobj(char* file_name, obj_t* obj) {
     const char* space = " ";
     const char* slash = "/";
     char *temp_str, *token, *str1, *str2, *subtoken, *saveptr2;
-//    int* temp_indexes = NULL;
     int i = 0, j = 0, p = 0, v_count = 0, dots = 0;
 
     while (1) {
@@ -56,13 +55,12 @@ int readobj(char* file_name, obj_t* obj) {
           if (buf[0] == 'v') {
             sscanf(buf, "%c %lf %lf %lf", &ch, &obj->vertexes[i++],
                    &obj->vertexes[i++], &obj->vertexes[i++]);
-            double temp = obj->vertexes[i-1];
-            obj->vertexes[i-1]=obj->vertexes[i-3];
-            obj->vertexes[i-3]=temp;
+            double temp = obj->vertexes[i - 1];
+            obj->vertexes[i - 1] = obj->vertexes[i - 3];
+            obj->vertexes[i - 3] = temp;
 
           } else if (buf[0] == 'f') {
-            for (temp_ind = 0, str1 = buf + 2;;
-                 str1 = NULL, temp_ind++) {
+            for (temp_ind = 0, str1 = buf + 2;; str1 = NULL, temp_ind++) {
               token = strtok_r(str1, space, &temp_str);
               if (token == NULL) {
                 obj->polygons[p++] = temp_f;
