@@ -108,3 +108,22 @@ void viewer::on_pushButton_6_clicked()
     ui->widget->update();
 }
 
+
+void viewer::on_pushButton_9_clicked()
+{
+    ui->widget->fon_r = ui->lineEdit->text().toDouble();
+    ui->widget->fon_g = ui->lineEdit_2->text().toDouble();
+    ui->widget->fon_b = ui->lineEdit_3->text().toDouble();
+    ui->widget->update();
+
+}
+
+
+void viewer::on_pushButton_10_clicked()
+{
+    ui->widget->line_r = ui->lineEdit_4->text().toDouble();
+    ui->widget->line_g = ui->lineEdit_5->text().toDouble();
+    ui->widget->line_b = ui->lineEdit_6->text().toDouble();
+    ui->widget->update();
+}
+

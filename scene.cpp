@@ -29,7 +29,9 @@ void scene::resizeGL(int w, int h) {
 }
 
 void scene::paintGL() {
-  //    glClear(GL_COLOR_BUFFER_BIT);  //  и без этого тоже работает
+    glClearColor(fon_r, fon_g, fon_b, 0.0f);
+    printf("color set: %f, %f %f\n", fon_r, fon_g, fon_b);
+      glClear(GL_COLOR_BUFFER_BIT);
   qDebug() << "paintGL is working..";
 
   glMatrixMode(GL_MODELVIEW);
@@ -84,6 +86,7 @@ void scene::draw() {
         vertex_arr);  //  Определил массив вершин: 3 координаты на вершину типа
                       //  Double без интервалов в массиве
     glEnableClientState(GL_VERTEX_ARRAY);  //  Включил массив вершин
+    glColor3f(line_r, line_g, line_b);
     glDrawElements(
         GL_LINES, lines, GL_UNSIGNED_INT,
         facets_arr);  //  Работает в статическом варианте, рисует каркас куба.

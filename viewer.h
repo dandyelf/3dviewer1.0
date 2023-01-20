@@ -39,6 +39,10 @@ class viewer : public QMainWindow {
 
   void on_pushButton_6_clicked();
 
+  void on_pushButton_9_clicked();
+
+  void on_pushButton_10_clicked();
+
 private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
