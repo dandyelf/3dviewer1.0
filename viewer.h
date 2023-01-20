@@ -33,7 +33,13 @@ class viewer : public QMainWindow {
 
   void on_pushButton_5_clicked();
 
- private:
+  void on_pushButton_8_clicked();
+
+  void on_pushButton_7_clicked();
+
+  void on_pushButton_6_clicked();
+
+private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
 };

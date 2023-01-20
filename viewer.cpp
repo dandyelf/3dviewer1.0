@@ -76,10 +76,35 @@ void viewer::on_pushButton_3_clicked() {
 }
 
 void viewer::on_pushButton_5_clicked() {
-  for (int i = 0, k = 1; i < (obj.count_of_vertexes) * 3; k++, i++) {
-    if (k == 1) obj.vertexes[i] += 0.1;
-    if (k == 3) k = 1;
-  }
+  double mv = 0.5;
+  move_y(&obj, mv);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
 }
+
+void viewer::on_pushButton_8_clicked()
+{
+    double mv = 0.5;
+    move_x(&obj, mv);
+    ui->widget->set_vertex_arr(obj.vertexes);
+    ui->widget->update();
+}
+
+
+void viewer::on_pushButton_7_clicked()
+{
+    double mv = - 0.5;
+    move_x(&obj, mv);
+    ui->widget->set_vertex_arr(obj.vertexes);
+    ui->widget->update();
+}
+
+
+void viewer::on_pushButton_6_clicked()
+{
+    double mv = - 0.5;
+    move_y(&obj, mv);
+    ui->widget->set_vertex_arr(obj.vertexes);
+    ui->widget->update();
+}
+
