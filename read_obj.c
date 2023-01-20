@@ -78,7 +78,7 @@ int readobj(char* file_name, obj_t* obj) {
                 if (subtoken == NULL) {
                   break;
                 } else if (v_count == 0) {
-                  cur_index = atoi(subtoken);
+                  cur_index = atoi(subtoken) - 1;
                   obj->polygons[p++] = cur_index;
                   if (temp_ind == 0) {
                     temp_f = cur_index;
