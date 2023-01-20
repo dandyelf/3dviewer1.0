@@ -23,7 +23,7 @@ int readobj(char* file_name, obj_t* obj) {
       char buf[255] = "";
       fgets(buf, 254, file);
       if (feof(file)) break;
-      if (buf[0] == 'v') {
+      if (buf[0] == 'v' && buf[1] == ' ') {
         obj->count_of_vertexes++;
       } else if (buf[0] == 'f') {
         obj->count_of_facets++;
@@ -52,7 +52,7 @@ int readobj(char* file_name, obj_t* obj) {
           char buf[255] = "";
           fgets(buf, 254, file);
           if (feof(file)) break;
-          if (buf[0] == 'v') {
+          if (buf[0] == 'v' && buf[1] == ' ') {
             sscanf(buf, "%c %lf %lf %lf", &ch, &obj->vertexes[i++],
                    &obj->vertexes[i++], &obj->vertexes[i++]);
             double temp = obj->vertexes[i - 1];
