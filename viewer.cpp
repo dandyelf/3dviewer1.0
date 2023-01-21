@@ -143,6 +143,7 @@ void viewer::settings_load() {
     ui->lineEdit->setText(settings.value("lineEdit").toString());
     ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
     ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
+
     settings.endGroup();
 }
 
