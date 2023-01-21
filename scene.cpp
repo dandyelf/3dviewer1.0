@@ -77,7 +77,7 @@ void scene::draw() {
 
   if (flag) {
 
-    qDebug() << "data recieved";
+    qDebug() << "data recieved..";
     glVertexPointer(
         3, GL_DOUBLE, 0,
         vertex_arr);  //  Определил массив вершин: 3 координаты на вершину типа
