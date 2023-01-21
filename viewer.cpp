@@ -17,10 +17,15 @@ viewer::~viewer() { delete ui; }
 
 void viewer::on_pushButton_clicked() {
   QString fileName = QFileDialog::getOpenFileName(
-      this, tr("Open Obj File"), "/Users/", tr("OBJ Files (*.obj)"));
+      this, tr("Open Obj File"), path, tr("OBJ Files (*.obj)"));
   if (fileName != "") {
     qDebug() << fileName;
-
+    ////updates
+    path = fileName;
+    this->setWindowTitle(this->windowTitle()+"~"+fileName);
+    ////
+    /// \brief tmp
+    ///
     QByteArray tmp = fileName.toLocal8Bit();
     char* file = tmp.data();
 

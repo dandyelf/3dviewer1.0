@@ -23,7 +23,7 @@ class scene : public QOpenGLWidget {
   void set_facets_arr(int *f) { facets_arr = f; }
   void set_lines(int l) { lines = l; }
 
-  double fon_r = 0.0, fon_g = 0.0, fon_b = 0.0;
+  double fon_r = 0.30, fon_g = 0.30, fon_b = 0.30;
   double line_r = 0.0, line_g = 0.0, line_b = 0.0;
 
  private:

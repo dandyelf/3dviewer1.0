@@ -46,5 +46,6 @@ class viewer : public QMainWindow {
 private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
+  QString path = "/Users/";
 };
 #endif  // VIEWER_H
