@@ -1,5 +1,4 @@
 #include "viewer.h"
-
 #include <QDebug>
 #include <QFileDialog>
 #include <iostream>
@@ -145,7 +144,6 @@ void viewer::on_radioButton_2_toggled(bool checked)
 }
 
 void viewer::setup_defaults() {
-
     settings_load();
 }
 
@@ -156,7 +154,15 @@ void viewer::settings_load() {
     ui->lineEdit->setText(settings.value("lineEdit").toString());
     ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
     ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
-
+    path = settings.value("path").toString();
+    ui->lineEdit_4->setText(settings.value("lineEdit_4").toString());
+    ui->lineEdit_5->setText(settings.value("lineEdit_5").toString());
+    ui->lineEdit_6->setText(settings.value("lineEdit_6").toString());
+    ui->lineEdit_7->setText(settings.value("lineEdit_7").toString());
+    ui->lineEdit_8->setText(settings.value("lineEdit_8").toString());
+    ui->lineEdit_9->setText(settings.value("lineEdit_9").toString());
+    ui->radioButton->setChecked(settings.value("QCheckBox", true).toBool());
+    ui->radioButton_2->setChecked(settings.value("QCheckBox", true).toBool());
     settings.endGroup();
 }
 
@@ -168,6 +174,15 @@ void viewer::settings_save() {
         settings.setValue("lineEdit", ui->lineEdit->text());
         settings.setValue("lineEdit_2", ui->lineEdit_2->text());
         settings.setValue("lineEdit_3", ui->lineEdit_3->text());
+        settings.setValue("path", path);
+        settings.setValue("lineEdit_4", ui->lineEdit_4->text());
+        settings.setValue("lineEdit_5", ui->lineEdit_5->text());
+        settings.setValue("lineEdit_6", ui->lineEdit_6->text());
+        settings.setValue("lineEdit_7", ui->lineEdit_7->text());
+        settings.setValue("lineEdit_8", ui->lineEdit_8->text());
+        settings.setValue("lineEdit_9", ui->lineEdit_9->text());
+        settings.setValue("QCheckBox", ui->radioButton->isChecked());
+        settings.setValue("QCheckBox", ui->radioButton_2->isChecked());
         settings.endGroup();
 }
 

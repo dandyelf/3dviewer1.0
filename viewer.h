@@ -52,7 +52,6 @@ private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";
-
   void settings_load();
   void setup_defaults();
   void settings_save();
