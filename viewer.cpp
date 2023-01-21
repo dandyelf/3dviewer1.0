@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <iostream>
-
+#include <QSettings>
 #include "ui_viewer.h"
 
 viewer::viewer(QWidget* parent) : QMainWindow(parent), ui(new Ui::viewer) {
@@ -11,9 +11,13 @@ viewer::viewer(QWidget* parent) : QMainWindow(parent), ui(new Ui::viewer) {
   ui->setupUi(this);
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
+  setup_defaults();
 }
 
-viewer::~viewer() { delete ui; }
+viewer::~viewer() {
+    settings_save();
+    delete ui;
+}
 
 void viewer::on_pushButton_clicked() {
   QString fileName = QFileDialog::getOpenFileName(
@@ -140,3 +144,29 @@ void viewer::on_radioButton_2_toggled(bool checked)
     ui->widget->update();
 }
 
+void viewer::setup_defaults() {
+
+    settings_load();
+}
+
+void viewer::settings_load() {
+    //  Загружаем настройки
+    QSettings settings( "s21_3d_viewer.conf", QSettings::IniFormat );
+    settings.beginGroup("Main_Settings");
+    ui->lineEdit->setText(settings.value("lineEdit").toString());
+    ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
+    ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
+
+    settings.endGroup();
+}
+
+void viewer::settings_save() {
+    //  Сохраняем настройки
+        qDebug() << "save settings...";
+        QSettings settings( "s21_3d_viewer.conf", QSettings::IniFormat );
+        settings.beginGroup("Main_Settings");
+        settings.setValue("lineEdit", ui->lineEdit->text());
+        settings.setValue("lineEdit_2", ui->lineEdit_2->text());
+        settings.setValue("lineEdit_3", ui->lineEdit_3->text());
+        settings.endGroup();
+}
