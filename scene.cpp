@@ -11,7 +11,10 @@ scene::scene(QWidget *parent) : QOpenGLWidget(parent) {
   qDebug() << "scene created";
 }
 
-scene::~scene() { qDebug() << "scene destroyed"; }
+scene::~scene() {
+
+    qDebug() << "scene destroyed";
+}
 
 void scene::initializeGL() {
   qDebug() << "initializeGL is working..";
