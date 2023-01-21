@@ -170,3 +170,10 @@ void viewer::settings_save() {
         settings.setValue("lineEdit_3", ui->lineEdit_3->text());
         settings.endGroup();
 }
+
+void viewer::on_radioButton_toggled(bool checked)
+{
+    ui->widget->striple = false;
+    ui->widget->update();
+}
+

@@ -52,7 +52,7 @@
       <item>
        <widget class="QPushButton" name="pushButton_12">
         <property name="text">
-         <string>Сохранить  GPEG</string>
+         <string>Сохранить  JPEG</string>
         </property>
        </widget>
       </item>

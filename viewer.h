@@ -1,4 +1,4 @@
-s#ifndef VIEWER_H
+#ifndef VIEWER_H
 #define VIEWER_H
 
 #include <QMainWindow>
@@ -45,6 +45,8 @@ class viewer : public QMainWindow {
   void on_pushButton_10_clicked();
 
   void on_radioButton_2_toggled(bool checked);
+
+  void on_radioButton_toggled(bool checked);
 
 private:
   Ui::viewer *ui;
