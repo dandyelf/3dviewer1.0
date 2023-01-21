@@ -1,4 +1,4 @@
-#ifndef VIEWER_H
+s#ifndef VIEWER_H
 #define VIEWER_H
 
 #include <QMainWindow>
@@ -21,6 +21,7 @@ class viewer : public QMainWindow {
   viewer(QWidget *parent = nullptr);
   ~viewer();
   obj_t obj;
+  dot_t dot;
 
  private slots:
   void on_pushButton_clicked();
@@ -43,9 +44,13 @@ class viewer : public QMainWindow {
 
   void on_pushButton_10_clicked();
 
+  void on_radioButton_2_toggled(bool checked);
+
 private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
+  QString path = "/Users/";
+
   void settings_load();
   void setup_defaults();
   void settings_save();

@@ -72,6 +72,14 @@ void move_z(obj_t* obj, double mv) {
   }
 }
 
+void shift_dot(obj_t* obj, dot_t dot) {
+    for (int i = 0; i < obj->count_of_vertexes*3; i+=3) {
+        obj->vertexes[i] += dot.delta_x;
+        obj->vertexes[i+1] += dot.delta_y;
+        obj->vertexes[i+2] += dot.delta_z;
+    }
+}
+
 void rotation_0x(obj_t* obj, double angle) {
   if (angle != 0.0) {
     for (int i = 0; i < obj->count_of_vertexes; i += 3) {
