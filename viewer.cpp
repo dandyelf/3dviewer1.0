@@ -140,16 +140,19 @@ void viewer::settings_load() {
     //  Загружаем настройки
     QSettings settings( "s21_3d_viewer.conf", QSettings::IniFormat );
     settings.beginGroup("Main_Settings");
-//    ui->checkBox->setChecked(settings.value("QCheckBox", true).toBool());
-//    ui->checkBox_2->setChecked(settings.value("QCheckBox2", true).toBool());
+    ui->lineEdit->setText(settings.value("lineEdit").toString());
+    ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
+    ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
     settings.endGroup();
 }
 
 void viewer::settings_save() {
     //  Сохраняем настройки
+        qDebug() << "save settings...";
         QSettings settings( "s21_3d_viewer.conf", QSettings::IniFormat );
         settings.beginGroup("Main_Settings");
         settings.setValue("lineEdit", ui->lineEdit->text());
         settings.setValue("lineEdit_2", ui->lineEdit_2->text());
+        settings.setValue("lineEdit_3", ui->lineEdit_3->text());
         settings.endGroup();
 }
