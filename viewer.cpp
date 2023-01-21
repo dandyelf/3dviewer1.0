@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <iostream>
 #include <QSettings>
+#include "QKeyEvent"
 #include "ui_viewer.h"
 
 viewer::viewer(QWidget* parent) : QMainWindow(parent), ui(new Ui::viewer) {
@@ -10,6 +11,11 @@ viewer::viewer(QWidget* parent) : QMainWindow(parent), ui(new Ui::viewer) {
   ui->setupUi(this);
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
+
+  dot.delta_x = 0.0;
+  dot.delta_y = 0.0;
+  dot.delta_z = 0.0;
+
   setup_defaults();
 }
 
@@ -84,16 +90,24 @@ void viewer::on_pushButton_3_clicked() {
 }
 
 void viewer::on_pushButton_5_clicked() {
-  double mv = 0.5;
-  move_y(&obj, mv);
-  ui->widget->set_vertex_arr(obj.vertexes);
-  ui->widget->update();
+//  double mv = 0.5;
+//  move_y(&obj, mv);
+//  ui->widget->set_vertex_arr(obj.vertexes);
+//  ui->widget->update();
+    dot.delta_y = 0.5;
+    shift_dot(&obj, dot);
+    ui->widget->set_vertex_arr(obj.vertexes);
+    ui->widget->update();
 }
 
 void viewer::on_pushButton_8_clicked()
 {
-    double mv = 0.5;
-    move_x(&obj, mv);
+//    double mv = 0.5;
+//    move_x(&obj, mv);
+//    ui->widget->set_vertex_arr(obj.vertexes);
+//    ui->widget->update();
+    dot.delta_x = 0.5;
+    shift_dot(&obj, dot);
     ui->widget->set_vertex_arr(obj.vertexes);
     ui->widget->update();
 }
@@ -101,8 +115,12 @@ void viewer::on_pushButton_8_clicked()
 
 void viewer::on_pushButton_7_clicked()
 {
-    double mv = - 0.5;
-    move_x(&obj, mv);
+//    double mv = - 0.5;
+//    move_x(&obj, mv);
+//    ui->widget->set_vertex_arr(obj.vertexes);
+//    ui->widget->update();
+    dot.delta_y = - 0.5;
+    shift_dot(&obj, dot);
     ui->widget->set_vertex_arr(obj.vertexes);
     ui->widget->update();
 }
@@ -110,8 +128,7 @@ void viewer::on_pushButton_7_clicked()
 
 void viewer::on_pushButton_6_clicked()
 {
-//    double mv = - 0.5;
-//    move_y(&obj, mv);
+    dot.delta_x = - 0.5;
     shift_dot(&obj, dot);
     ui->widget->set_vertex_arr(obj.vertexes);
     ui->widget->update();
@@ -192,3 +209,23 @@ void viewer::on_radioButton_toggled(bool checked)
     ui->widget->update();
 }
 
+void viewer::keyPressEvent(QKeyEvent *e) {
+  switch (e->key()) {
+    case (Qt::Key_Left):
+      qDebug() << "Left pressed";
+      on_pushButton_7_clicked();
+      break;
+    case (Qt::Key_Right):
+      qDebug() << "Rigth pressed";
+      on_pushButton_8_clicked();
+      break;
+    case (Qt::Key_Up):
+      qDebug() << "Up pressed";
+      on_pushButton_5_clicked();
+      break;
+    case (Qt::Key_Down):
+      qDebug() << "Down pressed";
+      on_pushButton_6_clicked();
+      break;
+  }
+}

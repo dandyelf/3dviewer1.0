@@ -4,7 +4,6 @@
 #include <iostream>
 
 #include "QDebug"
-#include "QKeyEvent"
 #include "QMouseEvent"
 
 scene::scene(QWidget *parent) : QOpenGLWidget(parent) {
@@ -30,7 +29,7 @@ void scene::resizeGL(int w, int h) {
 
 void scene::paintGL() {
   glClearColor(fon_r, fon_g, fon_b, 0.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   qDebug() << "paintGL is working..";
 
   glMatrixMode(GL_MODELVIEW);
@@ -55,22 +54,7 @@ void scene::mouseMoveEvent(QMouseEvent *e) {
   update();
 }
 
-void scene::keyPressEvent(QKeyEvent *e) {
-  switch (e->key()) {
-    case (Qt::Key_Left):
-      qDebug() << "Left pressed";
-      break;
-    case (Qt::Key_Right):
-      qDebug() << "Rigth pressed";
-      break;
-    case (Qt::Key_Up):
-      qDebug() << "Up pressed";
-      break;
-    case (Qt::Key_Down):
-      qDebug() << "Down pressed";
-      break;
-  }
-}
+
 
 void scene::draw() {
   qDebug() << "draw is working..";

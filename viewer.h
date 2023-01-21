@@ -48,6 +48,8 @@ class viewer : public QMainWindow {
 
   void on_radioButton_toggled(bool checked);
 
+  void keyPressEvent(QKeyEvent *) override;
+
 private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;

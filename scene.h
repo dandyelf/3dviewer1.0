@@ -34,7 +34,7 @@ class scene : public QOpenGLWidget {
 
   float xRot, yRot, zRot;
   QPoint mPos;
-  //    obj_file* obj = nullptr;
+
   double *vertex_arr = nullptr;
   int *facets_arr = nullptr;
   int flag = 0;
@@ -46,8 +46,6 @@ class scene : public QOpenGLWidget {
 
   void mousePressEvent(QMouseEvent *) override;
   void mouseMoveEvent(QMouseEvent *) override;
-
-  void keyPressEvent(QKeyEvent *) override;
 
   void draw();
 };
