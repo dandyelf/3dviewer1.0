@@ -107,8 +107,9 @@ void viewer::on_pushButton_7_clicked()
 
 void viewer::on_pushButton_6_clicked()
 {
-    double mv = - 0.5;
-    move_y(&obj, mv);
+//    double mv = - 0.5;
+//    move_y(&obj, mv);
+    shift_dot(&obj, dot);
     ui->widget->set_vertex_arr(obj.vertexes);
     ui->widget->update();
 }
@@ -129,6 +130,13 @@ void viewer::on_pushButton_10_clicked()
     ui->widget->line_r = ui->lineEdit_4->text().toDouble();
     ui->widget->line_g = ui->lineEdit_5->text().toDouble();
     ui->widget->line_b = ui->lineEdit_6->text().toDouble();
+    ui->widget->update();
+}
+
+
+void viewer::on_radioButton_2_toggled(bool checked)
+{
+    ui->widget->striple = true;
     ui->widget->update();
 }
 
