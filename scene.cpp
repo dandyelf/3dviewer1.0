@@ -77,6 +77,8 @@ void scene::draw() {
 
   if (flag) {
 
+//      for (int i = 0; i < )
+
     qDebug() << "data recieved";
     glVertexPointer(
         3, GL_DOUBLE, 0,

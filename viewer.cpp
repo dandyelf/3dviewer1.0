@@ -32,9 +32,10 @@ void viewer::on_pushButton_clicked() {
     QByteArray tmp = fileName.toLocal8Bit();
     char* file = tmp.data();
 
-    int err = readobj(file, &obj);
+    int err = StartPars(file, &obj);
 
-    if (err != -1) {
+    if (err == 0) {
+       qDebug() << "i am in..";
       ////scaling block
       ///
       double max_el = 0.0;
@@ -42,8 +43,14 @@ void viewer::on_pushButton_clicked() {
         if (max_el < obj.vertexes[i]) max_el = obj.vertexes[i];
       }
 
+
       for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
         obj.vertexes[i] /= max_el;
+//            qDebug() << obj.vertexes[i];
+      }
+
+      for (int i = 0; i < obj.count_of_facets*3; ++i){
+           qDebug() << obj.polygons[i];
       }
       ////end scaling block
       ///
@@ -58,7 +65,7 @@ void viewer::on_pushButton_clicked() {
       for (int i = 0; i < err; i++) {
         std::cout << obj.polygons[i] << std::endl;
       }
-      ui->widget->set_lines(err);
+      ui->widget->set_lines(2081*3);
       ui->widget->set();
       ui->widget->update();
     }
