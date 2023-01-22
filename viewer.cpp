@@ -47,18 +47,24 @@ void viewer::on_pushButton_clicked() {
     QByteArray tmp = fileName.toLocal8Bit();
     char *file = tmp.data();
 
-    reset_obj();
-    int err = readobj(file, &obj);
+    int err = StartPars(file, &obj);
 
-    if (err != -1) {
+    if (err) {
+       qDebug() << "i am in..";
       ////scaling block
       double max_el = 0.0;
       for (int i = 0; i < obj.count_of_vertexes; i++) {
         if (max_el < obj.vertexes[i]) max_el = obj.vertexes[i];
       }
 
+
       for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
         obj.vertexes[i] /= max_el;
+//            qDebug() << obj.vertexes[i];
+      }
+
+      for (int i = 0; i < obj.count_of_facets*3; ++i){
+           qDebug() << obj.polygons[i];
       }
       ////end scaling block
       ////set stats

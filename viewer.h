@@ -10,6 +10,7 @@ class viewer;
 QT_END_NAMESPACE
 
 extern "C" {
+#include <s21_viewer.h>
 #include <aff_transformation.h>
 #include <read_obj.h>
 }
