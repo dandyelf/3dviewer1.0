@@ -46,19 +46,23 @@ class viewer : public QMainWindow {
 
   void keyPressEvent(QKeyEvent *) override;
 
-  void on_lineEdit_4_textChanged(const QString &arg1);
-
-  void on_lineEdit_5_textChanged(const QString &arg1);
-
-  void on_lineEdit_6_textChanged(const QString &arg1);
-
   void on_horizontalSlider_3_valueChanged(int value);
 
   void on_horizontalSlider_4_valueChanged(int value);
 
   void on_horizontalSlider_5_valueChanged(int value);
 
- private:
+  void on_horizontalSlider_valueChanged(int value);
+
+  void on_horizontalSlider_2_valueChanged(int value);
+
+  void on_horizontalSlider_6_valueChanged(int value);
+
+  void on_horizontalSlider_7_valueChanged(int value);
+
+  void on_pushButton_15_clicked();
+
+private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";

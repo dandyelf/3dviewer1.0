@@ -68,6 +68,7 @@ void scene::draw() {
     } else {
       glDisable(GL_LINE_STIPPLE);
     }
+    glLineWidth(line_width);
     glDrawElements(GL_LINES, lines, GL_UNSIGNED_INT, facets_arr);
 
     qDebug() << "Image was loaded.."

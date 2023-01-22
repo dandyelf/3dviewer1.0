@@ -23,6 +23,8 @@ class scene : public QOpenGLWidget {
   double line_r = 0.0, line_g = 0.0, line_b = 0.0;
 
   bool stipple = false;
+  double line_width = 1.0;
+  double dot_width = 1.0;
 
  private:
   float xRot, yRot, zRot;

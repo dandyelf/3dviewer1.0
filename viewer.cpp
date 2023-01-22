@@ -102,14 +102,22 @@ void viewer::on_pushButton_5_clicked() {
 }
 
 void viewer::on_pushButton_8_clicked() {
-  dot.delta_x = 0.5;
+  double step = ui->lineEdit_4->text().toDouble();
+  if (step)
+    dot.delta_x = qFabs(step);
+  else
+    dot.delta_x = 0.5;
   shift_dot(&obj, dot);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
 }
 
 void viewer::on_pushButton_7_clicked() {
-  dot.delta_y = -0.5;
+  double step = ui->lineEdit_3->text().toDouble();
+  if (step)
+    dot.delta_y = qFabs(step) * (-1);
+  else
+    dot.delta_y = -0.5;
   shift_dot(&obj, dot);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
@@ -134,9 +142,6 @@ void viewer::settings_load() {
   QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
   settings.beginGroup("Main_Settings");
   path = settings.value("path").toString();
-  ui->lineEdit_4->setText(settings.value("lineEdit_4").toString());
-  ui->lineEdit_5->setText(settings.value("lineEdit_5").toString());
-  ui->lineEdit_6->setText(settings.value("lineEdit_6").toString());
   ui->lineEdit_7->setText(settings.value("lineEdit_7").toString());
   ui->lineEdit_8->setText(settings.value("lineEdit_8").toString());
   ui->lineEdit_9->setText(settings.value("lineEdit_9").toString());
@@ -151,9 +156,6 @@ void viewer::settings_save() {
   QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
   settings.beginGroup("Main_Settings");
   settings.setValue("path", path);
-  settings.setValue("lineEdit_4", ui->lineEdit_4->text());
-  settings.setValue("lineEdit_5", ui->lineEdit_5->text());
-  settings.setValue("lineEdit_6", ui->lineEdit_6->text());
   settings.setValue("lineEdit_7", ui->lineEdit_7->text());
   settings.setValue("lineEdit_8", ui->lineEdit_8->text());
   settings.setValue("lineEdit_9", ui->lineEdit_9->text());
@@ -188,21 +190,6 @@ void viewer::keyPressEvent(QKeyEvent *e) {
   }
 }
 
-void viewer::on_lineEdit_4_textChanged(const QString &arg1) {
-  ui->widget->line_r = arg1.toDouble();
-  ui->widget->update();
-}
-
-void viewer::on_lineEdit_5_textChanged(const QString &arg1) {
-  ui->widget->line_g = arg1.toDouble();
-  ui->widget->update();
-}
-
-void viewer::on_lineEdit_6_textChanged(const QString &arg1) {
-  ui->widget->line_b = arg1.toDouble();
-  ui->widget->update();
-}
-
 void viewer::on_horizontalSlider_3_valueChanged(int value) {
   ui->widget->fon_r = ((double)value) / 100.0;
   ui->widget->update();
@@ -225,4 +212,28 @@ void viewer::reset_obj() {
   if (obj.polygons != NULL) free(obj.polygons);
   obj.vertexes = NULL;
   obj.polygons = NULL;
+}
+
+void viewer::on_horizontalSlider_valueChanged(int value) {
+  ui->widget->line_width = (double)value;
+  ui->widget->update();
+}
+
+void viewer::on_horizontalSlider_2_valueChanged(int value) {
+  ui->widget->line_r = ((double)value) / 100.0;
+  ui->widget->update();
+}
+
+void viewer::on_horizontalSlider_6_valueChanged(int value) {
+  ui->widget->line_g = ((double)value) / 100.0;
+  ui->widget->update();
+}
+
+void viewer::on_horizontalSlider_7_valueChanged(int value) {
+  ui->widget->line_b = ((double)value) / 100.0;
+  ui->widget->update();
+}
+
+void viewer::on_pushButton_15_clicked() {
+  //    reset_obj();
 }
