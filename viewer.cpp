@@ -95,7 +95,11 @@ void viewer::on_pushButton_3_clicked() {
 }
 
 void viewer::on_pushButton_5_clicked() {
-  dot.delta_y = 0.5;
+  double step = ui->lineEdit->text().toDouble();
+  if (step)
+    dot.delta_y = qFabs(step);
+  else
+    dot.delta_y = 0.5;
   shift_dot(&obj, dot);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
@@ -124,7 +128,11 @@ void viewer::on_pushButton_7_clicked() {
 }
 
 void viewer::on_pushButton_6_clicked() {
-  dot.delta_x = -0.5;
+  double step = ui->lineEdit_2->text().toDouble();
+  if (step)
+    dot.delta_x = qFabs(step) * (-1);
+  else
+    dot.delta_x = -0.5;
   shift_dot(&obj, dot);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
