@@ -18,18 +18,18 @@ int parse_num_vertex_facets(const char* filename, obj_t* obj) {
   return 0;
 }
 
-void count_facets(char* buffer, obj_t* obj){
-    int i = 2;
-    while (buffer[i] != '\0') {
-        char* tok = strtok(buffer, " ");
-        while (tok != NULL) {
-            if (*(tok) != 'f' && *(tok) != '\n') {
-                obj->test++;
-            }
-            tok = strtok(NULL, " ");
-        }
-        ++i;
+void count_facets(char* buffer, obj_t* obj) {
+  int i = 2;
+  while (buffer[i] != '\0') {
+    char* tok = strtok(buffer, " ");
+    while (tok != NULL) {
+      if (*(tok) != 'f' && *(tok) != '\n') {
+        obj->test++;
+      }
+      tok = strtok(NULL, " ");
     }
+    ++i;
+  }
 }
 
 void free_obj(obj_t* obj) {
@@ -56,8 +56,9 @@ int check_double_format(char* str) {
 }
 
 int fill_arr(obj_t* obj, int* j, char* buffer, int checkflag) {
-  int i = 2, counter = 0, countelement = 0; //firstelemfaset = 0;
-  char digits[36], tmp_facets[15];
+  int i = 2, counter = 0, countelement = 0, tmp_i = 0, tmp_facets[15],
+      gg = 0;  // firstelemfaset = 0;
+  char digits[36];
   char* jumpslash;
   int elem = 0;
   while (1) {
@@ -68,7 +69,7 @@ int fill_arr(obj_t* obj, int* j, char* buffer, int checkflag) {
         }
         switch (checkflag) {
           case 1:
-              if(countelement == 3) break;
+            if (countelement == 3) break;
             obj->vertexes[*j] = atof(digits);
             ++*j;
             counter = 0;
@@ -76,19 +77,8 @@ int fill_arr(obj_t* obj, int* j, char* buffer, int checkflag) {
           case 2:
             jumpslash = strtok(digits, "/");
             elem = atoi(jumpslash);
-            tmp_facets[i] = elem -1;
-//            obj->polygons[*j] = elem - 1;
-//            if (countelement == 0) {
-//              firstelemfaset = obj->polygons[*j];
-//            }
-//            if (countelement == 1) {
-//              obj->polygons[++*j] = obj->polygons[*j];
-//            }
-//            if (countelement == 2) {
-//              obj->polygons[++*j] = obj->polygons[*j];
-//              obj->polygons[++*j] = firstelemfaset;
-//            }
-//            ++*j;
+            tmp_facets[tmp_i] = elem - 1;
+            tmp_i++;
             counter = 0;
             break;
         }
@@ -99,14 +89,30 @@ int fill_arr(obj_t* obj, int* j, char* buffer, int checkflag) {
       digits[++counter] = '\0';
     }
     ++i;
-      if (buffer[i] == '\0') {
-          break;
-      }
+    if (buffer[i] == '\0') {
+      break;
+    }
   }
+  if (checkflag == 2) {
+    // printf("%d", tmp_i);
+    change_facets(obj, tmp_facets, j, tmp_i);
+  }
+
   return 0;
 }
 
-void change_facets()
+void change_facets(obj_t* obj, int* buf, int* countf, int counttemp) {
+  int firstlem = buf[0];
+  for (int i = 0; i < counttemp; i++, ++*countf) {
+    if (i == counttemp - 1) {
+      obj->polygons[*countf] = buf[i];
+      obj->polygons[++*countf] = firstlem;
+    } else {
+      obj->polygons[*countf] = buf[i];
+      obj->polygons[++*countf] = buf[i + 1];
+    }
+  }
+}
 
 int parse_file(const char* filename, obj_t* obj) {
   FILE* fp = fopen(filename, "r");
@@ -142,33 +148,35 @@ int StartPars(const char* filename, obj_t* obj) {
   if (parse_file(filename, obj) == 1) {
     return 1;
   }
-  return 0;
+  return obj->test * 2;
 }
 
-int main() {
-  obj_t obj;
-  char* file = "obj/cube.obj";
+// int main() {
+//   obj_t obj;
+//   char* file = "obj/cube.obj";
 
-  obj.test = 0;
+//   obj.test = 0;
 
-    int err = StartPars(file, &obj);
-    printf("[%d]----facets[%d]-----vertex[%d]\n", obj.test, obj.count_of_facets, obj.count_of_vertexes);
-//  int err = StartPars(file, &obj);
+//   int err = StartPars(file, &obj);
+//   printf("[%d]----facets[%d]-----vertex[%d]\n", obj.test,
+//   obj.count_of_facets,
+//          obj.count_of_vertexes);
+//   //  int err = StartPars(file, &obj);
 
-//  printf("[count vertex]-%d  [count facets]-%d\n", obj.count_of_vertexes,
-//         obj.count_of_facets);
+//   //  printf("[count vertex]-%d  [count facets]-%d\n", obj.count_of_vertexes,
+//   //         obj.count_of_facets);
 
-   if (err != 1) {
-  for (int i = 0, k = 1; i < obj.count_of_vertexes*3; i++, k++) {
-    printf("%lf ", obj.vertexes[i]);
-    if (k % 3 == 0) printf("\n");
-  }
-  // getchar();
-  for (int i = 0, k = 1; i < obj.count_of_facets*3; i++, k++) {
-    printf("%d ", obj.polygons[i]);
-    if (k % 6 == 0) printf("\n");
-  }
-  free_obj(&obj);
-   }
-  return 0;
-}
+//   // if (err != 1) {
+//   for (int i = 0, k = 1; i < obj.count_of_vertexes * 3; i++, k++) {
+//     printf("%lf ", obj.vertexes[i]);
+//     if (k % 3 == 0) printf("\n");
+//   }
+//   //   // getchar();
+//   // for (int i = 0, k = 1; i < obj.count_of_facets * 3 * 2; i++, k++) {
+//   //   printf("%d ", obj.polygons[i]);
+//   //   if (k % 6 == 0) printf("\n");
+//   // }
+//   //   free_obj(&obj);
+//   // }
+//   return 0;
+// }

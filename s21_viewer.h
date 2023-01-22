@@ -22,5 +22,6 @@ int check_double_format(char* str);
 int fill_arr(obj_t* obj, int* j, char* buffer, int checkflag);
 int StartPars(const char* filename, obj_t* obj);
 void count_facets(char* buffer, obj_t* obj);
+void change_facets(obj_t* obj, int* buf, int* countf, int counttemp);
 
 #endif  // SRC_S21_SMARTCALC_H_

@@ -34,7 +34,7 @@ void viewer::on_pushButton_clicked() {
 
     int err = StartPars(file, &obj);
 
-    if (err == 0) {
+    if (err) {
        qDebug() << "i am in..";
       ////scaling block
       ///
@@ -65,7 +65,7 @@ void viewer::on_pushButton_clicked() {
       for (int i = 0; i < err; i++) {
         std::cout << obj.polygons[i] << std::endl;
       }
-      ui->widget->set_lines(2081*3);
+      ui->widget->set_lines(err);
       ui->widget->set();
       ui->widget->update();
     }
