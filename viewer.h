@@ -44,9 +44,9 @@ class viewer : public QMainWindow {
 
 //  void on_pushButton_10_clicked();
 
-  void on_radioButton_2_toggled(bool checked);
+  void on_radioButton_2_toggled();
 
-  void on_radioButton_toggled(bool checked);
+  void on_radioButton_toggled();
 
   void keyPressEvent(QKeyEvent *) override;
 
@@ -75,5 +75,6 @@ private:
   void settings_load();
   void setup_defaults();
   void settings_save();
+  void reset_obj();
 };
 #endif  // VIEWER_H
