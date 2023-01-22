@@ -23,6 +23,8 @@ class viewer : public QMainWindow {
   ~viewer();
   obj_t obj;
   dot_t dot;
+  int flag;
+  QVector<QImage> mas_image;
 
  private slots:
   void on_pushButton_clicked();
@@ -63,7 +65,13 @@ class viewer : public QMainWindow {
 
   void on_pushButton_15_clicked();
 
-private:
+  void on_pushButton_12_pressed();
+
+  void on_pushButton_13_pressed();
+
+  void on_pushButton_14_pressed();
+
+ private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";

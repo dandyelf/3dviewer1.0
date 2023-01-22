@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QSettings>
 #include <iostream>
-
+#include "./qtgifimage/gifimage/qgifimage.h"
 #include "QKeyEvent"
 #include "ui_viewer.h"
 
@@ -13,20 +13,21 @@ viewer::viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::viewer) {
   ui->setupUi(this);
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
-
+  obj.test = 0;
   dot.delta_x = 0.0;
   dot.delta_y = 0.0;
   dot.delta_z = 0.0;
-
-  obj.vertexes = NULL;
-  obj.polygons = NULL;
+  obj.vertexes = nullptr;
+  obj.polygons = nullptr;
   setup_defaults();
 }
 
 viewer::~viewer() {
+
   settings_save();
   reset_obj();
   delete ui;
+  qDebug() << "viewer destroyed";
 }
 
 void viewer::on_pushButton_clicked() {
@@ -47,6 +48,7 @@ void viewer::on_pushButton_clicked() {
     QByteArray tmp = fileName.toLocal8Bit();
     char *file = tmp.data();
 
+    reset_obj();
     int err = StartPars(file, &obj);
 
     if (err) {
@@ -220,8 +222,10 @@ void viewer::on_horizontalSlider_5_valueChanged(int value) {
 }
 
 void viewer::reset_obj() {
+  qDebug() << "reset obj...";
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
+  obj.test = 0;
   if (obj.vertexes != NULL) free(obj.vertexes);
   if (obj.polygons != NULL) free(obj.polygons);
   obj.vertexes = NULL;
@@ -250,4 +254,43 @@ void viewer::on_horizontalSlider_7_valueChanged(int value) {
 
 void viewer::on_pushButton_15_clicked() {
   //    reset_obj();
+}
+
+void viewer::on_pushButton_12_pressed() // JPEG сохранение
+{
+    QString file = QFileDialog::getSaveFileName(this, "Save as...", "name", "BMP (*.bmp);; JPEG (*.jpeg)");
+        ui->widget->grab().save(file);
+}
+
+
+void viewer::on_pushButton_13_pressed()  //  Начать запись для gif
+{
+    flag = 1;
+}
+
+
+void viewer::on_pushButton_14_pressed()  //  Закончить запись
+{
+    flag = 0;
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save screenshot"), "", tr("GIF screenshot (*.gif);;GIF screenshot (*.gif)"));
+        QGifImage gif(QSize(5000, 5000));
+        QVector<QRgb> ctable;
+        ctable << qRgb(255, 255, 255)
+               << qRgb(0, 0, 0)
+               << qRgb(255, 0, 0)
+               << qRgb(0, 255, 0)
+               << qRgb(0, 0, 255)
+               << qRgb(255, 255, 0)
+               << qRgb(0, 255, 255)
+               << qRgb(255, 0, 255);
+
+        gif.setGlobalColorTable(ctable, Qt::black);
+        gif.setDefaultTransparentColor(Qt::black);
+        gif.setDefaultDelay(100);
+
+        for (QVector<QImage>::Iterator img = mas_image.begin(); img != mas_image.end(); ++img) {
+            gif.addFrame(*img);
+        }
+        gif.save(fileName);
+
 }
