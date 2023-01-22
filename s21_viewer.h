@@ -11,6 +11,7 @@ typedef struct {
   double* vertexes;
   int count_of_facets;
   int* polygons;
+  int test;
 } obj_t;
 
 int parse_num_vertex_facets(const char* filename, obj_t* obj);
@@ -20,5 +21,6 @@ int parse_file(const char* filename, obj_t* obj);
 int check_double_format(char* str);
 int fill_arr(obj_t* obj, int* j, char* buffer, int checkflag);
 int StartPars(const char* filename, obj_t* obj);
+void count_facets(char* buffer, obj_t* obj);
 
 #endif  // SRC_S21_SMARTCALC_H_
