@@ -70,6 +70,7 @@ void scene::draw() {
     }
     glLineWidth(line_width);
     glDrawElements(GL_LINES, lines, GL_UNSIGNED_INT, facets_arr);
+    glDisableClientState(GL_VERTEX_ARRAY);
 
     qDebug() << "Image was loaded.."
              << "lines is:" << lines;
