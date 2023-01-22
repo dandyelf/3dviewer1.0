@@ -14,7 +14,7 @@ scene::~scene() { qDebug() << "scene destroyed"; }
 
 void scene::initializeGL() {
   qDebug() << "initializeGL is working..";
-  //    glEnable(GL_DEPTH_TEST);  //  не понял пока зачем
+      glEnable(GL_DEPTH_TEST);  //  не понял пока зачем
 }
 
 void scene::resizeGL(int w, int h) {
@@ -23,7 +23,7 @@ void scene::resizeGL(int w, int h) {
                            //  'h' не используются.
   glMatrixMode(GL_PROJECTION);  //  Выбор режима матрицы
   glLoadIdentity();  //  Загрузка единичной матрицы
-  glFrustum(-1, 1, -1, 1, 1, 3);  //  Умножает текущую матрицу( единичную в
+  glFrustum(-1, 1, -1, 1, 1, 30);  //  Умножает текущую матрицу( единичную в
                                   //  данном случае) на матрицу перспективы
 }
 

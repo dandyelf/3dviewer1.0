@@ -249,5 +249,5 @@ void viewer::on_horizontalSlider_7_valueChanged(int value) {
 }
 
 void viewer::on_pushButton_15_clicked() {
-  //    reset_obj();
+
 }
