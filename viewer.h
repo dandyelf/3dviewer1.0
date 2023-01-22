@@ -40,15 +40,33 @@ class viewer : public QMainWindow {
 
   void on_pushButton_6_clicked();
 
-  void on_pushButton_9_clicked();
+//  void on_pushButton_9_clicked();
 
-  void on_pushButton_10_clicked();
+//  void on_pushButton_10_clicked();
 
   void on_radioButton_2_toggled(bool checked);
 
   void on_radioButton_toggled(bool checked);
 
   void keyPressEvent(QKeyEvent *) override;
+
+  void on_lineEdit_4_textChanged(const QString &arg1);
+
+  void on_lineEdit_5_textChanged(const QString &arg1);
+
+  void on_lineEdit_6_textChanged(const QString &arg1);
+
+//  void on_lineEdit_textChanged(const QString &arg1);
+
+//  void on_lineEdit_2_textChanged(const QString &arg1);
+
+//  void on_lineEdit_3_textChanged(const QString &arg1);
+
+  void on_horizontalSlider_3_valueChanged(int value);
+
+  void on_horizontalSlider_4_valueChanged(int value);
+
+  void on_horizontalSlider_5_valueChanged(int value);
 
 private:
   Ui::viewer *ui;

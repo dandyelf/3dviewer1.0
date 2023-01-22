@@ -26,7 +26,7 @@ class scene : public QOpenGLWidget {
   double fon_r = 0.30, fon_g = 0.30, fon_b = 0.30;
   double line_r = 0.0, line_g = 0.0, line_b = 0.0;
 
-  bool striple = false;
+  bool stipple = false;
 
  private:
 

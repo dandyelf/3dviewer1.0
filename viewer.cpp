@@ -32,6 +32,9 @@ void viewer::on_pushButton_clicked() {
     ////updates
     path = fileName;
     this->setWindowTitle(this->windowTitle()+"~"+fileName);
+    ui->label_3->setText(path.section('/', -1, -1));
+    ui->label_7->setText("Число вершин");
+    ui->label_8->setText("Число линий");
     ////
     /// \brief tmp
     ///
@@ -135,28 +138,28 @@ void viewer::on_pushButton_6_clicked()
 }
 
 
-void viewer::on_pushButton_9_clicked()
-{
-    ui->widget->fon_r = ui->lineEdit->text().toDouble();
-    ui->widget->fon_g = ui->lineEdit_2->text().toDouble();
-    ui->widget->fon_b = ui->lineEdit_3->text().toDouble();
-    ui->widget->update();
+//void viewer::on_pushButton_9_clicked()
+//{
+//    ui->widget->fon_r = ui->lineEdit->text().toDouble();
+//    ui->widget->fon_g = ui->lineEdit_2->text().toDouble();
+//    ui->widget->fon_b = ui->lineEdit_3->text().toDouble();
+//    ui->widget->update();
 
-}
+//}
 
 
-void viewer::on_pushButton_10_clicked()
-{
-    ui->widget->line_r = ui->lineEdit_4->text().toDouble();
-    ui->widget->line_g = ui->lineEdit_5->text().toDouble();
-    ui->widget->line_b = ui->lineEdit_6->text().toDouble();
-    ui->widget->update();
-}
+//void viewer::on_pushButton_10_clicked()
+//{
+//    ui->widget->line_r = ui->lineEdit_4->text().toDouble();
+//    ui->widget->line_g = ui->lineEdit_5->text().toDouble();
+//    ui->widget->line_b = ui->lineEdit_6->text().toDouble();
+//    ui->widget->update();
+//}
 
 
 void viewer::on_radioButton_2_toggled(bool checked)
 {
-    ui->widget->striple = true;
+    ui->widget->stipple = true;
     ui->widget->update();
 }
 
@@ -168,9 +171,9 @@ void viewer::settings_load() {
     //  Загружаем настройки
     QSettings settings( "s21_3d_viewer.conf", QSettings::IniFormat );
     settings.beginGroup("Main_Settings");
-    ui->lineEdit->setText(settings.value("lineEdit").toString());
-    ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
-    ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
+//    ui->lineEdit->setText(settings.value("lineEdit").toString());
+//    ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
+//    ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
     path = settings.value("path").toString();
     ui->lineEdit_4->setText(settings.value("lineEdit_4").toString());
     ui->lineEdit_5->setText(settings.value("lineEdit_5").toString());
@@ -188,9 +191,9 @@ void viewer::settings_save() {
         qDebug() << "save settings...";
         QSettings settings( "s21_3d_viewer.conf", QSettings::IniFormat );
         settings.beginGroup("Main_Settings");
-        settings.setValue("lineEdit", ui->lineEdit->text());
-        settings.setValue("lineEdit_2", ui->lineEdit_2->text());
-        settings.setValue("lineEdit_3", ui->lineEdit_3->text());
+//        settings.setValue("lineEdit", ui->lineEdit->text());
+//        settings.setValue("lineEdit_2", ui->lineEdit_2->text());
+//        settings.setValue("lineEdit_3", ui->lineEdit_3->text());
         settings.setValue("path", path);
         settings.setValue("lineEdit_4", ui->lineEdit_4->text());
         settings.setValue("lineEdit_5", ui->lineEdit_5->text());
@@ -205,7 +208,7 @@ void viewer::settings_save() {
 
 void viewer::on_radioButton_toggled(bool checked)
 {
-    ui->widget->striple = false;
+    ui->widget->stipple = false;
     ui->widget->update();
 }
 
@@ -229,3 +232,65 @@ void viewer::keyPressEvent(QKeyEvent *e) {
       break;
   }
 }
+
+void viewer::on_lineEdit_4_textChanged(const QString &arg1)
+{
+    ui->widget->line_r = arg1.toDouble();
+    ui->widget->update();
+}
+
+
+void viewer::on_lineEdit_5_textChanged(const QString &arg1)
+{
+    ui->widget->line_g = arg1.toDouble();
+    ui->widget->update();
+}
+
+
+void viewer::on_lineEdit_6_textChanged(const QString &arg1)
+{
+    ui->widget->line_b = arg1.toDouble();
+    ui->widget->update();
+}
+
+
+//void viewer::on_lineEdit_textChanged(const QString &arg1)
+//{
+//    ui->widget->fon_r = arg1.toDouble();
+//    ui->widget->update();
+//}
+
+
+//void viewer::on_lineEdit_2_textChanged(const QString &arg1)
+//{
+//    ui->widget->fon_g = arg1.toDouble();
+//    ui->widget->update();
+//}
+
+
+//void viewer::on_lineEdit_3_textChanged(const QString &arg1)
+//{
+//    ui->widget->fon_b = arg1.toDouble();
+//}
+
+
+void viewer::on_horizontalSlider_3_valueChanged(int value)
+{
+    ui->widget->fon_r = ((double) value) / 100.0;
+    ui->widget->update();
+}
+
+
+void viewer::on_horizontalSlider_4_valueChanged(int value)
+{
+    ui->widget->fon_g = ((double) value) / 100.0;
+    ui->widget->update();
+}
+
+
+void viewer::on_horizontalSlider_5_valueChanged(int value)
+{
+    ui->widget->fon_b = ((double) value) / 100.0;
+    ui->widget->update();
+}
+
