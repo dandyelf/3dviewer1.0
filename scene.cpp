@@ -69,10 +69,10 @@ void scene::draw() {
     glEnableClientState(GL_VERTEX_ARRAY);  //  Включил массив вершин
     glColor3f(line_r, line_g, line_b);
     if (striple) {
-      glLineStipple(20, 0x3333);
+      glLineStipple(20, 0x33);
       glEnable(GL_LINE_STIPPLE);
     } else {
-        glEnable(GL_LINE_SMOOTH);
+        glDisable(GL_LINE_STIPPLE);
 
     }
     glDrawElements(
