@@ -31,56 +31,12 @@ viewer::~viewer() {
 }
 
 void viewer::on_pushButton_clicked() {
-  QString fileName = QFileDialog::getOpenFileName(
+  fileName = QFileDialog::getOpenFileName(
       this, tr("Open Obj File"), path, tr("OBJ Files (*.obj)"));
   if (fileName != "") {
     qDebug() << fileName;
     ////updates
-    path = fileName;
-    this->setWindowTitle(this->windowTitle() + "~" + fileName);
-    ui->label_3->setText(path.section('/', -1, -1));
-    ui->label_7->setText("Число вершин");
-    ui->label_8->setText("Число линий");
-    this->setWindowTitle("3D Viewer ~" + fileName);
-    ////
-    /// \brief tmp
-    ///
-    QByteArray tmp = fileName.toLocal8Bit();
-    char *file = tmp.data();
-
-    reset_obj();
-    int err = StartPars(file, &obj);
-
-    if (err) {
-       qDebug() << "i am in..";
-      ////scaling block
-      double max_el = 0.0;
-      for (int i = 0; i < obj.count_of_vertexes; i++) {
-        if (max_el < obj.vertexes[i]) max_el = obj.vertexes[i];
-      }
-
-
-      for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
-        obj.vertexes[i] /= max_el;
-//            qDebug() << obj.vertexes[i];
-      }
-
-      for (int i = 0; i < obj.count_of_facets*3; ++i){
-           qDebug() << obj.polygons[i];
-      }
-      ////end scaling block
-      ////set stats
-      ui->label_9->setText(QString::number(obj.count_of_vertexes));
-      ui->label_10->setText(QString::number(obj.count_of_facets));
-      ////end stats
-      ////set main data
-      ui->widget->set_vertex_arr(obj.vertexes);
-      ui->widget->set_facets_arr(obj.polygons);
-      ui->widget->set_lines(err);
-      ui->widget->set();
-      ui->widget->update();
-      ////end data set
-    }
+    file_proccessing(fileName);
   }
 }
 
@@ -232,6 +188,55 @@ void viewer::reset_obj() {
   obj.polygons = NULL;
 }
 
+void viewer::file_proccessing(QString fileName)
+{
+    path = fileName;
+    this->setWindowTitle(this->windowTitle() + "~" + fileName);
+    ui->label_3->setText(path.section('/', -1, -1));
+    ui->label_7->setText("Число вершин");
+    ui->label_8->setText("Число линий");
+    this->setWindowTitle("3D Viewer ~" + fileName);
+    ////
+    /// \brief tmp
+    ///
+    QByteArray tmp = fileName.toLocal8Bit();
+    char *file = tmp.data();
+
+    reset_obj();
+    int err = StartPars(file, &obj);
+
+    if (err) {
+       qDebug() << "i am in..";
+      ////scaling block
+      double max_el = 0.0;
+      for (int i = 0; i < obj.count_of_vertexes; i++) {
+        if (max_el < obj.vertexes[i]) max_el = obj.vertexes[i];
+      }
+
+
+      for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
+        obj.vertexes[i] /= max_el;
+//            qDebug() << obj.vertexes[i];
+      }
+
+      for (int i = 0; i < obj.count_of_facets*3; ++i){
+           qDebug() << obj.polygons[i];
+      }
+      ////end scaling block
+      ////set stats
+      ui->label_9->setText(QString::number(obj.count_of_vertexes));
+      ui->label_10->setText(QString::number(obj.count_of_facets));
+      ////end stats
+      ////set main data
+      ui->widget->set_vertex_arr(obj.vertexes);
+      ui->widget->set_facets_arr(obj.polygons);
+      ui->widget->set_lines(err);
+      ui->widget->set();
+      ui->widget->update();
+      ////end data set
+    }
+}
+
 void viewer::on_horizontalSlider_valueChanged(int value) {
   ui->widget->line_width = (double)value;
   ui->widget->update();
@@ -253,7 +258,8 @@ void viewer::on_horizontalSlider_7_valueChanged(int value) {
 }
 
 void viewer::on_pushButton_15_clicked() {
-
+    reset_obj();
+    file_proccessing(fileName);
 }
 
 void viewer::on_pushButton_12_pressed() // JPEG сохранение

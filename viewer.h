@@ -79,5 +79,7 @@ class viewer : public QMainWindow {
   void setup_defaults();
   void settings_save();
   void reset_obj();
+  QString fileName;
+  void file_proccessing(QString file_name);
 };
 #endif  // VIEWER_H
