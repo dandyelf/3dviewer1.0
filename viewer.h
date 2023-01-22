@@ -10,8 +10,8 @@ class viewer;
 QT_END_NAMESPACE
 
 extern "C" {
-#include <read_obj.h>
 #include <aff_transformation.h>
+#include <read_obj.h>
 }
 
 class viewer : public QMainWindow {
@@ -40,10 +40,6 @@ class viewer : public QMainWindow {
 
   void on_pushButton_6_clicked();
 
-//  void on_pushButton_9_clicked();
-
-//  void on_pushButton_10_clicked();
-
   void on_radioButton_2_toggled();
 
   void on_radioButton_toggled();
@@ -56,19 +52,13 @@ class viewer : public QMainWindow {
 
   void on_lineEdit_6_textChanged(const QString &arg1);
 
-//  void on_lineEdit_textChanged(const QString &arg1);
-
-//  void on_lineEdit_2_textChanged(const QString &arg1);
-
-//  void on_lineEdit_3_textChanged(const QString &arg1);
-
   void on_horizontalSlider_3_valueChanged(int value);
 
   void on_horizontalSlider_4_valueChanged(int value);
 
   void on_horizontalSlider_5_valueChanged(int value);
 
-private:
+ private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";

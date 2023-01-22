@@ -7,10 +7,6 @@
 #include <QOpenGLWidget>
 #include <QWidget>
 
-// extern "C" {
-//     #include "read_obj.h"
-// }
-
 class scene : public QOpenGLWidget {
   Q_OBJECT
 
@@ -29,9 +25,6 @@ class scene : public QOpenGLWidget {
   bool stipple = false;
 
  private:
-
-
-
   float xRot, yRot, zRot;
   QPoint mPos;
 

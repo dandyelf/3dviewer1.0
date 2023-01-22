@@ -54,30 +54,21 @@ void scene::mouseMoveEvent(QMouseEvent *e) {
   update();
 }
 
-
-
 void scene::draw() {
   qDebug() << "draw is working..";
 
   if (flag) {
-
     qDebug() << "data recieved..";
-    glVertexPointer(
-        3, GL_DOUBLE, 0,
-        vertex_arr);  //  Определил массив вершин: 3 координаты на вершину типа
-                      //  Double без интервалов в массиве
-    glEnableClientState(GL_VERTEX_ARRAY);  //  Включил массив вершин
+    glVertexPointer(3, GL_DOUBLE, 0, vertex_arr);
+    glEnableClientState(GL_VERTEX_ARRAY);
     glColor3f(line_r, line_g, line_b);
     if (stipple) {
       glLineStipple(20, 0x3333);
       glEnable(GL_LINE_STIPPLE);
     } else {
-        glDisable(GL_LINE_STIPPLE);
-
+      glDisable(GL_LINE_STIPPLE);
     }
-    glDrawElements(
-        GL_LINES, lines, GL_UNSIGNED_INT,
-        facets_arr);  //  Работает в статическом варианте, рисует каркас куба.
+    glDrawElements(GL_LINES, lines, GL_UNSIGNED_INT, facets_arr);
 
     qDebug() << "Image was loaded.."
              << "lines is:" << lines;
