@@ -16,11 +16,14 @@ viewer::viewer(QWidget* parent) : QMainWindow(parent), ui(new Ui::viewer) {
   dot.delta_y = 0.0;
   dot.delta_z = 0.0;
 
+  obj.vertexes = NULL;
+  obj.polygons = NULL;
   setup_defaults();
 }
 
 viewer::~viewer() {
     settings_save();
+    reset_obj();
     delete ui;
 }
 
@@ -35,12 +38,14 @@ void viewer::on_pushButton_clicked() {
     ui->label_3->setText(path.section('/', -1, -1));
     ui->label_7->setText("Число вершин");
     ui->label_8->setText("Число линий");
+    this->setWindowTitle("3D Viewer ~" + fileName);
     ////
     /// \brief tmp
     ///
     QByteArray tmp = fileName.toLocal8Bit();
     char* file = tmp.data();
 
+    reset_obj();
     int err = readobj(file, &obj);
 
     if (err != -1) {
@@ -157,7 +162,7 @@ void viewer::on_pushButton_6_clicked()
 //}
 
 
-void viewer::on_radioButton_2_toggled(bool checked)
+void viewer::on_radioButton_2_toggled()
 {
     ui->widget->stipple = true;
     ui->widget->update();
@@ -206,7 +211,7 @@ void viewer::settings_save() {
         settings.endGroup();
 }
 
-void viewer::on_radioButton_toggled(bool checked)
+void viewer::on_radioButton_toggled()
 {
     ui->widget->stipple = false;
     ui->widget->update();
@@ -294,3 +299,11 @@ void viewer::on_horizontalSlider_5_valueChanged(int value)
     ui->widget->update();
 }
 
+void viewer::reset_obj() {
+    obj.count_of_vertexes = 0;
+    obj.count_of_facets = 0;
+    if(obj.vertexes != NULL) free(obj.vertexes);
+    if(obj.polygons != NULL) free(obj.polygons);
+    obj.vertexes = NULL;
+    obj.polygons = NULL;
+}
