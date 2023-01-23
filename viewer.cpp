@@ -15,7 +15,7 @@ viewer::viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::viewer) {
   ui->pushButton_11->setVisible(0);
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
-  obj.test = 0;
+  obj.facet_elem = 0;
   dot.delta_x = 0.0;
   dot.delta_y = 0.0;
   dot.delta_z = 0.0;
@@ -179,7 +179,7 @@ void viewer::reset_obj() {
   qDebug() << "reset obj...";
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
-  obj.test = 0;
+  obj.facet_elem = 0;
   if (obj.vertexes != NULL) free(obj.vertexes);
   if (obj.polygons != NULL) free(obj.polygons);
   obj.vertexes = NULL;
@@ -203,7 +203,7 @@ void viewer::file_proccessing(QString fileName)
     reset_obj();
     int err = StartPars(file, &obj);
 
-    if (err) {
+    if (!err) {
        qDebug() << "i am in..";
       ////scaling block
       double max_el = 0.0;
@@ -228,7 +228,7 @@ void viewer::file_proccessing(QString fileName)
       ////set main data
       ui->widget->set_vertex_arr(obj.vertexes);
       ui->widget->set_facets_arr(obj.polygons);
-      ui->widget->set_lines(err);
+      ui->widget->set_lines(obj.facet_elem);
       ui->widget->set();
       ui->widget->update();
       ////end data set
