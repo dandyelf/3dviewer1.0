@@ -1,6 +1,7 @@
 #include "viewer.h"
 
 #include <QDebug>
+#include <QtMath>
 #include <QFileDialog>
 #include <QSettings>
 #include <iostream>
