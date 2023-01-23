@@ -1,4 +1,4 @@
-QT       += core gui opengl
+QT       += core gui opengl openglwidgets
 mac: QT += openglwidgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
