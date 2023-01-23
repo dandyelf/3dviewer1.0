@@ -59,6 +59,7 @@ void scene::draw() {
 
   if (flag) {
     qDebug() << "data recieved..";
+    glPushMatrix();
     glVertexPointer(3, GL_DOUBLE, 0, vertex_arr);
     glEnableClientState(GL_VERTEX_ARRAY);
     glColor3f(line_r, line_g, line_b);
@@ -71,6 +72,7 @@ void scene::draw() {
     glLineWidth(line_width);
     glDrawElements(GL_LINES, lines, GL_UNSIGNED_INT, facets_arr);
     glDisableClientState(GL_VERTEX_ARRAY);
+    glPopMatrix();
 
     qDebug() << "Image was loaded.."
              << "lines is:" << lines;
