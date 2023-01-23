@@ -114,9 +114,7 @@ void viewer::settings_load() {
   QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
   settings.beginGroup("Main_Settings");
   path = settings.value("path").toString();
-  ui->lineEdit_7->setText(settings.value("lineEdit_7").toString());
-  ui->lineEdit_8->setText(settings.value("lineEdit_8").toString());
-  ui->lineEdit_9->setText(settings.value("lineEdit_9").toString());
+
   ui->radioButton->setChecked(settings.value("QCheckBox", true).toBool());
   ui->radioButton_2->setChecked(settings.value("QCheckBox", true).toBool());
   settings.endGroup();
@@ -128,9 +126,7 @@ void viewer::settings_save() {
   QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
   settings.beginGroup("Main_Settings");
   settings.setValue("path", path);
-  settings.setValue("lineEdit_7", ui->lineEdit_7->text());
-  settings.setValue("lineEdit_8", ui->lineEdit_8->text());
-  settings.setValue("lineEdit_9", ui->lineEdit_9->text());
+
   settings.setValue("QCheckBox", ui->radioButton->isChecked());
   settings.setValue("QCheckBox", ui->radioButton_2->isChecked());
   settings.endGroup();
@@ -300,3 +296,17 @@ void viewer::on_pushButton_14_pressed()  //  Закончить запись
         gif.save(fileName);
 
 }
+
+void viewer::on_horizontalSlider_9_valueChanged(int value)
+{
+    ui->widget->dot_r = (double) value / 100.0;
+    ui->widget->update();
+}
+
+
+void viewer::on_horizontalSlider_8_valueChanged(int value)
+{
+    ui->widget->dot_width = value;
+    ui->widget->update();
+}
+

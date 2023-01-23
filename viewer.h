@@ -71,7 +71,11 @@ class viewer : public QMainWindow {
 
   void on_pushButton_14_pressed();
 
- private:
+  void on_horizontalSlider_9_valueChanged(int value);
+
+  void on_horizontalSlider_8_valueChanged(int value);
+
+private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";

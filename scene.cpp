@@ -14,17 +14,17 @@ scene::~scene() { qDebug() << "scene destroyed"; }
 
 void scene::initializeGL() {
   qDebug() << "initializeGL is working..";
-      glEnable(GL_DEPTH_TEST);  //  не понял пока зачем
+      glEnable(GL_DEPTH_TEST);
 }
 
 void scene::resizeGL(int w, int h) {
   qDebug() << "resizeGL is working..";
-  glViewport(0, 0, w, h);  //  и без этого тоже работает, но ругается, что 'w' и
-                           //  'h' не используются.
+  glViewport(0, 0, w, h);
   glMatrixMode(GL_PROJECTION);  //  Выбор режима матрицы
   glLoadIdentity();  //  Загрузка единичной матрицы
-  glFrustum(-1, 1, -1, 1, 1, 30);  //  Умножает текущую матрицу( единичную в
-                                  //  данном случае) на матрицу перспективы
+  //  Умножает текущую матрицу (единичную в данном случае) на матрицу перспективы
+  glFrustum(-1, 1, -1, 1, 1, 3);
+
 }
 
 void scene::paintGL() {
@@ -59,7 +59,7 @@ void scene::draw() {
 
   if (flag) {
     qDebug() << "data recieved..";
-    glPushMatrix();
+//    glPushMatrix();
     glVertexPointer(3, GL_DOUBLE, 0, vertex_arr);
     glEnableClientState(GL_VERTEX_ARRAY);
     glColor3f(line_r, line_g, line_b);
@@ -71,8 +71,11 @@ void scene::draw() {
     }
     glLineWidth(line_width);
     glDrawElements(GL_LINES, lines, GL_UNSIGNED_INT, facets_arr);
+    glPointSize(dot_width);
+    glColor3f(line_r, line_g, line_b);
+    glDrawElements(GL_POINTS, lines, GL_UNSIGNED_INT, facets_arr);
     glDisableClientState(GL_VERTEX_ARRAY);
-    glPopMatrix();
+//    glPopMatrix();
 
     qDebug() << "Image was loaded.."
              << "lines is:" << lines;
