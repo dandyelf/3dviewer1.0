@@ -72,7 +72,7 @@ void scene::draw() {
     glLineWidth(line_width);
     glDrawElements(GL_LINES, lines, GL_UNSIGNED_INT, facets_arr);
     glPointSize(dot_width);
-    glColor3f(line_r, line_g, line_b);
+    glColor3f(dot_r, dot_g, dot_b);
     glDrawElements(GL_POINTS, lines, GL_UNSIGNED_INT, facets_arr);
     glDisableClientState(GL_VERTEX_ARRAY);
 //    glPopMatrix();

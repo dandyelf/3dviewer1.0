@@ -75,6 +75,10 @@ class viewer : public QMainWindow {
 
   void on_horizontalSlider_8_valueChanged(int value);
 
+  void on_horizontalSlider_10_valueChanged(int value);
+
+  void on_horizontalSlider_11_valueChanged(int value);
+
 private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
