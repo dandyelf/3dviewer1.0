@@ -1,7 +1,6 @@
-#ifndef SRC_S21_SMARTCALC_H_
-#define SRC_S21_SMARTCALC_H_
+#ifndef SRC_S21_3DVIEWER_H_
+#define SRC_S21_3DVIEWER_H_
 
-#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,4 +22,4 @@ int StartPars(const char* filename, obj_t* obj);
 void count_facets(char* buffer, obj_t* obj);
 
 
-#endif  // SRC_S21_SMARTCALC_H_
+#endif  // SRC_S21_3DVIEWER_H_
