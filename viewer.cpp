@@ -1,19 +1,21 @@
 #include "viewer.h"
 
 #include <QDebug>
+#include <QtMath>
 #include <QFileDialog>
 #include <QSettings>
 #include <iostream>
-#include "./qtgifimage/gifimage/qgifimage.h"
+
 #include "QKeyEvent"
 #include "ui_viewer.h"
 
 viewer::viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::viewer) {
   setlocale(LC_ALL, "en_US.UTF-8");
   ui->setupUi(this);
+  ui->pushButton_11->setVisible(0);
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
-  obj.test = 0;
+  obj.facet_elem = 0;
   dot.delta_x = 0.0;
   dot.delta_y = 0.0;
   dot.delta_z = 0.0;
@@ -114,9 +116,7 @@ void viewer::settings_load() {
   QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
   settings.beginGroup("Main_Settings");
   path = settings.value("path").toString();
-  ui->lineEdit_7->setText(settings.value("lineEdit_7").toString());
-  ui->lineEdit_8->setText(settings.value("lineEdit_8").toString());
-  ui->lineEdit_9->setText(settings.value("lineEdit_9").toString());
+
   ui->radioButton->setChecked(settings.value("QCheckBox", true).toBool());
   ui->radioButton_2->setChecked(settings.value("QCheckBox", true).toBool());
   settings.endGroup();
@@ -128,9 +128,7 @@ void viewer::settings_save() {
   QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
   settings.beginGroup("Main_Settings");
   settings.setValue("path", path);
-  settings.setValue("lineEdit_7", ui->lineEdit_7->text());
-  settings.setValue("lineEdit_8", ui->lineEdit_8->text());
-  settings.setValue("lineEdit_9", ui->lineEdit_9->text());
+
   settings.setValue("QCheckBox", ui->radioButton->isChecked());
   settings.setValue("QCheckBox", ui->radioButton_2->isChecked());
   settings.endGroup();
@@ -181,7 +179,7 @@ void viewer::reset_obj() {
   qDebug() << "reset obj...";
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
-  obj.test = 0;
+  obj.facet_elem = 0;
   if (obj.vertexes != NULL) free(obj.vertexes);
   if (obj.polygons != NULL) free(obj.polygons);
   obj.vertexes = NULL;
@@ -205,7 +203,7 @@ void viewer::file_proccessing(QString fileName)
     reset_obj();
     int err = StartPars(file, &obj);
 
-    if (err) {
+    if (!err) {
        qDebug() << "i am in..";
       ////scaling block
       double max_el = 0.0;
@@ -230,7 +228,7 @@ void viewer::file_proccessing(QString fileName)
       ////set main data
       ui->widget->set_vertex_arr(obj.vertexes);
       ui->widget->set_facets_arr(obj.polygons);
-      ui->widget->set_lines(err);
+      ui->widget->set_lines(obj.facet_elem);
       ui->widget->set();
       ui->widget->update();
       ////end data set
@@ -264,39 +262,78 @@ void viewer::on_pushButton_15_clicked() {
 
 void viewer::on_pushButton_12_pressed() // JPEG сохранение
 {
-    QString file = QFileDialog::getSaveFileName(this, "Save as...", "name", "BMP (*.bmp);; JPEG (*.jpeg)");
-        ui->widget->grab().save(file);
+    QString file = QFileDialog::getSaveFileName(this, "Save as...", "name.jpg", "JPEG (*.jpeg) ;; BMP (*.bmp) ");
+    QImage image = ui->widget->grabFramebuffer();
+    image.save(file, nullptr, 80);
 }
 
 
 void viewer::on_pushButton_13_pressed()  //  Начать запись для gif
 {
-    flag = 1;
+    QString filters("GIF (*.gif)");
+    QString defaultFilter("GIF (*.gif)");
+//    fname_gif = "";
+    QString path2 = path;
+    fname_gif = QFileDialog::getSaveFileName(this
+        , tr("Save GIF"), path2, tr("Gif Files (*.gif)"));
+    if (fname_gif != "") {
+      wtimer();
+    } else {
+      error_message("Нет папки");
+    }
 }
 
+void viewer::error_message(QString message) {
+  QMessageBox messageBox;
+  messageBox.critical(0, "Info", message);
+  messageBox.setFixedSize(500, 200);
+}
 
-void viewer::on_pushButton_14_pressed()  //  Закончить запись
+void viewer::wtimer() {
+  tmr->start(60);
+  connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
+}
+
+void viewer::gifFile() {
+  time++;
+  QImage image = ui->widget->grabFramebuffer();
+
+  gif->setDefaultDelay(10);
+  gif->addFrame(image);
+
+  if (time == 60) {
+    tmr->stop();
+    gif->save(fname_gif);
+    time = 0;
+    image.QImage::bits();
+    error_message("Gif saved.");
+  }
+}
+
+void viewer::on_horizontalSlider_9_valueChanged(int value)
 {
-    flag = 0;
-        QString fileName = QFileDialog::getSaveFileName(this, tr("Save screenshot"), "", tr("GIF screenshot (*.gif);;GIF screenshot (*.gif)"));
-        QGifImage gif(QSize(5000, 5000));
-        QVector<QRgb> ctable;
-        ctable << qRgb(255, 255, 255)
-               << qRgb(0, 0, 0)
-               << qRgb(255, 0, 0)
-               << qRgb(0, 255, 0)
-               << qRgb(0, 0, 255)
-               << qRgb(255, 255, 0)
-               << qRgb(0, 255, 255)
-               << qRgb(255, 0, 255);
-
-        gif.setGlobalColorTable(ctable, Qt::black);
-        gif.setDefaultTransparentColor(Qt::black);
-        gif.setDefaultDelay(100);
-
-        for (QVector<QImage>::Iterator img = mas_image.begin(); img != mas_image.end(); ++img) {
-            gif.addFrame(*img);
-        }
-        gif.save(fileName);
-
+    ui->widget->dot_r = (double) value / 100.0;
+    ui->widget->update();
 }
+
+
+void viewer::on_horizontalSlider_8_valueChanged(int value)
+{
+    ui->widget->dot_width = value;
+    ui->widget->update();
+}
+
+
+void viewer::on_horizontalSlider_10_valueChanged(int value)
+{
+    ui->widget->dot_g = (double) value / 100.0;
+    ui->widget->update();
+}
+
+
+void viewer::on_horizontalSlider_11_valueChanged(int value)
+{
+    ui->widget->dot_b = (double) value / 100.0;
+    ui->widget->update();
+}
+
