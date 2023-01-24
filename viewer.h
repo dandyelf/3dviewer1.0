@@ -83,6 +83,10 @@ class viewer : public QMainWindow {
 
   void on_horizontalSlider_11_valueChanged(int value);
 
+  void on_radioButton_4_toggled(bool checked);
+
+  void on_radioButton_3_toggled(bool checked);
+
 private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;

@@ -337,3 +337,15 @@ void viewer::on_horizontalSlider_11_valueChanged(int value)
     ui->widget->update();
 }
 
+
+void viewer::on_radioButton_4_toggled(bool checked)
+{
+    ui->widget->set_ortho();
+}
+
+
+void viewer::on_radioButton_3_toggled(bool checked)
+{
+    ui->widget->set_persp();
+}
+
