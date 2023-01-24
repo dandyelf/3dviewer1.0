@@ -16,6 +16,7 @@ int parse_num_vertex_facets(const char* filename, obj_t* obj) {
           }
       }
   }
+  obj->facet_elem *= 2;
   fclose(fp);
   return err;
 }
@@ -105,30 +106,25 @@ int StartPars(const char* filename, obj_t* obj) {
   obj->count_of_facets = 0;
   obj->facet_elem = 0;
 
-  if (parse_num_vertex_facets(filename, obj) == 1) {
-    err =  1;
-  }
+  err = parse_num_vertex_facets(filename, obj);
+
   if (!err){
-      if (init_obj_struct(obj) == 1) {
-          err = 1;
-      }
-  }
+      err = init_obj_struct(obj);
+    }
   if(!err){
-      if (parse_file(filename, obj) == 1) {
-          err = 1;
-      }
+    err = parse_file(filename, obj);
+
   }
   return err;
 }
 
 // int main() {
 //   obj_t obj;
-//   char* file = "obj/cat.obj";
-//
-//   obj.facet_elem = 0;
-//
+//   char* file = "obj/hand.obj";
+
+
 //   int err = StartPars(file, &obj);
-//   printf("[%d]----facets[%d]-----vertex[%d]\n", obj.facet_elem,
+//   printf("facet_elem[%d]----facets[%d]-----vertex[%d]\n", obj.facet_elem,
 //   obj.count_of_facets,
 //          obj.count_of_vertexes);
 //   //  int err = StartPars(file, &obj);
