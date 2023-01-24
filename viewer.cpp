@@ -274,7 +274,7 @@ void viewer::on_pushButton_13_pressed()  //  Начать запись для gi
     QString filters("GIF (*.gif)");
     QString defaultFilter("GIF (*.gif)");
 //    fname_gif = "";
-    QString path2 = path;
+    QString path2 = path + ".gif";
     fname_gif = QFileDialog::getSaveFileName(this
         , tr("Save GIF"), path2, tr("Gif Files (*.gif)"));
     if (fname_gif != "") {
