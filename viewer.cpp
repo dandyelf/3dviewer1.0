@@ -13,7 +13,7 @@ viewer::viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::viewer) {
   ui->setupUi(this);
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
-  obj.test = 0;
+  obj.facet_elem = 0;
   dot.delta_x = 0.0;
   dot.delta_y = 0.0;
   dot.delta_z = 0.0;
@@ -181,7 +181,7 @@ void viewer::reset_obj() {
   qDebug() << "reset obj...";
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
-  obj.test = 0;
+  obj.facet_elem = 0;
   if (obj.vertexes != NULL) free(obj.vertexes);
   if (obj.polygons != NULL) free(obj.polygons);
   obj.vertexes = NULL;
@@ -204,8 +204,7 @@ void viewer::file_proccessing(QString fileName)
 
     reset_obj();
     int err = StartPars(file, &obj);
-
-    if (err) {
+    if (!err) {
        qDebug() << "i am in..";
       ////scaling block
       double max_el = 0.0;
@@ -230,7 +229,7 @@ void viewer::file_proccessing(QString fileName)
       ////set main data
       ui->widget->set_vertex_arr(obj.vertexes);
       ui->widget->set_facets_arr(obj.polygons);
-      ui->widget->set_lines(err);
+      ui->widget->set_lines(obj.facet_elem);
       ui->widget->set();
       ui->widget->update();
       ////end data set
@@ -264,39 +263,75 @@ void viewer::on_pushButton_15_clicked() {
 
 void viewer::on_pushButton_12_pressed() // JPEG сохранение
 {
-    QString file = QFileDialog::getSaveFileName(this, "Save as...", "name", "BMP (*.bmp);; JPEG (*.jpeg)");
-        ui->widget->grab().save(file);
+    QString file = QFileDialog::getSaveFileName(this, "Save as...", "name.jpg", "JPEG (*.jpeg) ;; BMP (*.bmp) ");
+    QImage image = ui->widget->grabFramebuffer();
+    image.save(file, nullptr, 80);
 }
 
 
 void viewer::on_pushButton_13_pressed()  //  Начать запись для gif
 {
+//    if (check_open_file_button) {
+//      this->ui->GLwidget->wtimer();
+//      //    check_open_file_button = 0;
+//    } else {
+//      error_message("Выберите путь");
+//      //    check_open_file_button = 0;
+//    }
     flag = 1;
 }
+
+//void GLWidget::wtimer() {
+//  tmr->start(100);
+//  connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
+//}
+
+//void GLWidget::gifFile() {
+//  time++;
+//  QImage image = GLWidget::grabFramebuffer();
+//  gif->setDefaultDelay(10);
+//  gif->addFrame(image);
+
+//  if (time == 50) {
+//    tmr->stop();
+//    gif->save(fname_gif);
+//    time = 0;
+//    image.QImage::bits();
+//  }
+//}
 
 
 void viewer::on_pushButton_14_pressed()  //  Закончить запись
 {
-    flag = 0;
-        QString fileName = QFileDialog::getSaveFileName(this, tr("Save screenshot"), "", tr("GIF screenshot (*.gif);;GIF screenshot (*.gif)"));
-        QGifImage gif(QSize(5000, 5000));
-        QVector<QRgb> ctable;
-        ctable << qRgb(255, 255, 255)
-               << qRgb(0, 0, 0)
-               << qRgb(255, 0, 0)
-               << qRgb(0, 255, 0)
-               << qRgb(0, 0, 255)
-               << qRgb(255, 255, 0)
-               << qRgb(0, 255, 255)
-               << qRgb(255, 0, 255);
 
-        gif.setGlobalColorTable(ctable, Qt::black);
-        gif.setDefaultTransparentColor(Qt::black);
-        gif.setDefaultDelay(100);
+//    QString filters("GIF (*.gif)");
+//    QString defaultFilter("GIF (*.gif)");
+//    this->ui->GLwidget->fname_gif = "";
+//    this->ui->GLwidget->fname_gif = QFileDialog::getSaveFileName(
+//        0, "Save GIF", QDir::currentPath(), filters, &defaultFilter);
+//    ui->leDirectory->setText(this->ui->GLwidget->fname_gif);
+//    check_open_file_button = 1;
 
-        for (QVector<QImage>::Iterator img = mas_image.begin(); img != mas_image.end(); ++img) {
-            gif.addFrame(*img);
-        }
-        gif.save(fileName);
+//    flag = 0;
+//        QString fileName = QFileDialog::getSaveFileName(this, tr("Save screenshot"), "", tr("GIF screenshot (*.gif);;GIF screenshot (*.gif)"));
+//        QGifImage gif(QSize(5000, 5000));
+//        QVector<QRgb> ctable;
+//        ctable << qRgb(255, 255, 255)
+//               << qRgb(0, 0, 0)
+//               << qRgb(255, 0, 0)
+//               << qRgb(0, 255, 0)
+//               << qRgb(0, 0, 255)
+//               << qRgb(255, 255, 0)
+//               << qRgb(0, 255, 255)
+//               << qRgb(255, 0, 255);
+
+//        gif.setGlobalColorTable(ctable, Qt::black);
+//        gif.setDefaultTransparentColor(Qt::black);
+//        gif.setDefaultDelay(100);
+
+//        for (QVector<QImage>::Iterator img = mas_image.begin(); img != mas_image.end(); ++img) {
+//            gif.addFrame(*img);
+//        }
+//        gif.save(fileName);
 
 }
