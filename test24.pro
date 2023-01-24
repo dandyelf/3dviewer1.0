@@ -4,19 +4,24 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
+include (qtgifimage/gifimage/qtgifimage.pri)
+
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    aff_transformation.c \
     main.cpp \
     read_obj.c \
+    s21_viewer.c \
     scene.cpp \
     viewer.cpp
 
 HEADERS += \
-    obj.h \
+    aff_transformation.h \
     read_obj.h \
+    s21_viewer.h \
     scene.h \
     viewer.h
 

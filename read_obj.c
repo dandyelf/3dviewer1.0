@@ -1,141 +1,104 @@
 #include "read_obj.h"
-int parse_num_vertex_facets(const char* filename, obj_file* obj) {
-  FILE* fp = fopen(filename, "r");
-  if (fp == NULL) return 1;
-  //  int i = 0;
 
-  char buffer[5];
-  while (fgets(buffer, sizeof(buffer), fp) != NULL) {
-    if (buffer[0] == 'v' && buffer[1] == ' ') {
-      obj->num_vertex += 3;
-    }
-    if (buffer[0] == 'f' && buffer[1] == ' ') {
-      obj->num_facets += 3;
-    }
-  }
-  obj->num_facets *= 2;
-  fclose(fp);
-  return 0;
-}
+#include "math.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
 
-void free_obj(obj_file* obj) {
-  free(obj->vertex_arr);
-  free(obj->facets_arr);
-}
+int readobj(char* file_name, obj_t* obj) {
+  int err = -1;
+  FILE* file;
+  file = fopen(file_name, "r");
+  if (file) {
+    obj->count_of_facets = 0;
+    obj->count_of_vertexes = 0;
+    char ch = ' ';
+    int cur_index = 0;
+    const char* space = " ";
+    const char* slash = "/";
+    char *temp_str, *token, *str1, *str2, *subtoken, *saveptr2;
+    int i = 0, j = 0, p = 0, v_count = 0, dots = 0;
 
-int init_obj_struct(obj_file* obj) {
-  obj->vertex_arr = (double*)calloc(obj->num_vertex, sizeof(double));
-  if (obj->vertex_arr == NULL) return 1;
-  obj->facets_arr = (int*)calloc(obj->num_facets, sizeof(int));
-  if (obj->facets_arr == NULL) return 1;
-  return 0;
-}
-
-int check_double_format(char* str) {
-  int i = 0;
-  while (str[i] != '\0') {
-    if (isdigit(str[i]) == 0 && str[i] != '.' && str[i] != '-' && str[i] != '/')
-      return 1;
-    ++i;
-  }
-  return 0;
-}
-
-int jump_after_slash() {}
-
-int fill_arr(obj_file* obj, int* j, char* buffer, int checkflag) {
-  int i = 2, counter = 0, countelement = 0, firstelemfaset = 0;
-  char digits[36];
-  char* jumpslash;
-  while (countelement < 3) {
-    if (buffer[i] == ' ' || buffer[i + 1] == '\0') {
-      if (counter != 0) {
-        if (check_double_format(digits) == 1) {
-          return 1;
+    while (1) {
+      char buf[255] = "";
+      fgets(buf, 254, file);
+      if (feof(file)) break;
+      if (buf[0] == 'v' && buf[1] == ' ') {
+        obj->count_of_vertexes++;
+      } else if (buf[0] == 'f') {
+        obj->count_of_facets++;
+        for (j = 1, str1 = buf + 2;; j++, str1 = NULL) {
+          token = strtok_r(str1, space, &temp_str);
+          if (token == NULL) break;
+          if (!strpbrk(token, "0123456789")) break;
+          for (str2 = token, v_count = 0;; str2 = NULL) {
+            subtoken = strtok_r(str2, slash, &saveptr2);
+            if (subtoken == NULL) break;
+            if (v_count == 0) {
+              dots++;
+            }
+            v_count++;
+          }
         }
-        switch (checkflag) {
-          case 1:
-            obj->vertex_arr[*j] = atof(digits);
-            ++*j;
-            counter = 0;
-            break;
-          case 2:
-            jumpslash = strtok(digits, "/");
-            obj->facets_arr[*j] = atoi(jumpslash);
-            //   printf("facets_arr[j%d] === {{%d}}\n", *j,
-            //   obj->facets_arr[*j]);
-            if (countelement == 0) {
-              firstelemfaset = obj->facets_arr[*j];
+      }
+    }
+    if (obj->vertexes =
+            (double*)calloc(obj->count_of_vertexes * 3, sizeof(double))) {
+      if (obj->polygons = (int*)calloc(dots * 2, sizeof(int))) {
+        fseek(file, 0, SEEK_SET);
+        i = 0, p = 0, v_count = 0;
+        int temp_f = 0, temp_ind = 0;
+        while (1) {
+          char buf[255] = "";
+          fgets(buf, 254, file);
+          if (feof(file)) break;
+          if (buf[0] == 'v' && buf[1] == ' ') {
+            sscanf(buf, "%c %lf %lf %lf", &ch, &obj->vertexes[i++],
+                   &obj->vertexes[i++], &obj->vertexes[i++]);
+            double temp = obj->vertexes[i - 1];
+            obj->vertexes[i - 1] = obj->vertexes[i - 3];
+            obj->vertexes[i - 3] = temp;
+
+          } else if (buf[0] == 'f') {
+            for (temp_ind = 0, str1 = buf + 2;; str1 = NULL, temp_ind++) {
+              token = strtok_r(str1, space, &temp_str);
+              if (token == NULL) {
+                obj->polygons[p++] = temp_f;
+                break;
+              }
+              if (!strpbrk(token, "0123456789")) {
+                obj->polygons[p++] = temp_f;
+                break;
+              }
+
+              for (str2 = token, v_count = 0;; str2 = NULL, v_count++) {
+                subtoken = strtok_r(str2, slash, &saveptr2);
+                if (subtoken == NULL) {
+                  break;
+                } else if (v_count == 0) {
+                  cur_index = atoi(subtoken) - 1;
+                  obj->polygons[p++] = cur_index;
+                  if (temp_ind == 0) {
+                    temp_f = cur_index;
+                  } else {
+                    obj->polygons[p++] = cur_index;
+                  }
+                }
+              }
             }
-            if (countelement == 1) {                        // else if
-              obj->facets_arr[++*j] = obj->facets_arr[*j];  // ???
-            }
-            if (countelement == 2) {
-              obj->facets_arr[++*j] = obj->facets_arr[*j];
-              obj->facets_arr[++*j] = firstelemfaset;
-            }
-            ++*j;
-            counter = 0;
-            break;
+          }
+
+          err = p;
         }
-        ++countelement;
+      } else {
+        free(obj->vertexes);
+        err = -1;
       }
     } else {
-      digits[counter] = buffer[i];
-      digits[++counter] = '\0';
+      err = -1;
     }
-    ++i;
+    fclose(file);
   }
-  return 0;
+
+  return err;
 }
-
-int parse_file(const char* filename, obj_file* obj) {
-  FILE* fp = fopen(filename, "r");
-  if (fp == NULL) return 1;
-  char buffer[255];
-  int countvertex = 0;
-  int countfacets = 0;
-  int checkflag;
-  while (fgets(buffer, sizeof(buffer), fp) != NULL) {
-    if (buffer[0] == 'v' && buffer[1] == ' ') {
-      checkflag = 1;
-      if (fill_arr(obj, &countvertex, buffer, checkflag) == 1) return 1;
-    }
-    if (buffer[0] == 'f' && buffer[1] == ' ') {
-      checkflag = 2;
-      if (fill_arr(obj, &countfacets, buffer, checkflag) == 1) return 1;
-    }
-  }
-  fclose(fp);
-  return 0;
-}
-
-// int main() {
-//   const char* str = "./cube.obj";
-//   obj_file obj;
-
-//  parse_num_vertex_facets(str, &obj);
-//  printf("%d----%d\n", obj.num_vertex, obj.num_facets);
-//  int ff = init_obj_struct(&obj);
-//  printf("%d\n", ff);
-//  parse_file(str, &obj);
-//  // for (int g = 0; g < 6; ++g) {
-//  //   printf("%d ", obj.facets_arr[g]);
-//  // }
-//  // printf("\n");
-//  for (int g = 0; g < obj.num_facets; ++g) {
-//    printf("%d ", obj.facets_arr[g]);
-//  }
-
-//  // for(int i = 0; i < obj.num_vertex)
-//  // printf("%lf  %lf  %lf\n", obj.vertex_arr[0], obj.vertex_arr[1],
-//  //        obj.vertex_arr[2]);
-//  // printf("%lf  %lf  %lf\n", obj.vertex_arr[3], obj.vertex_arr[4],
-//  //        obj.vertex_arr[5]);
-//  // printf("%d  %d  %d\n", obj.facets_arr[0], obj.facets_arr[1],
-//  //        obj.facets_arr[2]);
-//  // printf("%d  %d  %d\n", obj.facets_arr[3], obj.facets_arr[4],
-//  //        obj.facets_arr[5]);
-
-//  return 0;
-//}
