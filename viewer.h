@@ -2,6 +2,10 @@
 #define VIEWER_H
 
 #include <QMainWindow>
+#include "./qtgifimage/gifimage/qgifimage.h"
+#include <QTimer>
+#include <QMessageBox>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -71,15 +75,25 @@ class viewer : public QMainWindow {
 
   void on_pushButton_14_pressed();
 
+  void gifFile();
+
  private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";
+
+  QTimer *tmr = new QTimer();
+  QGifImage *gif = new QGifImage;
+  QString fname_gif;
+  int time = 0;
+
   void settings_load();
   void setup_defaults();
   void settings_save();
   void reset_obj();
   QString fileName;
   void file_proccessing(QString file_name);
+  void wtimer();
+  void error_message(QString message);
 };
 #endif  // VIEWER_H

@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QSettings>
 #include <iostream>
-#include "./qtgifimage/gifimage/qgifimage.h"
+
 #include "QKeyEvent"
 #include "ui_viewer.h"
 
@@ -271,67 +271,53 @@ void viewer::on_pushButton_12_pressed() // JPEG сохранение
 
 void viewer::on_pushButton_13_pressed()  //  Начать запись для gif
 {
-//    if (check_open_file_button) {
-//      this->ui->GLwidget->wtimer();
-//      //    check_open_file_button = 0;
-//    } else {
-//      error_message("Выберите путь");
-//      //    check_open_file_button = 0;
-//    }
-    flag = 1;
+    QString filters("GIF (*.gif)");
+    QString defaultFilter("GIF (*.gif)");
+    fname_gif = "";
+    fname_gif = QFileDialog::getSaveFileName(
+        0, "Save GIF", QDir::currentPath(), filters, &defaultFilter);
+
+    if (fname_gif != "") {
+      wtimer();
+    } else {
+      error_message("Выберите путь");
+      //    check_open_file_button = 0;
+    }
+
+
+
+    flag = 1; //  ???
 }
 
-//void GLWidget::wtimer() {
-//  tmr->start(100);
-//  connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
-//}
+void viewer::error_message(QString message) {
+  QMessageBox messageBox;
+  messageBox.critical(0, "Error", message);
+  messageBox.setFixedSize(500, 200);
+}
 
-//void GLWidget::gifFile() {
-//  time++;
-//  QImage image = GLWidget::grabFramebuffer();
-//  gif->setDefaultDelay(10);
-//  gif->addFrame(image);
+void viewer::wtimer() {
+  tmr->start(100);
+  connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
+}
 
-//  if (time == 50) {
-//    tmr->stop();
-//    gif->save(fname_gif);
-//    time = 0;
-//    image.QImage::bits();
-//  }
-//}
+void viewer::gifFile() {
+  time++;
+  QImage image = ui->widget->grabFramebuffer();
+
+  gif->setDefaultDelay(10);
+  gif->addFrame(image);
+
+  if (time == 50) {
+    tmr->stop();
+    gif->save(fname_gif);
+    time = 0;
+    image.QImage::bits();
+  }
+}
 
 
 void viewer::on_pushButton_14_pressed()  //  Закончить запись
 {
 
-//    QString filters("GIF (*.gif)");
-//    QString defaultFilter("GIF (*.gif)");
-//    this->ui->GLwidget->fname_gif = "";
-//    this->ui->GLwidget->fname_gif = QFileDialog::getSaveFileName(
-//        0, "Save GIF", QDir::currentPath(), filters, &defaultFilter);
-//    ui->leDirectory->setText(this->ui->GLwidget->fname_gif);
-//    check_open_file_button = 1;
-
-//    flag = 0;
-//        QString fileName = QFileDialog::getSaveFileName(this, tr("Save screenshot"), "", tr("GIF screenshot (*.gif);;GIF screenshot (*.gif)"));
-//        QGifImage gif(QSize(5000, 5000));
-//        QVector<QRgb> ctable;
-//        ctable << qRgb(255, 255, 255)
-//               << qRgb(0, 0, 0)
-//               << qRgb(255, 0, 0)
-//               << qRgb(0, 255, 0)
-//               << qRgb(0, 0, 255)
-//               << qRgb(255, 255, 0)
-//               << qRgb(0, 255, 255)
-//               << qRgb(255, 0, 255);
-
-//        gif.setGlobalColorTable(ctable, Qt::black);
-//        gif.setDefaultTransparentColor(Qt::black);
-//        gif.setDefaultDelay(100);
-
-//        for (QVector<QImage>::Iterator img = mas_image.begin(); img != mas_image.end(); ++img) {
-//            gif.addFrame(*img);
-//        }
-//        gif.save(fileName);
 
 }
