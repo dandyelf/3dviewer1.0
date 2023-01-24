@@ -42,13 +42,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_14">
-        <property name="text">
-         <string>Стоп запись</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="pushButton_2">
         <property name="text">
          <string>Выход</string>
@@ -573,7 +566,7 @@
      <x>0</x>
      <y>0</y>
      <width>1247</width>
-     <height>24</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

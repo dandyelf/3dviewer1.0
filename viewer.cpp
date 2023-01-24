@@ -273,30 +273,25 @@ void viewer::on_pushButton_13_pressed()  //  Начать запись для gi
 {
     QString filters("GIF (*.gif)");
     QString defaultFilter("GIF (*.gif)");
-    fname_gif = "";
-    fname_gif = QFileDialog::getSaveFileName(
-        0, "Save GIF", QDir::currentPath(), filters, &defaultFilter);
-
+//    fname_gif = "";
+    QString path2 = path;
+    fname_gif = QFileDialog::getSaveFileName(this
+        , tr("Save GIF"), path2, tr("Gif Files (*.gif)"));
     if (fname_gif != "") {
       wtimer();
     } else {
-      error_message("Выберите путь");
-      //    check_open_file_button = 0;
+      error_message("Нет папки");
     }
-
-
-
-    flag = 1; //  ???
 }
 
 void viewer::error_message(QString message) {
   QMessageBox messageBox;
-  messageBox.critical(0, "Error", message);
+  messageBox.critical(0, "Info", message);
   messageBox.setFixedSize(500, 200);
 }
 
 void viewer::wtimer() {
-  tmr->start(100);
+  tmr->start(60);
   connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
 }
 
@@ -307,17 +302,11 @@ void viewer::gifFile() {
   gif->setDefaultDelay(10);
   gif->addFrame(image);
 
-  if (time == 50) {
+  if (time == 60) {
     tmr->stop();
     gif->save(fname_gif);
     time = 0;
     image.QImage::bits();
+    error_message("Gif saved.");
   }
-}
-
-
-void viewer::on_pushButton_14_pressed()  //  Закончить запись
-{
-
-
 }

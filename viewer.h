@@ -73,8 +73,6 @@ class viewer : public QMainWindow {
 
   void on_pushButton_13_pressed();
 
-  void on_pushButton_14_pressed();
-
   void gifFile();
 
  private:
