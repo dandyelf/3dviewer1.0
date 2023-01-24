@@ -1,6 +1,7 @@
 #include "viewer.h"
 
 #include <QDebug>
+#include <QtMath>
 #include <QFileDialog>
 #include <QSettings>
 #include <iostream>
@@ -11,6 +12,7 @@
 viewer::viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::viewer) {
   setlocale(LC_ALL, "en_US.UTF-8");
   ui->setupUi(this);
+  ui->pushButton_11->setVisible(0);
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
   obj.facet_elem = 0;
@@ -114,9 +116,7 @@ void viewer::settings_load() {
   QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
   settings.beginGroup("Main_Settings");
   path = settings.value("path").toString();
-  ui->lineEdit_7->setText(settings.value("lineEdit_7").toString());
-  ui->lineEdit_8->setText(settings.value("lineEdit_8").toString());
-  ui->lineEdit_9->setText(settings.value("lineEdit_9").toString());
+
   ui->radioButton->setChecked(settings.value("QCheckBox", true).toBool());
   ui->radioButton_2->setChecked(settings.value("QCheckBox", true).toBool());
   settings.endGroup();
@@ -128,9 +128,7 @@ void viewer::settings_save() {
   QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
   settings.beginGroup("Main_Settings");
   settings.setValue("path", path);
-  settings.setValue("lineEdit_7", ui->lineEdit_7->text());
-  settings.setValue("lineEdit_8", ui->lineEdit_8->text());
-  settings.setValue("lineEdit_9", ui->lineEdit_9->text());
+
   settings.setValue("QCheckBox", ui->radioButton->isChecked());
   settings.setValue("QCheckBox", ui->radioButton_2->isChecked());
   settings.endGroup();
@@ -204,6 +202,7 @@ void viewer::file_proccessing(QString fileName)
 
     reset_obj();
     int err = StartPars(file, &obj);
+
     if (!err) {
        qDebug() << "i am in..";
       ////scaling block
@@ -310,3 +309,31 @@ void viewer::gifFile() {
     error_message("Gif saved.");
   }
 }
+
+void viewer::on_horizontalSlider_9_valueChanged(int value)
+{
+    ui->widget->dot_r = (double) value / 100.0;
+    ui->widget->update();
+}
+
+
+void viewer::on_horizontalSlider_8_valueChanged(int value)
+{
+    ui->widget->dot_width = value;
+    ui->widget->update();
+}
+
+
+void viewer::on_horizontalSlider_10_valueChanged(int value)
+{
+    ui->widget->dot_g = (double) value / 100.0;
+    ui->widget->update();
+}
+
+
+void viewer::on_horizontalSlider_11_valueChanged(int value)
+{
+    ui->widget->dot_b = (double) value / 100.0;
+    ui->widget->update();
+}
+

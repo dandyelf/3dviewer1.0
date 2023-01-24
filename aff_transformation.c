@@ -48,29 +48,29 @@ int scale_z(obj_t* obj, double koff) {
   return res;
 }
 
-//void move_x(obj_t* obj, double mv) {
-//  if (mv != 0.0) {
-//    for (int i = 0; i < obj->count_of_vertexes; i += 3) {
-//      obj->vertexes[i] += mv;
-//    }
-//  }
-//}
+void move_x(obj_t* obj, double mv) {
+  if (mv != 0.0) {
+    for (int i = 0; i < obj->count_of_vertexes; i += 3) {
+      obj->vertexes[i] += mv;
+    }
+  }
+}
 
-//void move_y(obj_t* obj, double mv) {
-//  if (mv != 0.0) {
-//    for (int i = 1; i < obj->count_of_vertexes; i += 3) {
-//      obj->vertexes[i] += mv;
-//    }
-//  }
-//}
+void move_y(obj_t* obj, double mv) {
+  if (mv != 0.0) {
+    for (int i = 1; i < obj->count_of_vertexes; i += 3) {
+      obj->vertexes[i] += mv;
+    }
+  }
+}
 
-//void move_z(obj_t* obj, double mv) {
-//  if (mv != 0.0) {
-//    for (int i = 2; i < obj->count_of_vertexes; i += 3) {
-//      obj->vertexes[i] += mv;
-//    }
-//  }
-//}
+void move_z(obj_t* obj, double mv) {
+  if (mv != 0.0) {
+    for (int i = 2; i < obj->count_of_vertexes; i += 3) {
+      obj->vertexes[i] += mv;
+    }
+  }
+}
 
 void shift_dot(obj_t* obj, dot_t dot) {
     for (int i = 0; i < obj->count_of_vertexes*3; i+=3) {
