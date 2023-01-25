@@ -61,7 +61,6 @@ SOURCES       = qtgifimage/3rdParty/giflib/dgif_lib.c \
 		qtgifimage/gifimage/qgifimage.cpp \
 		aff_transformation.c \
 		main.cpp \
-		read_obj.c \
 		s21_viewer.c \
 		scene.cpp \
 		viewer.cpp moc_scene.cpp \
@@ -75,7 +74,6 @@ OBJECTS       = dgif_lib.o \
 		qgifimage.o \
 		aff_transformation.o \
 		main.o \
-		read_obj.o \
 		s21_viewer.o \
 		scene.o \
 		viewer.o \
@@ -158,7 +156,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		qtgifimage/gifimage/qgifimage.h \
 		qtgifimage/gifimage/qgifimage_p.h \
 		aff_transformation.h \
-		read_obj.h \
 		s21_viewer.h \
 		scene.h \
 		viewer.h qtgifimage/3rdParty/giflib/dgif_lib.c \
@@ -170,7 +167,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
 		qtgifimage/gifimage/qgifimage.cpp \
 		aff_transformation.c \
 		main.cpp \
-		read_obj.c \
 		s21_viewer.c \
 		scene.cpp \
 		viewer.cpp
@@ -359,8 +355,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents qtgifimage/gifimage/qgifglobal.h qtgifimage/gifimage/qgifimage.h qtgifimage/gifimage/qgifimage_p.h aff_transformation.h read_obj.h s21_viewer.h scene.h viewer.h $(DISTDIR)/
-	$(COPY_FILE) --parents qtgifimage/3rdParty/giflib/dgif_lib.c qtgifimage/3rdParty/giflib/egif_lib.c qtgifimage/3rdParty/giflib/gif_err.c qtgifimage/3rdParty/giflib/gif_hash.c qtgifimage/3rdParty/giflib/gifalloc.c qtgifimage/3rdParty/giflib/quantize.c qtgifimage/gifimage/qgifimage.cpp aff_transformation.c main.cpp read_obj.c s21_viewer.c scene.cpp viewer.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents qtgifimage/gifimage/qgifglobal.h qtgifimage/gifimage/qgifimage.h qtgifimage/gifimage/qgifimage_p.h aff_transformation.h s21_viewer.h scene.h viewer.h $(DISTDIR)/
+	$(COPY_FILE) --parents qtgifimage/3rdParty/giflib/dgif_lib.c qtgifimage/3rdParty/giflib/egif_lib.c qtgifimage/3rdParty/giflib/gif_err.c qtgifimage/3rdParty/giflib/gif_hash.c qtgifimage/3rdParty/giflib/gifalloc.c qtgifimage/3rdParty/giflib/quantize.c qtgifimage/gifimage/qgifimage.cpp aff_transformation.c main.cpp s21_viewer.c scene.cpp viewer.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents viewer.ui $(DISTDIR)/
 
 
@@ -418,8 +414,7 @@ compiler_uic_make_all: ui_viewer.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_viewer.h
 ui_viewer.h: viewer.ui \
-		/usr/lib/qt6/libexec/uic \
-		scene.h
+		/usr/lib/qt6/libexec/uic
 	/usr/lib/qt6/libexec/uic viewer.ui -o ui_viewer.h
 
 compiler_yacc_decl_make_all:
@@ -476,9 +471,6 @@ main.o: main.cpp viewer.h \
 		aff_transformation.h \
 		s21_viewer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
-
-read_obj.o: read_obj.c read_obj.h
-	$(CC) -c $(CFLAGS) $(INCPATH) -o read_obj.o read_obj.c
 
 s21_viewer.o: s21_viewer.c s21_viewer.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o s21_viewer.o s21_viewer.c
