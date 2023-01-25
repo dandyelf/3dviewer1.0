@@ -14,7 +14,17 @@ class scene : public QOpenGLWidget {
   scene(QWidget *parent = nullptr);
   ~scene();
 
-  void set() { flag = 1; }
+  void set() { data_loaded = 1; }
+  void set_ortho() {
+      ortho = 1;
+      perspective = 0;
+      update();
+  }
+  void set_persp() {
+      ortho = 0;
+      perspective = 1;
+      update();
+  }
   void set_vertex_arr(double *v) { vertex_arr = v; }
   void set_facets_arr(int *f) { facets_arr = f; }
   void set_lines(int l) { lines = l; }
@@ -33,7 +43,11 @@ class scene : public QOpenGLWidget {
 
   double *vertex_arr = nullptr;
   int *facets_arr = nullptr;
-  int flag = 0;
+
+  int data_loaded;
+  int perspective = 1;
+  int ortho = 0;
+
   int lines = 0;
 
   void initializeGL() override;

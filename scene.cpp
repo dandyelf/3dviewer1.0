@@ -23,7 +23,8 @@ void scene::resizeGL(int w, int h) {
   glMatrixMode(GL_PROJECTION);  //  Выбор режима матрицы
   glLoadIdentity();  //  Загрузка единичной матрицы
   //  Умножает текущую матрицу (единичную в данном случае) на матрицу перспективы
-  glFrustum(-1, 1, -1, 1, 1, 3);
+  if(perspective) glFrustum(-1, 1, -1, 1, 1, 3);
+  else if(ortho) glOrtho(-1, 1, -1, 1, 1, 3);
 
 }
 
@@ -57,8 +58,8 @@ void scene::mouseMoveEvent(QMouseEvent *e) {
 void scene::draw() {
   qDebug() << "draw is working..";
 
-  if (flag) {
-    qDebug() << "data recieved..";
+  if (data_loaded) {
+    qDebug() << "persp mode..";
 //    glPushMatrix();
     glVertexPointer(3, GL_DOUBLE, 0, vertex_arr);
     glEnableClientState(GL_VERTEX_ARRAY);
