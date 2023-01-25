@@ -35,13 +35,14 @@ class Ui_viewer
 public:
     QWidget *centralwidget;
     scene *widget;
-    QWidget *widget1;
+    QWidget *layoutWidget;
     QFormLayout *formLayout_3;
     QHBoxLayout *horizontalLayout_11;
     QPushButton *pushButton;
     QPushButton *pushButton_12;
     QPushButton *pushButton_13;
     QPushButton *pushButton_15;
+    QLabel *label_2;
     QPushButton *pushButton_2;
     QGroupBox *groupBox;
     QFormLayout *formLayout;
@@ -154,36 +155,41 @@ public:
         widget->setSizePolicy(sizePolicy);
         widget->setMinimumSize(QSize(600, 600));
         widget->setMaximumSize(QSize(600, 600));
-        widget1 = new QWidget(centralwidget);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(610, 10, 608, 701));
-        formLayout_3 = new QFormLayout(widget1);
+        layoutWidget = new QWidget(centralwidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(610, 10, 608, 711));
+        formLayout_3 = new QFormLayout(layoutWidget);
         formLayout_3->setObjectName(QString::fromUtf8("formLayout_3"));
         formLayout_3->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_11 = new QHBoxLayout();
         horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
-        pushButton = new QPushButton(widget1);
+        pushButton = new QPushButton(layoutWidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setAutoDefault(false);
 
         horizontalLayout_11->addWidget(pushButton);
 
-        pushButton_12 = new QPushButton(widget1);
+        pushButton_12 = new QPushButton(layoutWidget);
         pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
 
         horizontalLayout_11->addWidget(pushButton_12);
 
-        pushButton_13 = new QPushButton(widget1);
+        pushButton_13 = new QPushButton(layoutWidget);
         pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
 
         horizontalLayout_11->addWidget(pushButton_13);
 
-        pushButton_15 = new QPushButton(widget1);
+        pushButton_15 = new QPushButton(layoutWidget);
         pushButton_15->setObjectName(QString::fromUtf8("pushButton_15"));
 
         horizontalLayout_11->addWidget(pushButton_15);
 
-        pushButton_2 = new QPushButton(widget1);
+        label_2 = new QLabel(layoutWidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        horizontalLayout_11->addWidget(label_2);
+
+        pushButton_2 = new QPushButton(layoutWidget);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
 
         horizontalLayout_11->addWidget(pushButton_2);
@@ -191,7 +197,7 @@ public:
 
         formLayout_3->setLayout(0, QFormLayout::SpanningRole, horizontalLayout_11);
 
-        groupBox = new QGroupBox(widget1);
+        groupBox = new QGroupBox(layoutWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setMinimumSize(QSize(300, 0));
         formLayout = new QFormLayout(groupBox);
@@ -241,7 +247,7 @@ public:
 
         formLayout_3->setWidget(1, QFormLayout::LabelRole, groupBox);
 
-        groupBox_3 = new QGroupBox(widget1);
+        groupBox_3 = new QGroupBox(layoutWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
         gridLayout_3 = new QGridLayout(groupBox_3);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
@@ -298,7 +304,7 @@ public:
 
         formLayout_3->setWidget(1, QFormLayout::FieldRole, groupBox_3);
 
-        groupBox_7 = new QGroupBox(widget1);
+        groupBox_7 = new QGroupBox(layoutWidget);
         groupBox_7->setObjectName(QString::fromUtf8("groupBox_7"));
         groupBox_7->setMinimumSize(QSize(300, 0));
         formLayout_2 = new QFormLayout(groupBox_7);
@@ -341,7 +347,7 @@ public:
 
         formLayout_3->setWidget(2, QFormLayout::LabelRole, groupBox_7);
 
-        groupBox_5 = new QGroupBox(widget1);
+        groupBox_5 = new QGroupBox(layoutWidget);
         groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
         groupBox_5->setMinimumSize(QSize(300, 0));
         gridLayout_5 = new QGridLayout(groupBox_5);
@@ -425,7 +431,7 @@ public:
 
         formLayout_3->setWidget(2, QFormLayout::FieldRole, groupBox_5);
 
-        groupBox_2 = new QGroupBox(widget1);
+        groupBox_2 = new QGroupBox(layoutWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setMaximumSize(QSize(300, 16777215));
         gridLayout_2 = new QGridLayout(groupBox_2);
@@ -506,7 +512,7 @@ public:
 
         formLayout_3->setWidget(3, QFormLayout::LabelRole, groupBox_2);
 
-        groupBox_6 = new QGroupBox(widget1);
+        groupBox_6 = new QGroupBox(layoutWidget);
         groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
         gridLayout_6 = new QGridLayout(groupBox_6);
         gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
@@ -583,7 +589,7 @@ public:
 
         formLayout_3->setWidget(3, QFormLayout::FieldRole, groupBox_6);
 
-        groupBox_4 = new QGroupBox(widget1);
+        groupBox_4 = new QGroupBox(layoutWidget);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
         groupBox_4->setMaximumSize(QSize(16777215, 120));
         gridLayout_4 = new QGridLayout(groupBox_4);
@@ -650,7 +656,7 @@ public:
         viewer->setCentralWidget(centralwidget);
         menubar = new QMenuBar(viewer);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1226, 21));
+        menubar->setGeometry(QRect(0, 0, 1226, 22));
         viewer->setMenuBar(menubar);
         statusbar = new QStatusBar(viewer);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -668,6 +674,7 @@ public:
         pushButton_12->setText(QCoreApplication::translate("viewer", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214  JPEG", nullptr));
         pushButton_13->setText(QCoreApplication::translate("viewer", "\320\241\321\202\320\260\321\200\321\202 \320\267\320\260\320\277\320\270\321\201\321\214", nullptr));
         pushButton_15->setText(QCoreApplication::translate("viewer", "\320\241\320\261\321\200\320\276\321\201", nullptr));
+        label_2->setText(QString());
         pushButton_2->setText(QCoreApplication::translate("viewer", "\320\222\321\213\321\205\320\276\320\264", nullptr));
         groupBox->setTitle(QCoreApplication::translate("viewer", "\320\234\320\260\321\201\321\201\321\210\321\202\320\260\320\261", nullptr));
         pushButton_ScaleX->setText(QCoreApplication::translate("viewer", "\320\277\320\276 \320\276\321\201\320\270 X", nullptr));
