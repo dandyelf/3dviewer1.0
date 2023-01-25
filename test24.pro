@@ -15,14 +15,14 @@ include (qtgifimage/gifimage/qtgifimage.pri)
 SOURCES += \
     aff_transformation.c \
     main.cpp \
-    read_obj.c \
+#    read_obj.c \
     s21_viewer.c \
     scene.cpp \
     viewer.cpp
 
 HEADERS += \
     aff_transformation.h \
-    read_obj.h \
+#    read_obj.h \
     s21_viewer.h \
     scene.h \
     viewer.h
