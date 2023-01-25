@@ -28,7 +28,7 @@ class viewer : public QMainWindow {
   viewer(QWidget *parent = nullptr);
   ~viewer();
   obj_t obj;
-  dot_t dot;
+//  dot_t dot;
 
  private slots:
   void on_pushButton_clicked();

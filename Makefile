@@ -414,7 +414,8 @@ compiler_uic_make_all: ui_viewer.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_viewer.h
 ui_viewer.h: viewer.ui \
-		/usr/lib/qt6/libexec/uic
+		/usr/lib/qt6/libexec/uic \
+		scene.h
 	/usr/lib/qt6/libexec/uic viewer.ui -o ui_viewer.h
 
 compiler_yacc_decl_make_all:
