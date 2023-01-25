@@ -21,7 +21,6 @@ viewer::viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::viewer) {
   dot.delta_z = 0.0;
   obj.vertexes = nullptr;
   obj.polygons = nullptr;
-  gif->setDefaultDelay(10);
   tmr->setInterval(100);
   connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
   setup_defaults();
@@ -279,10 +278,13 @@ void viewer::on_pushButton_13_pressed()  //  Начать запись для gi
     fname_gif = QFileDialog::getSaveFileName(this
         , tr("Save GIF"), path2, tr("Gif Files (*.gif)"));
     if (fname_gif != "") {
+      gif2 = new QGifImage;
+      gif2->setDefaultDelay(10);
       wtimer();
     } else {
       error_message("Нет папки");
     }
+
 }
 
 void viewer::error_message(QString message) {
@@ -296,16 +298,19 @@ void viewer::wtimer() {
 }
 
 void viewer::gifFile() {
-  ++time;
   QImage image = ui->widget->grabFramebuffer();
-  gif->addFrame(image);
+
+      gif2->addFrame(image);
   if (time == 50) {
     tmr->stop();
-    gif->save(fname_gif);
+    gif2->save(fname_gif);
     time = 0;
-    error_message("Gif saved.");    
+    error_message("Gif saved.");
+    gif2->~QGifImage();
   }
-  ui->label_2->setText(QString::number(time/10));
+    ++time;
+    ui->label_2->setText(QString::number(time/10));
+
 }
 
 void viewer::on_horizontalSlider_9_valueChanged(int value)

@@ -27,6 +27,7 @@ class viewer : public QMainWindow {
   ~viewer();
   obj_t obj;
   dot_t dot;
+  QGifImage *gif2;
 
  private slots:
   void on_pushButton_clicked();
@@ -88,7 +89,6 @@ private:
   QTimer *tmr = new QTimer();
   QString fname_gif;
   int time = 0;
-  QGifImage *gif = new QGifImage;
   void wtimer();
   void settings_load();
   void setup_defaults();
