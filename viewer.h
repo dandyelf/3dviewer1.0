@@ -2,10 +2,10 @@
 #define VIEWER_H
 
 #include <QMainWindow>
-#include "./qtgifimage/gifimage/qgifimage.h"
-#include <QTimer>
 #include <QMessageBox>
+#include <QTimer>
 
+#include "./qtgifimage/gifimage/qgifimage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -14,9 +14,11 @@ class viewer;
 QT_END_NAMESPACE
 
 extern "C" {
-#include <s21_viewer.h>
-#include <aff_transformation.h>
-#include <read_obj.h>
+//#include <s21_viewer.h>
+//#include <aff_transformation.h>
+//#include <read_obj.h>
+#include "aff_transformation.h"
+#include "s21_viewer.h"
 }
 
 class viewer : public QMainWindow {
@@ -26,7 +28,7 @@ class viewer : public QMainWindow {
   viewer(QWidget *parent = nullptr);
   ~viewer();
   obj_t obj;
-  dot_t dot;
+  //  dot_t dot;
   int flag;
   QVector<QImage> mas_image;
 
@@ -38,14 +40,6 @@ class viewer : public QMainWindow {
   void on_pushButton_4_clicked();
 
   void on_pushButton_3_clicked();
-
-  void on_pushButton_5_clicked();
-
-  void on_pushButton_8_clicked();
-
-  void on_pushButton_7_clicked();
-
-  void on_pushButton_6_clicked();
 
   void on_radioButton_2_toggled();
 
@@ -83,7 +77,23 @@ class viewer : public QMainWindow {
 
   void on_horizontalSlider_11_valueChanged(int value);
 
-private:
+  void on_pushButton_Move_clicked();
+  void on_pushButton_8_clicked();
+  void on_pushButton_7_clicked();
+  void on_pushButton_5_clicked();
+  void on_pushButton_6_clicked();
+  void on_pushButton_Zpos_clicked();
+  void on_pushButton_Zneg_clicked();
+  void on_pushButton_Scale_clicked();
+  void on_pushButton_ScaleX_clicked();
+  void on_pushButton_ScaleY_clicked();
+  void on_pushButton_ScaleZ_clicked();
+  void on_pushButton_Turn_clicked();
+  void on_pushButton_TurnX_clicked();
+  void on_pushButton_TurnY_clicked();
+  void on_pushButton_TurnZ_clicked();
+
+ private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";

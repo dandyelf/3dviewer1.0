@@ -4,6 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
+#LIBS += -lopengl32 #для запуска на Винде
+
 include (qtgifimage/gifimage/qtgifimage.pri)
 
 # You can make your code fail to compile if it uses deprecated APIs.
