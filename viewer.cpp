@@ -21,6 +21,9 @@ viewer::viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::viewer) {
   //  dot.delta_z = 0.0;
   obj.vertexes = nullptr;
   obj.polygons = nullptr;
+  gif->setDefaultDelay(10);
+  tmr->setInterval(100);
+  connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
   setup_defaults();
 }
 
@@ -226,7 +229,7 @@ void viewer::on_pushButton_13_pressed()  //  Начать запись для gi
   QString filters("GIF (*.gif)");
   QString defaultFilter("GIF (*.gif)");
   //    fname_gif = "";
-  QString path2 = path;
+  QString path2 = path + ".gif";
   fname_gif = QFileDialog::getSaveFileName(this, tr("Save GIF"), path2,
                                            tr("Gif Files (*.gif)"));
   if (fname_gif != "") {
@@ -242,25 +245,19 @@ void viewer::error_message(QString message) {
   messageBox.setFixedSize(500, 200);
 }
 
-void viewer::wtimer() {
-  tmr->start(60);
-  connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
-}
+void viewer::wtimer() { tmr->start(); }
 
 void viewer::gifFile() {
-  time++;
+  ++time;
   QImage image = ui->widget->grabFramebuffer();
-
-  gif->setDefaultDelay(10);
   gif->addFrame(image);
-
-  if (time == 60) {
+  if (time == 50) {
     tmr->stop();
     gif->save(fname_gif);
     time = 0;
-    image.QImage::bits();
     error_message("Gif saved.");
   }
+  ui->label_2->setText(QString::number(time / 10));
 }
 
 void viewer::on_horizontalSlider_9_valueChanged(int value) {

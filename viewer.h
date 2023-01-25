@@ -14,9 +14,9 @@ class viewer;
 QT_END_NAMESPACE
 
 extern "C" {
-//#include <s21_viewer.h>
-//#include <aff_transformation.h>
-//#include <read_obj.h>
+// #include <s21_viewer.h>
+// #include <aff_transformation.h>
+// #include <read_obj.h>
 #include "aff_transformation.h"
 #include "s21_viewer.h"
 }
@@ -28,9 +28,7 @@ class viewer : public QMainWindow {
   viewer(QWidget *parent = nullptr);
   ~viewer();
   obj_t obj;
-  //  dot_t dot;
-  int flag;
-  QVector<QImage> mas_image;
+  dot_t dot;
 
  private slots:
   void on_pushButton_clicked();
@@ -97,19 +95,17 @@ class viewer : public QMainWindow {
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";
-
   QTimer *tmr = new QTimer();
-  QGifImage *gif = new QGifImage;
   QString fname_gif;
   int time = 0;
-
+  QGifImage *gif = new QGifImage;
+  void wtimer();
   void settings_load();
   void setup_defaults();
   void settings_save();
   void reset_obj();
   QString fileName;
   void file_proccessing(QString file_name);
-  void wtimer();
   void error_message(QString message);
 };
 #endif  // VIEWER_H
