@@ -25,12 +25,8 @@ class viewer : public QMainWindow {
  public:
   viewer(QWidget *parent = nullptr);
   ~viewer();
-  QGifImage *gif = new QGifImage;
   obj_t obj;
   dot_t dot;
-//  int flag;
-  void wtimer();
-  QVector<QImage> mas_image;
 
  private slots:
   void on_pushButton_clicked();
@@ -89,18 +85,17 @@ private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";
-
   QTimer *tmr = new QTimer();
   QString fname_gif;
   int time = 0;
-
+  QGifImage *gif = new QGifImage;
+  void wtimer();
   void settings_load();
   void setup_defaults();
   void settings_save();
   void reset_obj();
   QString fileName;
   void file_proccessing(QString file_name);
-
   void error_message(QString message);
 };
 #endif  // VIEWER_H
