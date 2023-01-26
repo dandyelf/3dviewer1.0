@@ -46,21 +46,21 @@ void viewer::on_pushButton_clicked() {
 
 void viewer::on_pushButton_2_clicked() { QApplication::quit(); }
 
-void viewer::on_pushButton_4_clicked() {
-  for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
-    obj.vertexes[i] /= 0.95;
-  }
-  ui->widget->set_vertex_arr(obj.vertexes);
-  ui->widget->update();
-}
+//void viewer::on_pushButton_4_clicked() {
+//  for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
+//    obj.vertexes[i] /= 0.95;
+//  }
+//  ui->widget->set_vertex_arr(obj.vertexes);
+//  ui->widget->update();
+//}
 
-void viewer::on_pushButton_3_clicked() {
-  for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
-    obj.vertexes[i] *= 0.95;
-  }
-  ui->widget->set_vertex_arr(obj.vertexes);
-  ui->widget->update();
-}
+//void viewer::on_pushButton_3_clicked() {
+//  for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
+//    obj.vertexes[i] *= 0.95;
+//  }
+//  ui->widget->set_vertex_arr(obj.vertexes);
+//  ui->widget->update();
+//}
 
 void viewer::on_radioButton_2_toggled() {
   ui->widget->stipple = true;
