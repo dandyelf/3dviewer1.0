@@ -15,7 +15,6 @@ typedef struct {
 
 int parse_num_vertex_facets(const char* filename, obj_t* obj);
 int init_obj_struct(obj_t* obj);
-void free_obj(obj_t* obj);
 int parse_file(const char* filename, obj_t* obj);
 int check_facet_format(char* str);
 int StartPars(const char* filename, obj_t* obj);

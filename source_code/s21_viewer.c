@@ -36,14 +36,9 @@ void count_facets(char* buffer, obj_t* obj) {
   }
 }
 
-void free_obj(obj_t* obj) {
-  free(obj->vertexes);
-  free(obj->polygons);
-}
-
 int init_obj_struct(obj_t* obj) {
   int err = 0;
-  obj->vertexes = (double*)calloc(obj->count_of_vertexes *3, sizeof(double));
+  obj->vertexes = (double*)calloc(obj->count_of_vertexes*3, sizeof(double));
   if (obj->vertexes == NULL) err = 1;
   obj->polygons = (int*)calloc(obj->facet_elem, sizeof(int));
   if (obj->polygons == NULL) err = 1;
