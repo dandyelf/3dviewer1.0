@@ -118,17 +118,17 @@ void viewer::keyPressEvent(QKeyEvent *e) {
   }
 }
 
-void viewer::on_horizontalSlider_3_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_3_valueChanged(int value) {
   ui->widget->fon_r = ((double)value) / 100.0;
   ui->widget->update();
 }
 
-void viewer::on_horizontalSlider_4_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_4_valueChanged(int value) {
   ui->widget->fon_g = ((double)value) / 100.0;
   ui->widget->update();
 }
 
-void viewer::on_horizontalSlider_5_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_5_valueChanged(int value) {
   ui->widget->fon_b = ((double)value) / 100.0;
   ui->widget->update();
 }
@@ -191,22 +191,22 @@ void viewer::file_proccessing(QString fileName) {
   }
 }
 
-void viewer::on_horizontalSlider_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_valueChanged(int value) {
   ui->widget->line_width = (double)value;
   ui->widget->update();
 }
 
-void viewer::on_horizontalSlider_2_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_2_valueChanged(int value) {
   ui->widget->line_r = ((double)value) / 100.0;
   ui->widget->update();
 }
 
-void viewer::on_horizontalSlider_6_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_6_valueChanged(int value) {
   ui->widget->line_g = ((double)value) / 100.0;
   ui->widget->update();
 }
 
-void viewer::on_horizontalSlider_7_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_7_valueChanged(int value) {
   ui->widget->line_b = ((double)value) / 100.0;
   ui->widget->update();
 }
@@ -260,22 +260,22 @@ void viewer::gifFile() {
   ui->label_2->setText(QString::number(time / 10));
 }
 
-void viewer::on_horizontalSlider_9_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_9_valueChanged(int value) {
   ui->widget->dot_r = (double)value / 100.0;
   ui->widget->update();
 }
 
-void viewer::on_horizontalSlider_8_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_8_valueChanged(int value) {
   ui->widget->dot_width = value;
   ui->widget->update();
 }
 
-void viewer::on_horizontalSlider_10_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_10_valueChanged(int value) {
   ui->widget->dot_g = (double)value / 100.0;
   ui->widget->update();
 }
 
-void viewer::on_horizontalSlider_11_valueChanged(int value) {
+void viewer::on_horizontalScrollBar_11_valueChanged(int value) {
   ui->widget->dot_b = (double)value / 100.0;
   ui->widget->update();
 }

@@ -7,7 +7,7 @@
 #include "s21_viewer.h"
 
 START_TEST(testparser) {
-        char *file = "source_code/obj/easyCube.obj";
+        char *file = "obj/easyCube.obj";
         obj_t obj;
         StartPars(file, &obj);
         int facets_count_test = 72;
@@ -22,7 +22,7 @@ START_TEST(testparser) {
             0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
                     0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 9.0, 9.0, 1.0};
         ck_assert_int_eq(facets_count_test, obj.facet_elem);
-        ck_assert_int_eq(vertex_count_test, obj.count_of_vertexes*3);
+        ck_assert_int_eq(vertex_count_test, obj.count_of_vertexes);
         ck_assert_int_eq(facet_line_test, obj.count_of_facets);
         for (int i = 0; i < facets_count_test; i++) {
             ck_assert_int_eq(arr_of_facets_test[i], obj.polygons[i]);

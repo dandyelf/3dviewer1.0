@@ -45,19 +45,19 @@ class viewer : public QMainWindow {
 
   void keyPressEvent(QKeyEvent *) override;
 
-  void on_horizontalSlider_3_valueChanged(int value);
+  void on_horizontalScrollBar_3_valueChanged(int value);
 
-  void on_horizontalSlider_4_valueChanged(int value);
+  void on_horizontalScrollBar_4_valueChanged(int value);
 
-  void on_horizontalSlider_5_valueChanged(int value);
+  void on_horizontalScrollBar_5_valueChanged(int value);
 
-  void on_horizontalSlider_valueChanged(int value);
+  void on_horizontalScrollBar_valueChanged(int value);
 
-  void on_horizontalSlider_2_valueChanged(int value);
+  void on_horizontalScrollBar_2_valueChanged(int value);
 
-  void on_horizontalSlider_6_valueChanged(int value);
+  void on_horizontalScrollBar_6_valueChanged(int value);
 
-  void on_horizontalSlider_7_valueChanged(int value);
+  void on_horizontalScrollBar_7_valueChanged(int value);
 
   void on_pushButton_15_clicked();
 
@@ -67,13 +67,13 @@ class viewer : public QMainWindow {
 
   void gifFile();
 
-  void on_horizontalSlider_9_valueChanged(int value);
+  void on_horizontalScrollBar_9_valueChanged(int value);
 
-  void on_horizontalSlider_8_valueChanged(int value);
+  void on_horizontalScrollBar_8_valueChanged(int value);
 
-  void on_horizontalSlider_10_valueChanged(int value);
+  void on_horizontalScrollBar_10_valueChanged(int value);
 
-  void on_horizontalSlider_11_valueChanged(int value);
+  void on_horizontalScrollBar_11_valueChanged(int value);
 
   void on_pushButton_Move_clicked();
   void on_pushButton_8_clicked();
