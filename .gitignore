@@ -58,3 +58,4 @@ a.ou*
 test24.pro.*
 *.identifire
 .qmake.stash
+build-test24-Desktop-Debug
