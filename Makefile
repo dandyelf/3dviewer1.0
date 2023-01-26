@@ -10,7 +10,7 @@ ifeq ($(OS), Darwin)
 	APPLICATION = test24.app
 	OPEN = open
 else
-    LIBS := -lcheck_pic -lpthread -lrt -lsubunit -g
+    LIBS := -lcheck_pic -lrt -lpthread -lsubunit -lm -g
 	APPLICATION = test24
 	OPEN = ./
 endif
