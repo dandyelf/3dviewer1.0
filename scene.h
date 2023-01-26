@@ -9,7 +9,7 @@
 class scene : public QOpenGLWidget {
   Q_OBJECT
  public:
-  scene();
+  scene(QWidget *parent = nullptr);
 
   void set();
   void set_ortho();
