@@ -56,4 +56,5 @@ dkms.conf
 .vscode
 a.ou*
 test24.pro.*
-*Zone.Identifier
+*.identifire
+.qmake.stash
