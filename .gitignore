@@ -55,7 +55,7 @@ dkms.conf
 
 .vscode
 a.ou*
-test24.pro.*
+3dviewer.pro.*
 *.identifire
 .qmake.stash
 build-test24-Desktop-Debug
