@@ -14,7 +14,7 @@ scene::~scene() { qDebug() << "scene destroyed"; }
 
 void scene::initializeGL() {
   qDebug() << "initializeGL is working..";
-      glEnable(GL_DEPTH_TEST);
+  glEnable(GL_DEPTH_TEST);
 }
 
 void scene::resizeGL(int w, int h) {
@@ -22,10 +22,12 @@ void scene::resizeGL(int w, int h) {
   glViewport(0, 0, w, h);
   glMatrixMode(GL_PROJECTION);  //  Выбор режима матрицы
   glLoadIdentity();  //  Загрузка единичной матрицы
-  //  Умножает текущую матрицу (единичную в данном случае) на матрицу перспективы
-  if(perspective) glFrustum(-1, 1, -1, 1, 1, 3);
-  else if(ortho) glOrtho(-1, 1, -1, 1, 1, 3);
-
+  //  Умножает текущую матрицу (единичную в данном случае) на матрицу
+  //  перспективы
+  if (perspective)
+    glFrustum(-1, 1, -1, 1, 1, 3);
+  else if (ortho)
+    glOrtho(-1, 1, -1, 1, 1, 3);
 }
 
 void scene::paintGL() {
@@ -60,7 +62,7 @@ void scene::draw() {
 
   if (data_loaded) {
     qDebug() << "persp mode..";
-//    glPushMatrix();
+    //    glPushMatrix();
     glVertexPointer(3, GL_DOUBLE, 0, vertex_arr);
     glEnableClientState(GL_VERTEX_ARRAY);
     glColor3f(line_r, line_g, line_b);
@@ -76,7 +78,7 @@ void scene::draw() {
     glColor3f(dot_r, dot_g, dot_b);
     glDrawElements(GL_POINTS, lines, GL_UNSIGNED_INT, facets_arr);
     glDisableClientState(GL_VERTEX_ARRAY);
-//    glPopMatrix();
+    //    glPopMatrix();
 
     qDebug() << "Image was loaded.."
              << "lines is:" << lines;

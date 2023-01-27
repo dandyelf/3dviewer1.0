@@ -16,14 +16,14 @@ class scene : public QOpenGLWidget {
 
   void set() { data_loaded = 1; }
   void set_ortho() {
-      ortho = 1;
-      perspective = 0;
-      update();
+    ortho = 1;
+    perspective = 0;
+    update();
   }
   void set_persp() {
-      ortho = 0;
-      perspective = 1;
-      update();
+    ortho = 0;
+    perspective = 1;
+    update();
   }
   void set_vertex_arr(double *v) { vertex_arr = v; }
   void set_facets_arr(int *f) { facets_arr = f; }

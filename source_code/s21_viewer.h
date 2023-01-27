@@ -21,5 +21,4 @@ int check_facet_format(char* str);
 int StartPars(const char* filename, obj_t* obj);
 void count_facets(char* buffer, obj_t* obj);
 
-
 #endif  // SRC_S21_3DVIEWER_H_

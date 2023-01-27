@@ -11,12 +11,6 @@ typedef enum RESULT {
   ERR_ZERO,  // масштаб с коэффициентом 0
 } RESULT;
 
-// typedef struct dot {
-//  double delta_x;
-//  double delta_y;
-//  double delta_z;
-//} dot_t;
-
 int scale(obj_t* obj, double koff);
 int scale_x(obj_t* obj, double koff);
 int scale_y(obj_t* obj, double koff);
