@@ -8,6 +8,7 @@
 scene::scene(QWidget* parent) : QOpenGLWidget(parent) {
   fon_r_ = 0.30, fon_g_ = 0.30, fon_b_ = 0.30;
   perspective_ = 1;
+  stipple = false;
 }
 
 void scene::initializeGL() { glEnable(GL_DEPTH_TEST); }
