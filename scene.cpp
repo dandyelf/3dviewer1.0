@@ -7,8 +7,9 @@
 
 scene::scene(QWidget* parent) : QOpenGLWidget(parent) {
   fon_r_ = 0.30, fon_g_ = 0.30, fon_b_ = 0.30;
-  perspective_ = 1;
+  perspective = true;
   stipple = false;
+  points = true;
 }
 
 void scene::initializeGL() { glEnable(GL_DEPTH_TEST); }
@@ -21,7 +22,7 @@ void scene::paintGL() {
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  if (perspective_)
+  if (perspective)
     glFrustum(-1, 1, -1, 1, 1 / (2 * tan((60.0 * M_PI / 180) / 2)), 6);
   else
     glOrtho(-1, 1, -1, 1, 1, 3);
@@ -37,11 +38,11 @@ void scene::paintGL() {
 }
 
 void scene::set_ortho() {
-  perspective_ = 0;
+  perspective = false;
   update();
 }
 void scene::set_persp() {
-  perspective_ = 1;
+  perspective = true;
   update();
 }
 void scene::set() { data_loaded_ = 1; }
@@ -71,10 +72,15 @@ void scene::draw() {
     glDrawElements(GL_LINES, lines_, GL_UNSIGNED_INT, facets_arr_);
     glPointSize(dot_width);
     glColor3f(dot_r_, dot_g_, dot_b_);
-    glDrawElements(GL_POINTS, lines_, GL_UNSIGNED_INT, facets_arr_);
+    if (points) {
+      if (smooth) {
+        glEnable(GL_POINT_SMOOTH);
+      }
+      glDrawElements(GL_POINTS, lines_, GL_UNSIGNED_INT, facets_arr_);
+    }
     glDisableClientState(GL_VERTEX_ARRAY);
     if (stipple) glDisable(GL_LINE_STIPPLE);
-
+    if (smooth) glDisable(GL_POINT_SMOOTH);
   }
 
   //    glDrawArrays(GL_TRIANGLES, 1, 12);  //  Данный вариант рисует

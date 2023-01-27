@@ -23,7 +23,7 @@ class scene : public QOpenGLWidget {
   double line_r_{}, line_g_{}, line_b_{};
   double dot_r_{}, dot_g_{}, dot_b_{};
 
-  bool stipple;
+  bool stipple, points, smooth, perspective;
   double line_width;
   double dot_width;
 
@@ -31,8 +31,6 @@ class scene : public QOpenGLWidget {
   void initializeGL() override;
   void resizeGL(int w, int h) override;
   void paintGL() override;
-
-  int perspective_{};
 
   int data_loaded_{};
   int lines_{};
