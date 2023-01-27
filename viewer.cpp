@@ -18,18 +18,16 @@ Viewer::Viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Viewer) {
   obj.facet_elem = 0;
   obj.vertexes = nullptr;
   obj.polygons = nullptr;
-
-  tmr = new QTimer();
   path_ = "/Users/";
-
-//  gif->setDefaultDelay(10);
-//  tmr->setInterval(100);
-//  connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
-
+  gif_tmr_ = new QTimer();
+  connect(gif_tmr_, SIGNAL(timeout()), this, SLOT(gif_create()));
   setup_defaults();
 }
 
-Viewer::~Viewer() { delete ui; }
+Viewer::~Viewer() {
+    gif_tmr_->~QTimer();
+    delete ui;
+}
 
 void Viewer::setup_defaults() { settings_load(); }
 
@@ -108,6 +106,8 @@ void Viewer::on_horizontalScrollBar_3_valueChanged(int value)
     ui->widget->fon_b_ = ((double)value) / 100.0;
     ui->widget->update();
 }
+
+
 void Viewer::reset_obj() {
   qDebug() << "reset obj...";
   obj.count_of_vertexes = 0;
@@ -118,6 +118,8 @@ void Viewer::reset_obj() {
   obj.vertexes = NULL;
   obj.polygons = NULL;
 }
+
+
 void Viewer::file_proccessing(QString fileName) {
   path_ = fileName;
 
@@ -161,6 +163,7 @@ void Viewer::file_proccessing(QString fileName) {
     ////end data set
   }
 }
+
 
 void Viewer::on_horizontalScrollBar_7_valueChanged(int value)
 {
@@ -206,40 +209,51 @@ void Viewer::on_pushButton_2_clicked()
 }
 
 
-//void Viewer::on_pushButton_3_clicked()
-//{
-//    QString filters("GIF (*.gif)");
-//    QString defaultFilter("GIF (*.gif)");
-//    //    fname_gif = "";
-//    QString path2 = path_ + ".gif";
-//    fname_gif = QFileDialog::getSaveFileName(this, tr("Save GIF"), path2,
-//                                             tr("Gif Files (*.gif)"));
-//    if (fname_gif != "") {
-//      wtimer();
-//    } else {
-//      error_message("Нет папки");
-//    }
-//}
+void Viewer::on_pushButton_3_clicked()
+{
+    QString path2 = path_ + ".gif";
+    fname_gif_ = QFileDialog::getSaveFileName(this, tr("Save GIF"), path2,
+                                             tr("Gif Files (*.gif)"));
+    if (fname_gif_ != "" && !now_recording_) {
+      gif_img_ = new QGifImage;
+      gif_img_->setDefaultDelay(10);
+      gif_timer();
+      now_recording_ = 1;
+    } else {
+      error_message("Нет папки");
+    }
+}
+
 
 void Viewer::error_message(QString message) {
   QMessageBox messageBox;
   messageBox.critical(0, "Info", message);
   messageBox.setFixedSize(500, 200);
 }
-//void Viewer::wtimer() { tmr->start(); }
 
-//void Viewer::gifFile() {
-//  ++time;
-//  QImage image = ui->widget->grabFramebuffer();
-//  gif->addFrame(image);
-//  if (time == 50) {
-//    tmr->stop();
-//    gif->save(fname_gif);
-//    time = 0;
-//    error_message("Gif saved.");
-//  }
-//  ui->label_2->setText(QString::number(time / 10));
-//}
+
+void Viewer::gif_timer() {
+    gif_tmr_->setInterval(100);
+    gif_tmr_->start();
+}
+
+
+void Viewer::gif_create() {
+  QImage image = ui->widget->grabFramebuffer();
+  gif_img_->addFrame(image);
+  if (time_ == 50) {
+    gif_tmr_->stop();
+    gif_img_->save(fname_gif_);
+    time_ = 0;
+    error_message("Gif saved.");
+    gif_img_->~QGifImage();
+    now_recording_ = 0;
+    ui->pushButton_3->setText("Старт запись");
+  }
+  ++time_;
+  if(now_recording_)ui->pushButton_3->setText(QString::number(time_ / 10));
+}
+
 
 void Viewer::on_horizontalScrollBar_8_valueChanged(int value)
 {
