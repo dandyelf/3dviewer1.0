@@ -5,27 +5,25 @@
 
 #include "QMouseEvent"
 
-scene::scene(QWidget *parent) : QOpenGLWidget(parent) {
+scene::scene(QWidget* parent) : QOpenGLWidget(parent) {
   fon_r_ = 0.30, fon_g_ = 0.30, fon_b_ = 0.30;
   perspective_ = 1;
 }
 
 void scene::initializeGL() { glEnable(GL_DEPTH_TEST); }
 
-void scene::resizeGL(int w, int h) {
-  glViewport(0, 0, w, h);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  if (perspective_)
-    glFrustum(-1, 1, -1, 1, 1, 3);
-  else if (ortho_)
-    glOrtho(-1, 1, -1, 1, 1, 3);
-}
+void scene::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
 
 void scene::paintGL() {
   glClearColor(fon_r_, fon_g_, fon_b_, 0.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  qDebug() << "paintGL is working..";
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  if (perspective_)
+    glFrustum(-1, 1, -1, 1, 1 / (2 * tan((60.0 * M_PI / 180) / 2)), 6);
+  else
+    glOrtho(-1, 1, -1, 1, 1, 3);
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
@@ -38,12 +36,10 @@ void scene::paintGL() {
 }
 
 void scene::set_ortho() {
-  ortho_ = 1;
   perspective_ = 0;
   update();
 }
 void scene::set_persp() {
-  ortho_ = 0;
   perspective_ = 1;
   update();
 }

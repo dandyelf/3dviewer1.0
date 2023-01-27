@@ -32,8 +32,7 @@ class scene : public QOpenGLWidget {
   void resizeGL(int w, int h) override;
   void paintGL() override;
 
-  int ortho_{};
-  int perspective_;
+  int perspective_{};
 
   int data_loaded_{};
   int lines_{};

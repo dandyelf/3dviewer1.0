@@ -2,6 +2,7 @@
 #define VIEWER_H
 
 #include <QMainWindow>
+
 #include "./qtgifimage/gifimage/qgifimage.h"
 
 QT_BEGIN_NAMESPACE
@@ -24,7 +25,7 @@ class Viewer : public QMainWindow {
 
   obj_t obj;
 
-private slots:
+ private slots:
   void on_pushButton_clicked();
 
   void on_pushButton_5_clicked();
@@ -93,7 +94,11 @@ private slots:
 
   void gif_create();
 
-private:
+  void on_radioButton_2_toggled();
+
+  void on_radioButton_toggled();
+
+ private:
   Ui::Viewer *ui;
 
   int dots_{}, lines_{};
