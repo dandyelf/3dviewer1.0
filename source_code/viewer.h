@@ -35,10 +35,6 @@ class viewer : public QMainWindow {
 
   void on_pushButton_2_clicked();
 
-  void on_pushButton_4_clicked();
-
-  void on_pushButton_3_clicked();
-
   void on_radioButton_2_toggled();
 
   void on_radioButton_toggled();
@@ -90,8 +86,10 @@ class viewer : public QMainWindow {
   void on_pushButton_TurnX_clicked();
   void on_pushButton_TurnY_clicked();
   void on_pushButton_TurnZ_clicked();
+  void on_radioButton_3_toggled();
+  void on_radioButton_4_toggled();
 
- private:
+private:
   Ui::viewer *ui;
   int dots = 0, lines = 0;
   QString path = "/Users/";

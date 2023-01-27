@@ -36,7 +36,8 @@ class scene : public QOpenGLWidget {
   bool stipple = false;
   double line_width = 1.0;
   double dot_width = 1.0;
-
+  int perspective = 1;
+  int ortho = 0;
  private:
   float xRot = 0.0, yRot = 0.0, zRot = 0.0;
   QPoint mPos;
@@ -45,8 +46,7 @@ class scene : public QOpenGLWidget {
   int *facets_arr = nullptr;
 
   int data_loaded;
-  int perspective = 1;
-  int ortho = 0;
+
 
   int lines = 0;
 

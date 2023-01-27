@@ -20,18 +20,25 @@ void scene::initializeGL() {
 void scene::resizeGL(int w, int h) {
   qDebug() << "resizeGL is working..";
   glViewport(0, 0, w, h);
-  glMatrixMode(GL_PROJECTION);  //  Выбор режима матрицы
-  glLoadIdentity();  //  Загрузка единичной матрицы
+
   //  Умножает текущую матрицу (единичную в данном случае) на матрицу перспективы
-  if(perspective) glFrustum(-1, 1, -1, 1, 1, 3);
-  else if(ortho) glOrtho(-1, 1, -1, 1, 1, 3);
+
 
 }
 
 void scene::paintGL() {
+    int flag = 1; // 1  - круг, 0 - квадрат, нужно прикрепить к радиобатон
+    if (flag) {
+      glEnable(GL_POINT_SMOOTH);
+    }
   glClearColor(fon_r, fon_g, fon_b, 0.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   qDebug() << "paintGL is working..";
+
+  glMatrixMode(GL_PROJECTION);  //  Выбор режима матрицы
+  glLoadIdentity();  //  Загрузка единичной матрицы
+  if(perspective) {glFrustum(-1, 1, -1, 1, 1 / (2 * tan((60.0 * M_PI / 180) / 2)),6);  qDebug() << "perspecttive projection";} // 60 градусов переводим в радианы, вычисляем растояние плоскости проекции от плоскости z max
+  else if(ortho) {glOrtho(-1, 1, -1, 1, 1, 3);qDebug() << "ortho projection";}
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
@@ -41,6 +48,9 @@ void scene::paintGL() {
   glRotatef(yRot, 0, 1, 0);
 
   draw();
+  if (flag) {
+    glDisable(GL_POINT_SMOOTH);
+  }
 }
 
 void scene::mousePressEvent(QMouseEvent *e) {
@@ -85,3 +95,4 @@ void scene::draw() {
   //    glDrawArrays(GL_TRIANGLES, 1, 12);  //  Данный вариант рисует
   //    закрашенные треугольники. glEnableClientState(GL_INDEX_ARRAY);
 }
+

@@ -46,13 +46,13 @@ public:
     QPushButton *pushButton_2;
     QGroupBox *groupBox;
     QFormLayout *formLayout;
+    QPushButton *pushButton_Scale;
     QPushButton *pushButton_ScaleX;
     QLineEdit *lineEdit_ScaleX;
     QPushButton *pushButton_ScaleY;
     QLineEdit *lineEdit_ScaleY;
     QPushButton *pushButton_ScaleZ;
     QLineEdit *lineEdit_ScaleZ;
-    QPushButton *pushButton_Scale;
     QGroupBox *groupBox_3;
     QGridLayout *gridLayout_3;
     QHBoxLayout *horizontalLayout_3;
@@ -120,12 +120,10 @@ public:
     QSpacerItem *horizontalSpacer_8;
     QLabel *label_10;
     QGroupBox *groupBox_8;
-    QWidget *layoutWidget1;
-    QVBoxLayout *verticalLayout_4;
+    QVBoxLayout *verticalLayout;
     QRadioButton *radioButton_3;
     QRadioButton *radioButton_4;
     QGroupBox *groupBox_5;
-    QWidget *widget1;
     QFormLayout *formLayout_5;
     QVBoxLayout *verticalLayout_3;
     QRadioButton *radioButton;
@@ -163,7 +161,7 @@ public:
         widget->setMaximumSize(QSize(600, 600));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(611, 11, 608, 746));
+        layoutWidget->setGeometry(QRect(611, 11, 608, 712));
         formLayout_3 = new QFormLayout(layoutWidget);
         formLayout_3->setObjectName(QString::fromUtf8("formLayout_3"));
         formLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -208,6 +206,11 @@ public:
         groupBox->setMinimumSize(QSize(300, 0));
         formLayout = new QFormLayout(groupBox);
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        pushButton_Scale = new QPushButton(groupBox);
+        pushButton_Scale->setObjectName(QString::fromUtf8("pushButton_Scale"));
+
+        formLayout->setWidget(0, QFormLayout::SpanningRole, pushButton_Scale);
+
         pushButton_ScaleX = new QPushButton(groupBox);
         pushButton_ScaleX->setObjectName(QString::fromUtf8("pushButton_ScaleX"));
 
@@ -237,11 +240,6 @@ public:
         lineEdit_ScaleZ->setObjectName(QString::fromUtf8("lineEdit_ScaleZ"));
 
         formLayout->setWidget(3, QFormLayout::FieldRole, lineEdit_ScaleZ);
-
-        pushButton_Scale = new QPushButton(groupBox);
-        pushButton_Scale->setObjectName(QString::fromUtf8("pushButton_Scale"));
-
-        formLayout->setWidget(0, QFormLayout::SpanningRole, pushButton_Scale);
 
         pushButton_ScaleZ->raise();
         pushButton_ScaleY->raise();
@@ -581,21 +579,20 @@ public:
 
         groupBox_8 = new QGroupBox(layoutWidget);
         groupBox_8->setObjectName(QString::fromUtf8("groupBox_8"));
-        layoutWidget1 = new QWidget(groupBox_8);
-        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(40, 40, 137, 54));
-        verticalLayout_4 = new QVBoxLayout(layoutWidget1);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        radioButton_3 = new QRadioButton(layoutWidget1);
+        verticalLayout = new QVBoxLayout(groupBox_8);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        radioButton_3 = new QRadioButton(groupBox_8);
         radioButton_3->setObjectName(QString::fromUtf8("radioButton_3"));
+        radioButton_3->setEnabled(true);
+        radioButton_3->setChecked(true);
 
-        verticalLayout_4->addWidget(radioButton_3);
+        verticalLayout->addWidget(radioButton_3);
 
-        radioButton_4 = new QRadioButton(layoutWidget1);
+        radioButton_4 = new QRadioButton(groupBox_8);
         radioButton_4->setObjectName(QString::fromUtf8("radioButton_4"));
+        radioButton_4->setChecked(false);
 
-        verticalLayout_4->addWidget(radioButton_4);
+        verticalLayout->addWidget(radioButton_4);
 
 
         formLayout_3->setWidget(4, QFormLayout::FieldRole, groupBox_8);
@@ -603,21 +600,17 @@ public:
         groupBox_5 = new QGroupBox(layoutWidget);
         groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
         groupBox_5->setMinimumSize(QSize(300, 0));
-        widget1 = new QWidget(groupBox_5);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(12, 32, 281, 121));
-        formLayout_5 = new QFormLayout(widget1);
+        formLayout_5 = new QFormLayout(groupBox_5);
         formLayout_5->setObjectName(QString::fromUtf8("formLayout_5"));
-        formLayout_5->setContentsMargins(0, 0, 0, 0);
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        radioButton = new QRadioButton(widget1);
+        radioButton = new QRadioButton(groupBox_5);
         radioButton->setObjectName(QString::fromUtf8("radioButton"));
         radioButton->setChecked(true);
 
         verticalLayout_3->addWidget(radioButton);
 
-        radioButton_2 = new QRadioButton(widget1);
+        radioButton_2 = new QRadioButton(groupBox_5);
         radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
 
         verticalLayout_3->addWidget(radioButton_2);
@@ -627,37 +620,37 @@ public:
 
         formLayout_4 = new QFormLayout();
         formLayout_4->setObjectName(QString::fromUtf8("formLayout_4"));
-        label_11 = new QLabel(widget1);
+        label_11 = new QLabel(groupBox_5);
         label_11->setObjectName(QString::fromUtf8("label_11"));
         label_11->setMaximumSize(QSize(12, 16777215));
 
         formLayout_4->setWidget(0, QFormLayout::LabelRole, label_11);
 
-        horizontalScrollBar_2 = new QScrollBar(widget1);
+        horizontalScrollBar_2 = new QScrollBar(groupBox_5);
         horizontalScrollBar_2->setObjectName(QString::fromUtf8("horizontalScrollBar_2"));
         horizontalScrollBar_2->setOrientation(Qt::Horizontal);
 
         formLayout_4->setWidget(0, QFormLayout::FieldRole, horizontalScrollBar_2);
 
-        label_12 = new QLabel(widget1);
+        label_12 = new QLabel(groupBox_5);
         label_12->setObjectName(QString::fromUtf8("label_12"));
         label_12->setMaximumSize(QSize(12, 16777215));
 
         formLayout_4->setWidget(1, QFormLayout::LabelRole, label_12);
 
-        horizontalScrollBar_6 = new QScrollBar(widget1);
+        horizontalScrollBar_6 = new QScrollBar(groupBox_5);
         horizontalScrollBar_6->setObjectName(QString::fromUtf8("horizontalScrollBar_6"));
         horizontalScrollBar_6->setOrientation(Qt::Horizontal);
 
         formLayout_4->setWidget(1, QFormLayout::FieldRole, horizontalScrollBar_6);
 
-        label_13 = new QLabel(widget1);
+        label_13 = new QLabel(groupBox_5);
         label_13->setObjectName(QString::fromUtf8("label_13"));
         label_13->setMaximumSize(QSize(12, 16777215));
 
         formLayout_4->setWidget(2, QFormLayout::LabelRole, label_13);
 
-        horizontalScrollBar_7 = new QScrollBar(widget1);
+        horizontalScrollBar_7 = new QScrollBar(groupBox_5);
         horizontalScrollBar_7->setObjectName(QString::fromUtf8("horizontalScrollBar_7"));
         horizontalScrollBar_7->setOrientation(Qt::Horizontal);
 
@@ -668,12 +661,12 @@ public:
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
-        label_14 = new QLabel(widget1);
+        label_14 = new QLabel(groupBox_5);
         label_14->setObjectName(QString::fromUtf8("label_14"));
 
         verticalLayout_5->addWidget(label_14);
 
-        horizontalScrollBar = new QScrollBar(widget1);
+        horizontalScrollBar = new QScrollBar(groupBox_5);
         horizontalScrollBar->setObjectName(QString::fromUtf8("horizontalScrollBar"));
         horizontalScrollBar->setOrientation(Qt::Horizontal);
 
@@ -709,10 +702,10 @@ public:
         pushButton_15->setText(QCoreApplication::translate("viewer", "\320\241\320\261\321\200\320\276\321\201", nullptr));
         pushButton_2->setText(QCoreApplication::translate("viewer", "\320\222\321\213\321\205\320\276\320\264", nullptr));
         groupBox->setTitle(QCoreApplication::translate("viewer", "\320\234\320\260\321\201\321\201\321\210\321\202\320\260\320\261", nullptr));
+        pushButton_Scale->setText(QCoreApplication::translate("viewer", "\320\234\320\260\321\201\321\210\321\202\320\260\320\261", nullptr));
         pushButton_ScaleX->setText(QCoreApplication::translate("viewer", "\320\277\320\276 \320\276\321\201\320\270 X", nullptr));
         pushButton_ScaleY->setText(QCoreApplication::translate("viewer", "\320\277\320\276 \320\276\321\201\320\270 Y", nullptr));
         pushButton_ScaleZ->setText(QCoreApplication::translate("viewer", "\320\277\320\276 \320\276\321\201\320\270 Z", nullptr));
-        pushButton_Scale->setText(QCoreApplication::translate("viewer", "\320\234\320\260\321\201\321\210\321\202\320\260\320\261", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("viewer", "\320\244\320\276\320\275", nullptr));
         label_5->setText(QCoreApplication::translate("viewer", "G", nullptr));
         label_6->setText(QCoreApplication::translate("viewer", "B", nullptr));

@@ -46,21 +46,21 @@ void viewer::on_pushButton_clicked() {
 
 void viewer::on_pushButton_2_clicked() { QApplication::quit(); }
 
-void viewer::on_pushButton_4_clicked() {
-  for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
-    obj.vertexes[i] /= 0.95;
-  }
-  ui->widget->set_vertex_arr(obj.vertexes);
-  ui->widget->update();
-}
+//void viewer::on_pushButton_4_clicked() {
+//  for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
+//    obj.vertexes[i] /= 0.95;
+//  }
+//  ui->widget->set_vertex_arr(obj.vertexes);
+//  ui->widget->update();
+//}
 
-void viewer::on_pushButton_3_clicked() {
-  for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
-    obj.vertexes[i] *= 0.95;
-  }
-  ui->widget->set_vertex_arr(obj.vertexes);
-  ui->widget->update();
-}
+//void viewer::on_pushButton_3_clicked() {
+//  for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
+//    obj.vertexes[i] *= 0.95;
+//  }
+//  ui->widget->set_vertex_arr(obj.vertexes);
+//  ui->widget->update();
+//}
 
 void viewer::on_radioButton_2_toggled() {
   ui->widget->stipple = true;
@@ -457,3 +457,25 @@ void viewer::on_pushButton_TurnZ_clicked() {
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
 }
+
+void viewer::on_radioButton_3_toggled()
+{
+        ui->widget->set_ortho();
+//        ui->widget->update();
+        ui->statusbar->showMessage("ortho");
+}
+
+void viewer::on_radioButton_4_toggled()
+{
+//        double height = 1;
+//        double width = 1;
+//        double far = 1;
+//        float fov = 60.0 * M_PI / 180;
+//        float heap = height / (2 * tan(fov / 2));
+//        glFrustum(-width*0.5, width*0.5, -height*0.5, height*0.5, heap, far);
+//        glTranslated(0, 0, -heap * 3);
+        ui->widget->set_persp();
+//        ui->widget->update();
+        ui->statusbar->showMessage("persp");
+}
+
