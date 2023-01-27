@@ -29,8 +29,8 @@ void scene::paintGL() {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  glTranslatef(0, 0, -2);     //  Перевод матрицы. куда?.
-  glRotatef(xRot_, 1, 0, 0);  // Повороты
+  glTranslatef(0, 0, -2);
+  glRotatef(xRot_, 1, 0, 0);
   glRotatef(yRot_, 0, 1, 0);
 
   draw();
@@ -75,8 +75,6 @@ void scene::draw() {
     glDisableClientState(GL_VERTEX_ARRAY);
     if (stipple) glDisable(GL_LINE_STIPPLE);
 
-    qDebug() << "Image was loaded.."
-             << "lines is:" << lines_;
   }
 
   //    glDrawArrays(GL_TRIANGLES, 1, 12);  //  Данный вариант рисует

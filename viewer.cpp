@@ -134,9 +134,6 @@ void Viewer::file_proccessing(QString fileName) {
       obj.vertexes[i] /= max_el;
     }
 
-    for (int i = 0; i < obj.count_of_facets * 3; ++i) {
-      qDebug() << obj.polygons[i];
-    }
     ////end scaling block
     ////set stats
     ui->label_9->setText(QString::number(obj.count_of_vertexes));
