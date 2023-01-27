@@ -2,6 +2,7 @@
 #define VIEWER_H
 
 #include <QMainWindow>
+#include "./qtgifimage/gifimage/qgifimage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -50,7 +51,7 @@ private slots:
 
   void on_pushButton_2_clicked();
 
-//  void on_pushButton_3_clicked();
+  void on_pushButton_3_clicked();
 
   void on_horizontalScrollBar_8_valueChanged(int value);
 
@@ -90,22 +91,25 @@ private slots:
 
   void on_pushButton_13_clicked();
 
+  void gif_create();
+
 private:
   Ui::Viewer *ui;
 
   int dots_{}, lines_{};
-
   QString path_{};
-  QTimer *tmr{};
-  QString fname_gif;
+  QTimer *gif_tmr_{};
   int time_{};
-//  QGifImage *gif = new QGifImage;
-  void wtimer();
+  QGifImage *gif_img_{};
+  QString fileName;
+  QString fname_gif_{};
+  int now_recording_ = 0;
+
+  void gif_timer();
   void settings_load();
   void setup_defaults();
   void settings_save();
   void reset_obj();
-  QString fileName;
   void file_proccessing(QString file_name);
   void error_message(QString message);
 };
