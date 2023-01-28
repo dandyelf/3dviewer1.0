@@ -36,17 +36,12 @@ void count_facets(char* buffer, obj_t* obj) {
   }
 }
 
-void free_obj(obj_t* obj) {
-  free(obj->vertexes);
-  free(obj->polygons);
-}
 
 int init_obj_struct(obj_t* obj) {
   int err = 0;
   obj->vertexes = (double*)calloc(obj->count_of_vertexes * 3, sizeof(double));
   if (obj->vertexes == NULL) err = 1;
-  obj->polygons = (int*)calloc(obj->facet_elem * 2, sizeof(int));
-  //  obj->facet_elem *= 2; - нужно ли умножать еще на 2 раза?
+  obj->polygons = (int*)calloc(obj->facet_elem, sizeof(int));
   if (obj->polygons == NULL) err = 1;
   return err;
 }
@@ -119,31 +114,3 @@ int StartPars(const char* filename, obj_t* obj) {
   }
   return err;
 }
-
-// int main() {
-//   obj_t obj;
-//   char* file = "obj/hand.obj";
-
-//   int err = StartPars(file, &obj);
-//   printf("facet_elem[%d]----facets[%d]-----vertex[%d]\n", obj.facet_elem,
-//   obj.count_of_facets,
-//          obj.count_of_vertexes);
-//   //  int err = StartPars(file, &obj);
-//
-//   //  printf("[count vertex]-%d  [count facets]-%d\n", obj.count_of_vertexes,
-//   //         obj.count_of_facets);
-//
-//   // if (err != 1) {
-////    for (int i = 0, k = 1; i < obj.count_of_vertexes * 3; i++, k++) {
-////      printf("%lf ", obj.vertexes[i]);
-////      if (k % 3 == 0) printf("\n");
-////    }
-////   // //   // getchar();
-////    for (int i = 0, k = 1; i < obj.facet_elem*2; i++, k++) {
-////      printf("%d ", obj.polygons[i]);
-////      if (k % 6 == 0) printf("\n");
-////    }
-//    free_obj(&obj);
-//   // }
-//   return 0;
-// }
