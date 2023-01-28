@@ -59,3 +59,4 @@ a.ou*
 *.identifire
 .qmake.stash
 build-test24-Desktop-Debug
+.DS_Store
