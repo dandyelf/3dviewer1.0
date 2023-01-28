@@ -66,7 +66,7 @@ void scene::draw() {
     glEnableClientState(GL_VERTEX_ARRAY);
     glColor3f(line_r_, line_g_, line_b_);
     if (stipple) {
-      glLineStipple(20, 0x3333);
+      glLineStipple(2, 0x3333);
       glEnable(GL_LINE_STIPPLE);
     } else {
       glDisable(GL_LINE_STIPPLE);

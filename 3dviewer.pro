@@ -1,6 +1,6 @@
 QT       += core gui opengl
 mac: QT += openglwidgets
-#linux: QT += openglwidgets
+linux: QT += openglwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
