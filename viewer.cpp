@@ -111,7 +111,7 @@ void Viewer::reset_obj() {
 void Viewer::file_proccessing(QString fileName) {
   path_ = fileName;
 
-  this->setWindowTitle(this->windowTitle() + "~" + fileName);
+  this->setWindowTitle("3D Viewer ~ " + fileName);
 
   ui->label_7->setText(path_.section('/', -1, -1));
   ui->label_8->setText("Число вершин");
@@ -185,13 +185,11 @@ void Viewer::on_pushButton_3_clicked() {
   QString path2 = path_ + ".gif";
   fname_gif_ = QFileDialog::getSaveFileName(this, tr("Save GIF"), path2,
                                             tr("Gif Files (*.gif)"));
-  if (fname_gif_ != "" && !now_recording_) {
+  if (fname_gif_ != "") {
     ui->pushButton_3->setDisabled(true);
     gif_img_ = new QGifImage;
     gif_img_->setDefaultDelay(10);
     gif_timer();
-    now_recording_ = 1;
-
   } else {
     error_message("Нет папки");
   }
@@ -199,8 +197,9 @@ void Viewer::on_pushButton_3_clicked() {
 
 void Viewer::error_message(QString message) {
   QMessageBox messageBox;
-  messageBox.critical(0, "Info", message);
   messageBox.setFixedSize(500, 200);
+  messageBox.information(0, "Info", message);
+
 }
 
 void Viewer::gif_timer() {
@@ -217,12 +216,11 @@ void Viewer::gif_create() {
     time_ = 0;
     error_message("Gif saved.");
     gif_img_->~QGifImage();
-    now_recording_ = 0;
     ui->pushButton_3->setText("Старт запись");
     ui->pushButton_3->setEnabled(true);
   }
   ++time_;
-  if (now_recording_) ui->pushButton_3->setText(QString::number(time_ / 10));
+  if (!ui->pushButton_3->isEnabled()) ui->pushButton_3->setText(QString::number(time_ / 10));
 }
 
 void Viewer::on_horizontalScrollBar_8_valueChanged(int value) {
@@ -401,18 +399,18 @@ void Viewer::on_radioButton_toggled() {
   ui->widget->update();
 }
 
-void Viewer::on_radioButton_5_toggled(bool checked) {
+void Viewer::on_radioButton_5_toggled() {
   ui->widget->points = false;
   ui->widget->update();
 }
 
-void Viewer::on_radioButton_7_toggled(bool checked) {
+void Viewer::on_radioButton_7_toggled() {
   ui->widget->points = true;
   ui->widget->smooth = false;
   ui->widget->update();
 }
 
-void Viewer::on_radioButton_6_toggled(bool checked) {
+void Viewer::on_radioButton_6_toggled() {
   ui->widget->points = true;
   ui->widget->smooth = true;
   ui->widget->update();
