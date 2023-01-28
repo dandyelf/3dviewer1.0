@@ -60,3 +60,4 @@ a.ou*
 .qmake.stash
 build-test24-Desktop-Debug
 .DS_Store
+source_code/.DS_Store
