@@ -98,11 +98,11 @@ class Viewer : public QMainWindow {
 
   void on_radioButton_toggled();
 
-  void on_radioButton_5_toggled(bool checked);
+  void on_radioButton_5_toggled();
 
-  void on_radioButton_7_toggled(bool checked);
+  void on_radioButton_7_toggled();
 
-  void on_radioButton_6_toggled(bool checked);
+  void on_radioButton_6_toggled();
 
 private:
   Ui::Viewer *ui;
@@ -114,7 +114,6 @@ private:
   QGifImage *gif_img_{};
   QString fileName;
   QString fname_gif_{};
-  int now_recording_ = 0;
 
   void gif_timer();
   void settings_load();
