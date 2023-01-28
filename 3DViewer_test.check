@@ -1,0 +1,257 @@
+#include "aff_transformation.h"
+#include "s21_viewer.h"
+
+#define EPS 0.00001
+
+#tcase parser_test
+
+#test parser_test_1
+  char *file = "obj/easyCube.obj";
+  obj_t obj;
+  StartPars(file, &obj);
+  int facets_count_test = 72;
+  int vertex_count_test = 9;
+  int facet_line_test = 12;
+  int arr_of_facets_test[72] = {
+      0, 6, 6, 4, 4, 0, 0, 2, 2, 6, 6, 0, 0, 3, 3, 2, 2, 0, 0, 1, 1, 3, 3, 0,
+      2, 7, 7, 6, 6, 2, 2, 3, 3, 7, 7, 2, 4, 6, 6, 7, 7, 4, 4, 7, 7, 5, 5, 4,
+      0, 4, 4, 5, 5, 0, 0, 5, 5, 1, 1, 0, 1, 5, 5, 7, 7, 1, 1, 7, 7, 3, 3, 1};
+  double arr_of_vertexes_test[27] = {
+      0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0,
+      0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 9.0, 9.0, 1.0};
+  ck_assert_int_eq(facets_count_test, obj.facet_elem);
+  ck_assert_int_eq(vertex_count_test, obj.count_of_vertexes);
+  ck_assert_int_eq(facet_line_test, obj.count_of_facets);
+  for (int i = 0; i < facets_count_test; i++) {
+    ck_assert_int_eq(arr_of_facets_test[i], obj.polygons[i]);
+  }
+  for (int i = 0; i < vertex_count_test; i++) {
+    ck_assert_int_eq(arr_of_vertexes_test[i], obj.vertexes[i]);
+  }
+
+#tcase aff_scale_test
+
+#test aff_scale_test_1
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  int res = scale(&obj, 1.2);
+  double test[24] = {
+      1.2, 2.4, 3.6, 4.8, 6.0, 7.2, 8.4, 9.6, 10.8, -1.2, -2.4, -3.6, -4.8, -6.0,
+      -7.2, -8.4, -9.6, -10.8, 1.8, 2.88, 4.56, -6.84, -1.68, -2.76};
+  ck_assert_int_eq(res, 0);    
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_scale_test_2
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  int res = scale_x(&obj, 1.2);
+  double test[24] = {
+      1.2, 2.0, 3.0, 4.8, 5.0, 6.0, 8.4, 8.0, 9.0, -1.2, -2.0, -3.0, -4.8, -5.0,
+      -6.0, -8.4, -8.0, -9.0, 1.8, 2.4, 3.8, -6.84, -1.4, -2.3};
+  ck_assert_int_eq(res, 0);    
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_scale_test_3
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  int res = scale_y(&obj, 1.2);
+  double test[24] = {
+      1.0, 2.4, 3.0, 4.0, 6.0, 6.0, 7.0, 9.6, 9.0, -1.0, -2.4, -3.0, -4.0, -6.0,
+      -6.0, -7.0, -9.6, -9.0, 1.5, 2.88, 3.8, -5.7, -1.68, -2.3};
+  ck_assert_int_eq(res, 0);    
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_scale_test_4
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  int res = scale_z(&obj, 1.2);
+  double test[24] = {
+      1.0, 2.0, 3.6, 4.0, 5.0, 7.2, 7.0, 8.0, 10.8, -1.0, -2.0, -3.6, -4.0, -5.0,
+      -7.2, -7.0, -8.0, -10.8, 1.5, 2.4, 4.56, -5.7, -1.4, -2.76};
+  ck_assert_int_eq(res, 0);    
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_scale_test_5
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  int res = scale(&obj, 0);
+  double test[24] = {
+      1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, -1.0, -2.0, -3.0, -4.0, -5.0,
+      -6.0, -7.0, -8.0, -9.0, 1.5, 2.4, 3.8, -5.7, -1.4, -2.3};
+  ck_assert_int_eq(res, 1);    
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_scale_test_6
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  int res = scale_x(&obj, 0);
+  double test[24] = {
+      1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, -1.0, -2.0, -3.0, -4.0, -5.0,
+      -6.0, -7.0, -8.0, -9.0, 1.5, 2.4, 3.8, -5.7, -1.4, -2.3};
+  ck_assert_int_eq(res, 1);    
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_scale_test_7
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  int res = scale_y(&obj, 0);
+  double test[24] = {
+      1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, -1.0, -2.0, -3.0, -4.0, -5.0,
+      -6.0, -7.0, -8.0, -9.0, 1.5, 2.4, 3.8, -5.7, -1.4, -2.3};
+  ck_assert_int_eq(res, 1);    
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_scale_test_8
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  int res = scale_z(&obj, 0);
+  double test[24] = {
+      1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, -1.0, -2.0, -3.0, -4.0, -5.0,
+      -6.0, -7.0, -8.0, -9.0, 1.5, 2.4, 3.8, -5.7, -1.4, -2.3};
+  ck_assert_int_eq(res, 1);    
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#tcase aff_move_test
+
+#test aff_move_test_1
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  move_x(&obj, 2.3);
+  double test[24] = {
+      3.3, 2.0, 3.0, 6.3, 5.0, 6.0, 9.3, 8.0, 9.0, 1.3, -2.0, -3.0, -1.7, -5.0,
+      -6.0, -4.7, -8.0, -9.0, 3.8, 2.4, 3.8, -3.4, -1.4, -2.3};
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_move_test_2
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  move_y(&obj, 2.3);
+  double test[24] = {
+      1.0, 4.3, 3.0, 4.0, 7.3, 6.0, 7.0, 10.3, 9.0, -1.0, 0.3, -3.0, -4.0, -2.7,
+      -6.0, -7.0, -5.7, -9.0, 4.7, 4.7, 3.8, -5.7, -0.9, -2.3};
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_move_test_3
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  move_z(&obj, 2.3);
+  double test[24] = {
+      1.0, 2.0, 5.3, 4.0, 5.0, 8.3, 7.0, 8.0, 11.3, -1.0, -2.0, -0.7, -4.0, -5.0,
+      -3.7, -7.0, -8.0, -6.7, 1.5, 2.4, 6.1, -5.7, -1.4, 0.0};
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#tcase aff_turn_test
+
+#test aff_turn_test_1
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  turn_x(&obj, 60);
+  double test[24] = {1.0,  3.598076, -0.23205, 4.0,  7.696152, -1.33013,
+                     7.0,  11.79423, -2.4282,  -1.0, -3.59808, 0.232051,
+                     -4.0, -7.69615, 1.330127, -7.0, -11.7942, 2.428203,
+                     1.5,  4.490897, -0.17846, -5.7, -2.69186, 0.062436};
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_turn_test_2
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  turn_y(&obj, 60);
+  double test[24] = {-2.09808,  2.0,  2.366025, -3.19615, 5.0,  6.464102,
+                     -4.29423, 8.0,  10.56218, 2.098076, -2.0, -2.36603,
+                     3.196152, -5.0, 6.4641,   4.294229, -8.0, -10.5622,
+                     -2.5409,  2.4,  3.199038, -0.85814, -1.4, -6.08634};
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_turn_test_3
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  turn_z(&obj, 60);
+  double test[24] = {2.232051, 0.133975, 3.0,  6.330127, -0.9641,  6.0,
+                     10.4282,  -2.06218, 9.0,  -2.23205, -0.13397, -3.0,
+                     -6.33013, 0.964102, -6.0, -10.4282, 2.062178, -9.0,
+                     2.828461, -0.09904, 3.8,  -4.06244, 4.236345, -2.3};
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
+
+#test aff_turn_test_4
+  int count_of_vertexes = 8;
+  double vertexes[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  obj_t obj = {count_of_vertexes, vertexes, 0, NULL, 0};
+  turn_z(&obj, 0);
+  double test[24] = {1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,
+                         9.0,  -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0,
+                         -8.0, -9.0, 1.5,  2.4,  3.8,  -5.7, -1.4, -2.3};
+  for (int i = 0; i < count_of_vertexes; i++) {
+    ck_assert_double_eq_tol(obj.vertexes[i], test[i], EPS);
+  }
