@@ -48,7 +48,7 @@ install:
 	mkdir 3dviewer
 	cd source_code && qmake && make && make clean && rm Makefile && cd ../ && mv source_code/$(APPLICATION) ./3dviewer
 open:
-	cd 3dviewer && $(OPEN)$(APPLICATION)
+	cd 3dviewer && $(OPEN) $(APPLICATION)
 
 uninstall:
 	rm -rf 3dviewer
