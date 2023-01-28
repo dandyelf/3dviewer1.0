@@ -68,6 +68,9 @@ void Viewer::on_pushButton_clicked() {
     ////updates
     file_proccessing(fileName);
   }
+  else {
+      error_message("Нет файла");
+  }
 }
 
 void Viewer::on_pushButton_5_clicked() { QApplication::quit(); }
@@ -177,8 +180,12 @@ void Viewer::on_pushButton_4_clicked() {
 void Viewer::on_pushButton_2_clicked() {
   QString file = QFileDialog::getSaveFileName(this, "Save as...", "name.jpg",
                                               "JPEG (*.jpeg) ;; BMP (*.bmp) ");
-  QImage image = ui->widget->grabFramebuffer();
-  image.save(file, nullptr, 80);
+  if(file != "") {
+    QImage image = ui->widget->grabFramebuffer();
+    image.save(file, nullptr, 80);
+  } else {
+      error_message("Нет папки");
+  }
 }
 
 void Viewer::on_pushButton_3_clicked() {
