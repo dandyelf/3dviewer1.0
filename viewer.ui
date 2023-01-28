@@ -26,82 +26,36 @@
    <string>Viewer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="scene" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>12</x>
-      <y>15</y>
-      <width>581</width>
-      <height>581</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>615</x>
-      <y>0</y>
-      <width>550</width>
-      <height>700</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>0</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>16777215</width>
-      <height>700</height>
-     </size>
-    </property>
-    <property name="title">
-     <string>Управление изображением</string>
-    </property>
-    <layout class="QFormLayout" name="formLayout_5">
-     <item row="0" column="0" colspan="2">
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>Открыть</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>Сохранить JPEG</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="text">
-          <string>Старт запись</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_4">
-         <property name="text">
-          <string>Сброс</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_5">
-         <property name="text">
-          <string>Выход</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="scene" name="widget" native="true"/>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>700</height>
+       </size>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
       <widget class="QGroupBox" name="groupBox_2">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>66</y>
+         <width>260</width>
+         <height>173</height>
+        </rect>
+       </property>
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -151,9 +105,15 @@
         </item>
        </layout>
       </widget>
-     </item>
-     <item row="1" column="1">
       <widget class="QGroupBox" name="groupBox_5">
+       <property name="geometry">
+        <rect>
+         <x>283</x>
+         <y>66</y>
+         <width>260</width>
+         <height>123</height>
+        </rect>
+       </property>
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -238,9 +198,15 @@
         </item>
        </layout>
       </widget>
-     </item>
-     <item row="2" column="0">
       <widget class="QGroupBox" name="groupBox_10">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>239</y>
+         <width>260</width>
+         <height>173</height>
+        </rect>
+       </property>
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -290,9 +256,15 @@
         </item>
        </layout>
       </widget>
-     </item>
-     <item row="2" column="1">
       <widget class="QGroupBox" name="groupBox_6">
+       <property name="geometry">
+        <rect>
+         <x>283</x>
+         <y>239</y>
+         <width>260</width>
+         <height>150</height>
+        </rect>
+       </property>
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -405,9 +377,15 @@
         </item>
        </layout>
       </widget>
-     </item>
-     <item row="3" column="0">
       <widget class="QGroupBox" name="groupBox_4">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>412</y>
+         <width>260</width>
+         <height>173</height>
+        </rect>
+       </property>
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -425,7 +403,14 @@
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="4" column="3">
-         <widget class="QLineEdit" name="lineEdit_9"/>
+         <widget class="QLineEdit" name="lineEdit_9">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>19</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item row="5" column="2">
          <widget class="QPushButton" name="pushButton_17">
@@ -435,10 +420,24 @@
          </widget>
         </item>
         <item row="2" column="6">
-         <widget class="QLineEdit" name="lineEdit_8"/>
+         <widget class="QLineEdit" name="lineEdit_8">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>19</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item row="3" column="3">
-         <widget class="QLineEdit" name="lineEdit_11"/>
+         <widget class="QLineEdit" name="lineEdit_11">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>19</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item row="3" column="7">
          <widget class="QPushButton" name="pushButton_20">
@@ -505,29 +504,42 @@
           <property name="minimumSize">
            <size>
             <width>50</width>
-            <height>0</height>
+            <height>19</height>
            </size>
           </property>
          </widget>
         </item>
         <item row="3" column="6">
-         <widget class="QLineEdit" name="lineEdit_12"/>
+         <widget class="QLineEdit" name="lineEdit_12">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>19</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item row="2" column="4">
          <widget class="QLineEdit" name="lineEdit_7">
           <property name="minimumSize">
            <size>
             <width>50</width>
-            <height>0</height>
+            <height>19</height>
            </size>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
-     </item>
-     <item row="3" column="1">
       <widget class="QGroupBox" name="groupBox_7">
+       <property name="geometry">
+        <rect>
+         <x>283</x>
+         <y>412</y>
+         <width>260</width>
+         <height>173</height>
+        </rect>
+       </property>
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -583,6 +595,12 @@
           </item>
           <item row="0" column="1">
            <widget class="QScrollBar" name="horizontalScrollBar_8">
+            <property name="minimumSize">
+             <size>
+              <width>196</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -603,6 +621,12 @@
           </item>
           <item row="1" column="1">
            <widget class="QScrollBar" name="horizontalScrollBar_9">
+            <property name="minimumSize">
+             <size>
+              <width>196</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -623,6 +647,18 @@
           </item>
           <item row="2" column="1">
            <widget class="QScrollBar" name="horizontalScrollBar_10">
+            <property name="minimumSize">
+             <size>
+              <width>196</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>196</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -643,6 +679,12 @@
           </item>
           <item row="3" column="1">
            <widget class="QScrollBar" name="horizontalScrollBar_11">
+            <property name="minimumSize">
+             <size>
+              <width>196</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -652,9 +694,15 @@
         </item>
        </layout>
       </widget>
-     </item>
-     <item row="4" column="0">
       <widget class="QGroupBox" name="groupBox_8">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>585</y>
+         <width>260</width>
+         <height>100</height>
+        </rect>
+       </property>
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -738,9 +786,15 @@
         </item>
        </layout>
       </widget>
-     </item>
-     <item row="4" column="1">
       <widget class="QGroupBox" name="groupBox_9">
+       <property name="geometry">
+        <rect>
+         <x>283</x>
+         <y>585</y>
+         <width>260</width>
+         <height>82</height>
+        </rect>
+       </property>
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -776,9 +830,48 @@
         </item>
        </layout>
       </widget>
-     </item>
-    </layout>
-   </widget>
+      <widget class="QWidget" name="">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>Открыть</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>Сохранить JPEG</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>Старт запись</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="text">
+           <string>Сброс</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="text">
+           <string>Выход</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -786,7 +879,7 @@
      <x>0</x>
      <y>0</y>
      <width>1180</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
