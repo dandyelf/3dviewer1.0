@@ -117,7 +117,6 @@ private:
 
   void gif_timer();
   void settings_load();
-  void setup_defaults();
   void settings_save();
   void reset_obj();
   void file_proccessing(QString file_name);

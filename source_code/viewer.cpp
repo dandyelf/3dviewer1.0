@@ -27,38 +27,98 @@ Viewer::Viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Viewer) {
   auto shortcut_quit = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_Q), this);
   connect(shortcut_quit, &QShortcut::activated, this, &QWidget::close);
   connect(gif_tmr_, SIGNAL(timeout()), this, SLOT(gif_create()));
-  setup_defaults();
+  settings_load();
 }
 
 Viewer::~Viewer() {
   gif_tmr_->~QTimer();
+  settings_save();
   delete ui;
 }
 
-void Viewer::setup_defaults() { settings_load(); }
-
 void Viewer::settings_load() {
   //  Загружаем настройки
-  //  QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
-  //  settings.beginGroup("Main_Settings");
-  //  path_ = settings.value("path").toString();
+    qDebug() << "load settings...";
+    QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
+    settings.beginGroup("Main_Settings");
+    path_ = settings.value("path").toString();
 
-  //  ui->radioButton->setChecked(settings.value("QCheckBox", true).toBool());
-  //  ui->radioButton_2->setChecked(settings.value("QCheckBox", true).toBool());
-  //  settings.endGroup();
+    ui->radioButton->setChecked(settings.value("radioButton", true).toBool());
+    ui->radioButton_2->setChecked(settings.value("radioButton_2", true).toBool());
+    ui->radioButton_3->setChecked(settings.value("radioButton_3", true).toBool());
+    ui->radioButton_4->setChecked(settings.value("radioButton_4", true).toBool());
+    ui->radioButton_5->setChecked(settings.value("radioButton_5", true).toBool());
+    ui->radioButton_6->setChecked(settings.value("radioButton_6", true).toBool());
+    ui->radioButton_7->setChecked(settings.value("radioButton_7", true).toBool());
+
+    ui->lineEdit->setText(settings.value("lineEdit").toString());
+    ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
+    ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
+    ui->lineEdit_4->setText(settings.value("lineEdit_4").toString());
+    ui->lineEdit_5->setText(settings.value("lineEdit_5").toString());
+    ui->lineEdit_6->setText(settings.value("lineEdit_6").toString());
+    ui->lineEdit_7->setText(settings.value("lineEdit_7").toString());
+    ui->lineEdit_8->setText(settings.value("lineEdit_8").toString());
+    ui->lineEdit_9->setText(settings.value("lineEdit_9").toString());
+    ui->lineEdit_10->setText(settings.value("lineEdit_10").toString());
+    ui->lineEdit_11->setText(settings.value("lineEdit_11").toString());
+    ui->lineEdit_12->setText(settings.value("lineEdit_12").toString());
+
+    ui->horizontalScrollBar->setValue(settings.value("horizontalScrollBar").toInt());
+    ui->horizontalScrollBar_2->setValue(settings.value("horizontalScrollBar_2").toInt());
+    ui->horizontalScrollBar_3->setValue(settings.value("horizontalScrollBar_3").toInt());
+    ui->horizontalScrollBar_4->setValue(settings.value("horizontalScrollBar_4").toInt());
+    ui->horizontalScrollBar_5->setValue(settings.value("horizontalScrollBar_5").toInt());
+    ui->horizontalScrollBar_6->setValue(settings.value("horizontalScrollBar_6").toInt());
+    ui->horizontalScrollBar_7->setValue(settings.value("horizontalScrollBar_7").toInt());
+    ui->horizontalScrollBar_8->setValue(settings.value("horizontalScrollBar_8").toInt());
+    ui->horizontalScrollBar_9->setValue(settings.value("horizontalScrollBar_9").toInt());
+    ui->horizontalScrollBar_10->setValue(settings.value("horizontalScrollBar_10").toInt());
+    ui->horizontalScrollBar_11->setValue(settings.value("horizontalScrollBar_11").toInt());
+    settings.endGroup();
 }
 
 void Viewer::settings_save() {
   //  Сохраняем настройки
-  qDebug() << "save settings...";
-  //  QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
-  //  settings.beginGroup("Main_Settings");
-  //  settings.setValue("path", path_);
+    qDebug() << "save settings...";
+    QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
+    settings.beginGroup("Main_Settings");
+    settings.setValue("path", path_);
+    settings.setValue("radioButton", ui->radioButton->isChecked());
+    settings.setValue("radioButton_2", ui->radioButton_2->isChecked());
+    settings.setValue("radioButton_3", ui->radioButton_3->isChecked());
+    settings.setValue("radioButton_4", ui->radioButton_4->isChecked());
+    settings.setValue("radioButton_5", ui->radioButton_5->isChecked());
+    settings.setValue("radioButton_6", ui->radioButton_6->isChecked());
+    settings.setValue("radioButton_7", ui->radioButton_7->isChecked());
 
-  //  settings.setValue("QCheckBox", ui->radioButton->isChecked());
-  //  settings.setValue("QCheckBox", ui->radioButton_2->isChecked());
-  //  settings.endGroup();
+    settings.setValue("lineEdit", ui->lineEdit->text());
+    settings.setValue("lineEdit_2", ui->lineEdit_2->text());
+    settings.setValue("lineEdit_3", ui->lineEdit_3->text());
+    settings.setValue("lineEdit_4", ui->lineEdit_4->text());
+    settings.setValue("lineEdit_5", ui->lineEdit_5->text());
+    settings.setValue("lineEdit_6", ui->lineEdit_6->text());
+    settings.setValue("lineEdit_7", ui->lineEdit_7->text());
+    settings.setValue("lineEdit_8", ui->lineEdit_8->text());
+    settings.setValue("lineEdit_9", ui->lineEdit_9->text());
+    settings.setValue("lineEdit_10", ui->lineEdit_10->text());
+    settings.setValue("lineEdit_11", ui->lineEdit_11->text());
+    settings.setValue("lineEdit_12", ui->lineEdit_12->text());
+
+    settings.setValue("horizontalScrollBar", ui->horizontalScrollBar->value());
+    settings.setValue("horizontalScrollBar_2", ui->horizontalScrollBar_2->value());
+    settings.setValue("horizontalScrollBar_3", ui->horizontalScrollBar_3->value());
+    settings.setValue("horizontalScrollBar_4", ui->horizontalScrollBar_4->value());
+    settings.setValue("horizontalScrollBar_5", ui->horizontalScrollBar_5->value());
+    settings.setValue("horizontalScrollBar_6", ui->horizontalScrollBar_6->value());
+    settings.setValue("horizontalScrollBar_7", ui->horizontalScrollBar_7->value());
+    settings.setValue("horizontalScrollBar_8", ui->horizontalScrollBar_8->value());
+    settings.setValue("horizontalScrollBar_9", ui->horizontalScrollBar_9->value());
+    settings.setValue("horizontalScrollBar_10", ui->horizontalScrollBar_10->value());
+    settings.setValue("horizontalScrollBar_11", ui->horizontalScrollBar_11->value());
+    settings.endGroup();
 }
+
 
 void Viewer::on_pushButton_clicked() {
   fileName = QFileDialog::getOpenFileName(this, tr("Open Obj File"), path_,
