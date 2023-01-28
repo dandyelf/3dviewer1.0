@@ -61,3 +61,9 @@ a.ou*
 build-test24-Desktop-Debug
 .DS_Store
 source_code/.DS_Store
+Archive_3dviewer1.0.tgz
+Archive_3dviewer1.0/src/Contents/Info.plist
+Archive_3dviewer1.0/src/Contents/Resources/empty.lproj
+.gitignore
+Archive_3dviewer1.0/src/Contents/PkgInfo
+Archive_3dviewer1.0/src/Contents/MacOS/3dviewer

@@ -11,7 +11,7 @@
 #define EPS 0.00001
 
 START_TEST(parser_test_1) {
-  char *file = "obj/easyCube.obj";
+  char *file = "source_code/obj/easyCube.obj";
   obj_t obj;
   StartPars(file, &obj);
   int facets_count_test = 72;
