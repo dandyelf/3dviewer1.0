@@ -15,16 +15,16 @@ class scene : public QOpenGLWidget {
   ~scene();
 
   void set() { data_loaded = 1; }
-  void set_ortho() {
-    ortho = 1;
-    perspective = 0;
-    update();
-  }
-  void set_persp() {
-    ortho = 0;
-    perspective = 1;
-    update();
-  }
+  //  void set_ortho() {
+  //    ortho = 1;
+  //    perspective = 0;
+  //    update();
+  //  }
+  //  void set_persp() {
+  //    ortho = 0;
+  //    perspective = 1;
+  //    update();
+  //  }
   void set_vertex_arr(double *v) { vertex_arr = v; }
   void set_facets_arr(int *f) { facets_arr = f; }
   void set_lines(int l) { lines = l; }
@@ -34,8 +34,11 @@ class scene : public QOpenGLWidget {
   double dot_r = 0.0, dot_g = 0.0, dot_b = 0.0;
 
   bool stipple = false;
+  bool circle_dot = false;
+  bool perspective = false;
   double line_width = 1.0;
   double dot_width = 1.0;
+  float left, right, bottom, top, nearv, farv;
 
  private:
   float xRot = 0.0, yRot = 0.0, zRot = 0.0;
@@ -45,8 +48,8 @@ class scene : public QOpenGLWidget {
   int *facets_arr = nullptr;
 
   int data_loaded;
-  int perspective = 1;
-  int ortho = 0;
+  //  int perspective = 1;
+  //  int ortho = 0;
 
   int lines = 0;
 

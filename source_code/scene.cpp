@@ -24,10 +24,11 @@ void scene::resizeGL(int w, int h) {
   glLoadIdentity();  //  Загрузка единичной матрицы
   //  Умножает текущую матрицу (единичную в данном случае) на матрицу
   //  перспективы
-  if (perspective)
-    glFrustum(-1, 1, -1, 1, 1, 3);
-  else if (ortho)
+  if (perspective) {
+    glFrustum(left, right, bottom, top, nearv, farv);
+  } else {
     glOrtho(-1, 1, -1, 1, 1, 3);
+  }
 }
 
 void scene::paintGL() {
@@ -35,13 +36,18 @@ void scene::paintGL() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   qDebug() << "paintGL is working..";
 
-  glMatrixMode(GL_MODELVIEW);
+  glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
+
+  if (perspective) {
+    glFrustum(left, right, bottom, top, nearv, farv);
+  } else {
+    glOrtho(-1, 1, -1, 1, 1, 3);
+  }
 
   glTranslatef(0, 0, -2);    //  Перевод матрицы. куда?.
   glRotatef(xRot, 1, 0, 0);  // Повороты
   glRotatef(yRot, 0, 1, 0);
-
   draw();
 }
 
@@ -61,13 +67,16 @@ void scene::draw() {
   qDebug() << "draw is working..";
 
   if (data_loaded) {
+    if (circle_dot) {
+      glEnable(GL_POINT_SMOOTH);
+    }
     qDebug() << "persp mode..";
     //    glPushMatrix();
     glVertexPointer(3, GL_DOUBLE, 0, vertex_arr);
     glEnableClientState(GL_VERTEX_ARRAY);
     glColor3f(line_r, line_g, line_b);
     if (stipple) {
-      glLineStipple(20, 0x3333);
+      glLineStipple(2, 0x3333);
       glEnable(GL_LINE_STIPPLE);
     } else {
       glDisable(GL_LINE_STIPPLE);
@@ -79,7 +88,9 @@ void scene::draw() {
     glDrawElements(GL_POINTS, lines, GL_UNSIGNED_INT, facets_arr);
     glDisableClientState(GL_VERTEX_ARRAY);
     //    glPopMatrix();
-
+    if (circle_dot) {
+      glDisable(GL_POINT_SMOOTH);
+    }
     qDebug() << "Image was loaded.."
              << "lines is:" << lines;
   }

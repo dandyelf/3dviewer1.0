@@ -14,9 +14,6 @@ class viewer;
 QT_END_NAMESPACE
 
 extern "C" {
-// #include <s21_viewer.h>
-// #include <aff_transformation.h>
-// #include <read_obj.h>
 #include "aff_transformation.h"
 #include "s21_viewer.h"
 }
@@ -28,7 +25,6 @@ class viewer : public QMainWindow {
   viewer(QWidget *parent = nullptr);
   ~viewer();
   obj_t obj;
-//  dot_t dot;
 
  private slots:
   void on_pushButton_clicked();
@@ -76,12 +72,9 @@ class viewer : public QMainWindow {
   void on_horizontalScrollBar_11_valueChanged(int value);
 
   void on_pushButton_Move_clicked();
-  void on_pushButton_8_clicked();
-  void on_pushButton_7_clicked();
-  void on_pushButton_5_clicked();
-  void on_pushButton_6_clicked();
-  void on_pushButton_Zpos_clicked();
-  void on_pushButton_Zneg_clicked();
+  void on_pushButton_MovX_clicked();
+  void on_pushButton_MovY_clicked();
+  void on_pushButton_MovZ_clicked();
   void on_pushButton_Scale_clicked();
   void on_pushButton_ScaleX_clicked();
   void on_pushButton_ScaleY_clicked();
@@ -90,6 +83,11 @@ class viewer : public QMainWindow {
   void on_pushButton_TurnX_clicked();
   void on_pushButton_TurnY_clicked();
   void on_pushButton_TurnZ_clicked();
+  void on_radioButton_No_toggled();
+  void on_radioButton_Circle_toggled();
+  void on_radioButton_Square_toggled();
+  void on_radioButton_3_toggled();
+  void on_radioButton_4_toggled();
 
  private:
   Ui::viewer *ui;

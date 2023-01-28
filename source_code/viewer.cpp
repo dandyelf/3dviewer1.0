@@ -12,15 +12,14 @@
 viewer::viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::viewer) {
   setlocale(LC_ALL, "en_US.UTF-8");
   ui->setupUi(this);
-  ui->pushButton_11->setVisible(0);
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
   obj.facet_elem = 0;
-  //  dot.delta_x = 0.0;
-  //  dot.delta_y = 0.0;
-  //  dot.delta_z = 0.0;
   obj.vertexes = nullptr;
   obj.polygons = nullptr;
+  ui->radioButton->setChecked(true);     // сплошные линии
+  ui->radioButton_No->setChecked(true);  // точки отсутствуют
+  ui->radioButton_3->setChecked(true);  // ортгональная проекция
   gif->setDefaultDelay(10);
   tmr->setInterval(100);
   connect(tmr, SIGNAL(timeout()), this, SLOT(gifFile()));
@@ -101,21 +100,23 @@ void viewer::keyPressEvent(QKeyEvent *e) {
   switch (e->key()) {
     case (Qt::Key_Left):
       qDebug() << "Left pressed";
-      on_pushButton_7_clicked();
+      move_x(&obj, -0.1);
       break;
     case (Qt::Key_Right):
       qDebug() << "Rigth pressed";
-      on_pushButton_8_clicked();
+      move_x(&obj, 0.1);
       break;
     case (Qt::Key_Up):
       qDebug() << "Up pressed";
-      on_pushButton_5_clicked();
+      move_y(&obj, 0.1);
       break;
     case (Qt::Key_Down):
       qDebug() << "Down pressed";
-      on_pushButton_6_clicked();
+      move_y(&obj, -0.1);
       break;
   }
+  ui->widget->set_vertex_arr(obj.vertexes);
+  ui->widget->update();
 }
 
 void viewer::on_horizontalScrollBar_3_valueChanged(int value) {
@@ -266,8 +267,14 @@ void viewer::on_horizontalScrollBar_9_valueChanged(int value) {
 }
 
 void viewer::on_horizontalScrollBar_8_valueChanged(int value) {
-  ui->widget->dot_width = value;
-  ui->widget->update();
+  if (ui->radioButton_No->isChecked()) {
+    ui->widget->dot_width = 0.0000001;
+    ui->widget->update();
+    qDebug() << "on_radioButton_No_toggled()";
+  } else {
+    ui->widget->dot_width = value;
+    ui->widget->update();
+  }
 }
 
 void viewer::on_horizontalScrollBar_10_valueChanged(int value) {
@@ -281,97 +288,32 @@ void viewer::on_horizontalScrollBar_11_valueChanged(int value) {
 }
 
 void viewer::on_pushButton_Move_clicked() {
-  double mv_xpos = ui->lineEdit_4->text().toDouble();
-  double mv_xneg = ui->lineEdit_3->text().toDouble();
-  double mv_ypos = ui->lineEdit->text().toDouble();
-  double mv_yneg = ui->lineEdit_2->text().toDouble();
-  double mv_zpos = ui->lineEdit_Zpos->text().toDouble();
-  double mv_zneg = ui->lineEdit_Zneg->text().toDouble();
-  mv_xneg *= -1;
-  mv_yneg *= -1;
-  mv_zneg *= -1;
-  move_x(&obj, mv_xpos);
-  move_x(&obj, mv_xneg);
-  move_y(&obj, mv_ypos);
-  move_y(&obj, mv_yneg);
-  move_z(&obj, mv_zpos);
-  move_z(&obj, mv_zneg);
+  double mv_x = ui->lineEdit_MoveX->text().toDouble();
+  double mv_y = ui->lineEdit_MoveY->text().toDouble();
+  double mv_z = ui->lineEdit_MoveZ->text().toDouble();
+  move_x(&obj, mv_x);
+  move_y(&obj, mv_y);
+  move_z(&obj, mv_z);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
 }
 
-void viewer::on_pushButton_8_clicked() {
-  //  double step = ui->lineEdit_4->text().toDouble();
-  //  if (step)
-  //    dot.delta_x = qFabs(step);
-  //  else
-  //    dot.delta_x = 0.5;
-  //  shift_dot(&obj, dot);
-  //  ui->widget->set_vertex_arr(obj.vertexes);
-  //  ui->widget->update();
-  double mv = ui->lineEdit_4->text().toDouble();
+void viewer::on_pushButton_MovX_clicked() {
+  double mv = ui->lineEdit_MoveX->text().toDouble();
   move_x(&obj, mv);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
 }
 
-void viewer::on_pushButton_7_clicked() {
-  //  double step = ui->lineEdit_3->text().toDouble();
-  //  if (step)
-  //    dot.delta_y = qFabs(step) * (-1);
-  //  else
-  //    dot.delta_y = -0.5;
-  //  shift_dot(&obj, dot);
-  //  ui->widget->set_vertex_arr(obj.vertexes);
-  //  ui->widget->update();
-  double mv = ui->lineEdit_3->text().toDouble();
-  mv *= -1;
-  move_x(&obj, mv);
-  ui->widget->set_vertex_arr(obj.vertexes);
-  ui->widget->update();
-}
-
-void viewer::on_pushButton_5_clicked() {
-  //  double step = ui->lineEdit->text().toDouble();
-  //  if (step)
-  //    dot.delta_y = qFabs(step);
-  //  else
-  //    dot.delta_y = 0.5;
-  //  shift_dot(&obj, dot);
-  //  ui->widget->set_vertex_arr(obj.vertexes);
-  //  ui->widget->update();
-  double mv = ui->lineEdit->text().toDouble();
+void viewer::on_pushButton_MovY_clicked() {
+  double mv = ui->lineEdit_MoveY->text().toDouble();
   move_y(&obj, mv);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
 }
 
-void viewer::on_pushButton_6_clicked() {
-  //  double step = ui->lineEdit_2->text().toDouble();
-  //  if (step)
-  //    dot.delta_x = qFabs(step) * (-1);
-  //  else
-  //    dot.delta_x = -0.5;
-  //  shift_dot(&obj, dot);
-  //  ui->widget->set_vertex_arr(obj.vertexes);
-  //  ui->widget->update();
-  double mv = ui->lineEdit_2->text().toDouble();
-  mv *= -1;
-  move_y(&obj, mv);
-  ui->widget->set_vertex_arr(obj.vertexes);
-  ui->widget->update();
-}
-
-void viewer::on_pushButton_Zpos_clicked() {
-  double mv = ui->lineEdit_Zpos->text().toDouble();
-  move_z(&obj, mv);
-  ui->widget->set_vertex_arr(obj.vertexes);
-  ui->widget->update();
-}
-
-void viewer::on_pushButton_Zneg_clicked() {
-  double mv = ui->lineEdit_Zneg->text().toDouble();
-  mv *= -1;
+void viewer::on_pushButton_MovZ_clicked() {
+  double mv = ui->lineEdit_MoveZ->text().toDouble();
   move_z(&obj, mv);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
@@ -456,4 +398,80 @@ void viewer::on_pushButton_TurnZ_clicked() {
   turn_z(&obj, angle);
   ui->widget->set_vertex_arr(obj.vertexes);
   ui->widget->update();
+}
+
+void viewer::on_radioButton_No_toggled() {
+  ui->widget->dot_width = 0.0000001;
+  ui->widget->update();
+  qDebug() << "on_radioButton_No_toggled()";
+}
+
+void viewer::on_radioButton_Circle_toggled() {
+  ui->widget->circle_dot = true;
+  ui->widget->update();
+}
+
+void viewer::on_radioButton_Square_toggled() {
+  ui->widget->circle_dot = false;
+  ui->widget->update();
+}
+
+void viewer::on_radioButton_3_toggled() {
+  ui->widget->perspective = false;
+
+  ui->widget->left = ui->horizontalScrollBar_left->value() / 10.0;
+  ui->label_vLeft->setText(
+      QString::number(ui->horizontalScrollBar_left->value() / 10.0));
+
+  ui->widget->right = ui->horizontalScrollBar_right->value() / 10.0;
+  ui->label_vRight->setText(
+      QString::number(ui->horizontalScrollBar_right->value() / 10.0));
+
+  ui->widget->bottom = ui->horizontalScrollBar_bottom->value() / 10.0;
+  ui->label_vBottom->setText(
+      QString::number(ui->horizontalScrollBar_bottom->value() / 10.0));
+
+  ui->widget->top = ui->horizontalScrollBar_top->value() / 10.0;
+  ui->label_vTop->setText(
+      QString::number(ui->horizontalScrollBar_top->value() / 10.0));
+
+  ui->widget->nearv = ui->horizontalScrollBar_near->value() / 10.0;
+  ui->label_vNear->setText(
+      QString::number(ui->horizontalScrollBar_near->value() / 10));
+
+  ui->widget->farv = ui->horizontalScrollBar_far->value() / 10.0;
+  ui->label_vFar->setText(
+      QString::number(ui->horizontalScrollBar_far->value() / 10));
+
+  update();
+}
+
+void viewer::on_radioButton_4_toggled() {
+  ui->widget->perspective = true;
+
+  ui->widget->left = ui->horizontalScrollBar_left->value() / 10.0;
+  ui->label_vLeft->setText(
+      QString::number(ui->horizontalScrollBar_left->value() / 10.0));
+
+  ui->widget->right = ui->horizontalScrollBar_right->value() / 10.0;
+  ui->label_vRight->setText(
+      QString::number(ui->horizontalScrollBar_right->value() / 10.0));
+
+  ui->widget->bottom = ui->horizontalScrollBar_bottom->value() / 10.0;
+  ui->label_vBottom->setText(
+      QString::number(ui->horizontalScrollBar_bottom->value() / 10.0));
+
+  ui->widget->top = ui->horizontalScrollBar_top->value() / 10.0;
+  ui->label_vTop->setText(
+      QString::number(ui->horizontalScrollBar_top->value() / 10.0));
+
+  ui->widget->nearv = ui->horizontalScrollBar_near->value() / 10.0;
+  ui->label_vNear->setText(
+      QString::number(ui->horizontalScrollBar_near->value() / 10));
+
+  ui->widget->farv = ui->horizontalScrollBar_far->value() / 10.0;
+  ui->label_vFar->setText(
+      QString::number(ui->horizontalScrollBar_far->value() / 10));
+
+  update();
 }

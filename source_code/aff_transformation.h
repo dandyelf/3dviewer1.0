@@ -1,7 +1,8 @@
 #ifndef SRC_AFF_TRANSFORMATION_H_
 #define SRC_AFF_TRANSFORMATION_H_
 
-#include "math.h"
+#include <math.h>
+
 #include "s21_viewer.h"
 
 #define RAD_TO_GRAD 0.01745329251994
