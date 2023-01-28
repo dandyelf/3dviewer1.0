@@ -98,7 +98,13 @@ class Viewer : public QMainWindow {
 
   void on_radioButton_toggled();
 
- private:
+  void on_radioButton_5_toggled(bool checked);
+
+  void on_radioButton_7_toggled(bool checked);
+
+  void on_radioButton_6_toggled(bool checked);
+
+private:
   Ui::Viewer *ui;
 
   int dots_{}, lines_{};

@@ -59,6 +59,9 @@ void scene::mouseMoveEvent(QMouseEvent* e) {
 
 void scene::draw() {
   if (data_loaded_) {
+    if (smooth) {
+      glEnable(GL_POINT_SMOOTH);
+    }
     glVertexPointer(3, GL_DOUBLE, 0, vertex_arr_);
     glEnableClientState(GL_VERTEX_ARRAY);
     glColor3f(line_r_, line_g_, line_b_);
@@ -73,9 +76,6 @@ void scene::draw() {
     glPointSize(dot_width);
     glColor3f(dot_r_, dot_g_, dot_b_);
     if (points) {
-      if (smooth) {
-        glEnable(GL_POINT_SMOOTH);
-      }
       glDrawElements(GL_POINTS, lines_, GL_UNSIGNED_INT, facets_arr_);
     }
     glDisableClientState(GL_VERTEX_ARRAY);

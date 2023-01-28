@@ -24,7 +24,7 @@ Viewer::Viewer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Viewer) {
   path_ = "/Users/";
   gif_tmr_ = new QTimer();
 
-  auto shortcut_quit = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q), this);
+  auto shortcut_quit = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_Q), this);
   connect(shortcut_quit, &QShortcut::activated, this, &QWidget::close);
   connect(gif_tmr_, SIGNAL(timeout()), this, SLOT(gif_create()));
   setup_defaults();
@@ -186,10 +186,12 @@ void Viewer::on_pushButton_3_clicked() {
   fname_gif_ = QFileDialog::getSaveFileName(this, tr("Save GIF"), path2,
                                             tr("Gif Files (*.gif)"));
   if (fname_gif_ != "" && !now_recording_) {
+    ui->pushButton_3->setDisabled(true);
     gif_img_ = new QGifImage;
     gif_img_->setDefaultDelay(10);
     gif_timer();
     now_recording_ = 1;
+
   } else {
     error_message("Нет папки");
   }
@@ -217,6 +219,7 @@ void Viewer::gif_create() {
     gif_img_->~QGifImage();
     now_recording_ = 0;
     ui->pushButton_3->setText("Старт запись");
+    ui->pushButton_3->setEnabled(true);
   }
   ++time_;
   if (now_recording_) ui->pushButton_3->setText(QString::number(time_ / 10));
@@ -395,5 +398,22 @@ void Viewer::on_radioButton_2_toggled() {
 
 void Viewer::on_radioButton_toggled() {
   ui->widget->set_persp();
+  ui->widget->update();
+}
+
+void Viewer::on_radioButton_5_toggled(bool checked) {
+  ui->widget->points = false;
+  ui->widget->update();
+}
+
+void Viewer::on_radioButton_7_toggled(bool checked) {
+  ui->widget->points = true;
+  ui->widget->smooth = false;
+  ui->widget->update();
+}
+
+void Viewer::on_radioButton_6_toggled(bool checked) {
+  ui->widget->points = true;
+  ui->widget->smooth = true;
   ui->widget->update();
 }
