@@ -1,6 +1,6 @@
 #include "aff_transformation.h"
 
-int scale(obj_t* obj, double koff) {
+int scale(obj_t *obj, double koff) {
   int res = OK;
   if (koff != 0.0) {
     for (int i = 0; i < obj->count_of_vertexes * 3; i++) {
@@ -12,7 +12,7 @@ int scale(obj_t* obj, double koff) {
   return res;
 }
 
-int scale_x(obj_t* obj, double koff) {
+int scale_x(obj_t *obj, double koff) {
   int res = OK;
   if (koff != 0.0) {
     for (int i = 0; i < obj->count_of_vertexes * 3; i += 3) {
@@ -24,7 +24,7 @@ int scale_x(obj_t* obj, double koff) {
   return res;
 }
 
-int scale_y(obj_t* obj, double koff) {
+int scale_y(obj_t *obj, double koff) {
   int res = OK;
   if (koff != 0.0) {
     for (int i = 1; i < obj->count_of_vertexes * 3; i += 3) {
@@ -36,7 +36,7 @@ int scale_y(obj_t* obj, double koff) {
   return res;
 }
 
-int scale_z(obj_t* obj, double koff) {
+int scale_z(obj_t *obj, double koff) {
   int res = OK;
   if (koff != 0.0) {
     for (int i = 2; i < obj->count_of_vertexes * 3; i += 3) {
@@ -48,7 +48,7 @@ int scale_z(obj_t* obj, double koff) {
   return res;
 }
 
-void move_x(obj_t* obj, double mv) {
+void move_x(obj_t *obj, double mv) {
   if (mv != 0.0) {
     for (int i = 0; i < obj->count_of_vertexes * 3; i += 3) {
       obj->vertexes[i] += mv;
@@ -56,7 +56,7 @@ void move_x(obj_t* obj, double mv) {
   }
 }
 
-void move_y(obj_t* obj, double mv) {
+void move_y(obj_t *obj, double mv) {
   if (mv != 0.0) {
     for (int i = 1; i < obj->count_of_vertexes * 3; i += 3) {
       obj->vertexes[i] += mv;
@@ -64,7 +64,7 @@ void move_y(obj_t* obj, double mv) {
   }
 }
 
-void move_z(obj_t* obj, double mv) {
+void move_z(obj_t *obj, double mv) {
   if (mv != 0.0) {
     for (int i = 2; i < obj->count_of_vertexes * 3; i += 3) {
       obj->vertexes[i] += mv;
@@ -80,7 +80,7 @@ void move_z(obj_t* obj, double mv) {
 //   }
 // }
 
-void turn_x(obj_t* obj, double angle) {
+void turn_x(obj_t *obj, double angle) {
   if (angle != 0.0) {
     angle *= RAD_TO_GRAD;
     for (int i = 0; i < obj->count_of_vertexes * 3; i += 3) {
@@ -92,7 +92,7 @@ void turn_x(obj_t* obj, double angle) {
   }
 }
 
-void turn_y(obj_t* obj, double angle) {
+void turn_y(obj_t *obj, double angle) {
   if (angle != 0.0) {
     angle *= -RAD_TO_GRAD;
     for (int i = 0; i < obj->count_of_vertexes * 3; i += 3) {
@@ -104,7 +104,7 @@ void turn_y(obj_t* obj, double angle) {
   }
 }
 
-void turn_z(obj_t* obj, double angle) {
+void turn_z(obj_t *obj, double angle) {
   if (angle != 0.0) {
     angle *= RAD_TO_GRAD;
     for (int i = 0; i < obj->count_of_vertexes * 3; i += 3) {

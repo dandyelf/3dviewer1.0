@@ -40,7 +40,7 @@ gcov_report: $(STLIB) unit_tests.o
 
 clang:
 	cp ../materials/linters/.clang-format ./source_code
-	clang-format -n source_code/*.c
+	clang-format -n source_code/*.c source_code/*.cpp
 	rm source_code/.clang-format
 
 install:

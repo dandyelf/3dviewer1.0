@@ -1,8 +1,8 @@
 #include "s21_viewer.h"
 
-int parse_num_vertex_facets(const char* filename, obj_t* obj) {
+int parse_num_vertex_facets(const char *filename, obj_t *obj) {
   int err = 0;
-  FILE* fp = fopen(filename, "r");
+  FILE *fp = fopen(filename, "r");
   if (fp == NULL) {
     err = 1;
   } else {
@@ -22,10 +22,10 @@ int parse_num_vertex_facets(const char* filename, obj_t* obj) {
   return err;
 }
 
-void count_facets(char* buffer, obj_t* obj) {
+void count_facets(char *buffer, obj_t *obj) {
   int i = 2;
   while (buffer[i] != '\0') {
-    char* tok = strtok(buffer, " ");
+    char *tok = strtok(buffer, " ");
     while (tok != NULL) {
       if (*(tok) != 'f' && *(tok) != '\n') {
         obj->facet_elem++;
@@ -36,19 +36,20 @@ void count_facets(char* buffer, obj_t* obj) {
   }
 }
 
-
-int init_obj_struct(obj_t* obj) {
+int init_obj_struct(obj_t *obj) {
   int err = 0;
-  obj->vertexes = (double*)calloc(obj->count_of_vertexes * 3, sizeof(double));
-  if (obj->vertexes == NULL) err = 1;
-  obj->polygons = (int*)calloc(obj->facet_elem, sizeof(int));
-  if (obj->polygons == NULL) err = 1;
+  obj->vertexes = (double *)calloc(obj->count_of_vertexes * 3, sizeof(double));
+  if (obj->vertexes == NULL)
+    err = 1;
+  obj->polygons = (int *)calloc(obj->facet_elem, sizeof(int));
+  if (obj->polygons == NULL)
+    err = 1;
   return err;
 }
 
-int parse_file(const char* filename, obj_t* obj) {
+int parse_file(const char *filename, obj_t *obj) {
   int err = 0;
-  FILE* fp = fopen(filename, "r");
+  FILE *fp = fopen(filename, "r");
   if (fp == NULL) {
     err = 1;
   } else {
@@ -98,7 +99,7 @@ int parse_file(const char* filename, obj_t* obj) {
   return err;
 }
 
-int StartPars(const char* filename, obj_t* obj) {
+int StartPars(const char *filename, obj_t *obj) {
   int err = 0;
   obj->count_of_vertexes = 0;
   obj->count_of_facets = 0;

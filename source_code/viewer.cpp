@@ -38,87 +38,107 @@ Viewer::~Viewer() {
 
 void Viewer::settings_load() {
   //  Загружаем настройки
-    qDebug() << "load settings...";
-    QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
-    settings.beginGroup("Main_Settings");
-    path_ = settings.value("path").toString();
+  qDebug() << "load settings...";
+  QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
+  settings.beginGroup("Main_Settings");
+  path_ = settings.value("path").toString();
 
-    ui->radioButton->setChecked(settings.value("radioButton", true).toBool());
-    ui->radioButton_2->setChecked(settings.value("radioButton_2", true).toBool());
-    ui->radioButton_3->setChecked(settings.value("radioButton_3", true).toBool());
-    ui->radioButton_4->setChecked(settings.value("radioButton_4", true).toBool());
-    ui->radioButton_5->setChecked(settings.value("radioButton_5", true).toBool());
-    ui->radioButton_6->setChecked(settings.value("radioButton_6", true).toBool());
-    ui->radioButton_7->setChecked(settings.value("radioButton_7", true).toBool());
+  ui->radioButton->setChecked(settings.value("radioButton", true).toBool());
+  ui->radioButton_2->setChecked(settings.value("radioButton_2", true).toBool());
+  ui->radioButton_3->setChecked(settings.value("radioButton_3", true).toBool());
+  ui->radioButton_4->setChecked(settings.value("radioButton_4", true).toBool());
+  ui->radioButton_5->setChecked(settings.value("radioButton_5", true).toBool());
+  ui->radioButton_6->setChecked(settings.value("radioButton_6", true).toBool());
+  ui->radioButton_7->setChecked(settings.value("radioButton_7", true).toBool());
 
-    ui->lineEdit->setText(settings.value("lineEdit").toString());
-    ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
-    ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
-    ui->lineEdit_4->setText(settings.value("lineEdit_4").toString());
-    ui->lineEdit_5->setText(settings.value("lineEdit_5").toString());
-    ui->lineEdit_6->setText(settings.value("lineEdit_6").toString());
-    ui->lineEdit_7->setText(settings.value("lineEdit_7").toString());
-    ui->lineEdit_8->setText(settings.value("lineEdit_8").toString());
-    ui->lineEdit_9->setText(settings.value("lineEdit_9").toString());
-    ui->lineEdit_10->setText(settings.value("lineEdit_10").toString());
-    ui->lineEdit_11->setText(settings.value("lineEdit_11").toString());
-    ui->lineEdit_12->setText(settings.value("lineEdit_12").toString());
+  ui->lineEdit->setText(settings.value("lineEdit").toString());
+  ui->lineEdit_2->setText(settings.value("lineEdit_2").toString());
+  ui->lineEdit_3->setText(settings.value("lineEdit_3").toString());
+  ui->lineEdit_4->setText(settings.value("lineEdit_4").toString());
+  ui->lineEdit_5->setText(settings.value("lineEdit_5").toString());
+  ui->lineEdit_6->setText(settings.value("lineEdit_6").toString());
+  ui->lineEdit_7->setText(settings.value("lineEdit_7").toString());
+  ui->lineEdit_8->setText(settings.value("lineEdit_8").toString());
+  ui->lineEdit_9->setText(settings.value("lineEdit_9").toString());
+  ui->lineEdit_10->setText(settings.value("lineEdit_10").toString());
+  ui->lineEdit_11->setText(settings.value("lineEdit_11").toString());
+  ui->lineEdit_12->setText(settings.value("lineEdit_12").toString());
 
-    ui->horizontalScrollBar->setValue(settings.value("horizontalScrollBar").toInt());
-    ui->horizontalScrollBar_2->setValue(settings.value("horizontalScrollBar_2").toInt());
-    ui->horizontalScrollBar_3->setValue(settings.value("horizontalScrollBar_3").toInt());
-    ui->horizontalScrollBar_4->setValue(settings.value("horizontalScrollBar_4").toInt());
-    ui->horizontalScrollBar_5->setValue(settings.value("horizontalScrollBar_5").toInt());
-    ui->horizontalScrollBar_6->setValue(settings.value("horizontalScrollBar_6").toInt());
-    ui->horizontalScrollBar_7->setValue(settings.value("horizontalScrollBar_7").toInt());
-    ui->horizontalScrollBar_8->setValue(settings.value("horizontalScrollBar_8").toInt());
-    ui->horizontalScrollBar_9->setValue(settings.value("horizontalScrollBar_9").toInt());
-    ui->horizontalScrollBar_10->setValue(settings.value("horizontalScrollBar_10").toInt());
-    ui->horizontalScrollBar_11->setValue(settings.value("horizontalScrollBar_11").toInt());
-    settings.endGroup();
+  ui->horizontalScrollBar->setValue(
+      settings.value("horizontalScrollBar").toInt());
+  ui->horizontalScrollBar_2->setValue(
+      settings.value("horizontalScrollBar_2").toInt());
+  ui->horizontalScrollBar_3->setValue(
+      settings.value("horizontalScrollBar_3").toInt());
+  ui->horizontalScrollBar_4->setValue(
+      settings.value("horizontalScrollBar_4").toInt());
+  ui->horizontalScrollBar_5->setValue(
+      settings.value("horizontalScrollBar_5").toInt());
+  ui->horizontalScrollBar_6->setValue(
+      settings.value("horizontalScrollBar_6").toInt());
+  ui->horizontalScrollBar_7->setValue(
+      settings.value("horizontalScrollBar_7").toInt());
+  ui->horizontalScrollBar_8->setValue(
+      settings.value("horizontalScrollBar_8").toInt());
+  ui->horizontalScrollBar_9->setValue(
+      settings.value("horizontalScrollBar_9").toInt());
+  ui->horizontalScrollBar_10->setValue(
+      settings.value("horizontalScrollBar_10").toInt());
+  ui->horizontalScrollBar_11->setValue(
+      settings.value("horizontalScrollBar_11").toInt());
+  settings.endGroup();
 }
 
 void Viewer::settings_save() {
   //  Сохраняем настройки
-    qDebug() << "save settings...";
-    QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
-    settings.beginGroup("Main_Settings");
-    settings.setValue("path", path_);
-    settings.setValue("radioButton", ui->radioButton->isChecked());
-    settings.setValue("radioButton_2", ui->radioButton_2->isChecked());
-    settings.setValue("radioButton_3", ui->radioButton_3->isChecked());
-    settings.setValue("radioButton_4", ui->radioButton_4->isChecked());
-    settings.setValue("radioButton_5", ui->radioButton_5->isChecked());
-    settings.setValue("radioButton_6", ui->radioButton_6->isChecked());
-    settings.setValue("radioButton_7", ui->radioButton_7->isChecked());
+  qDebug() << "save settings...";
+  QSettings settings("s21_3d_viewer.conf", QSettings::IniFormat);
+  settings.beginGroup("Main_Settings");
+  settings.setValue("path", path_);
+  settings.setValue("radioButton", ui->radioButton->isChecked());
+  settings.setValue("radioButton_2", ui->radioButton_2->isChecked());
+  settings.setValue("radioButton_3", ui->radioButton_3->isChecked());
+  settings.setValue("radioButton_4", ui->radioButton_4->isChecked());
+  settings.setValue("radioButton_5", ui->radioButton_5->isChecked());
+  settings.setValue("radioButton_6", ui->radioButton_6->isChecked());
+  settings.setValue("radioButton_7", ui->radioButton_7->isChecked());
 
-    settings.setValue("lineEdit", ui->lineEdit->text());
-    settings.setValue("lineEdit_2", ui->lineEdit_2->text());
-    settings.setValue("lineEdit_3", ui->lineEdit_3->text());
-    settings.setValue("lineEdit_4", ui->lineEdit_4->text());
-    settings.setValue("lineEdit_5", ui->lineEdit_5->text());
-    settings.setValue("lineEdit_6", ui->lineEdit_6->text());
-    settings.setValue("lineEdit_7", ui->lineEdit_7->text());
-    settings.setValue("lineEdit_8", ui->lineEdit_8->text());
-    settings.setValue("lineEdit_9", ui->lineEdit_9->text());
-    settings.setValue("lineEdit_10", ui->lineEdit_10->text());
-    settings.setValue("lineEdit_11", ui->lineEdit_11->text());
-    settings.setValue("lineEdit_12", ui->lineEdit_12->text());
+  settings.setValue("lineEdit", ui->lineEdit->text());
+  settings.setValue("lineEdit_2", ui->lineEdit_2->text());
+  settings.setValue("lineEdit_3", ui->lineEdit_3->text());
+  settings.setValue("lineEdit_4", ui->lineEdit_4->text());
+  settings.setValue("lineEdit_5", ui->lineEdit_5->text());
+  settings.setValue("lineEdit_6", ui->lineEdit_6->text());
+  settings.setValue("lineEdit_7", ui->lineEdit_7->text());
+  settings.setValue("lineEdit_8", ui->lineEdit_8->text());
+  settings.setValue("lineEdit_9", ui->lineEdit_9->text());
+  settings.setValue("lineEdit_10", ui->lineEdit_10->text());
+  settings.setValue("lineEdit_11", ui->lineEdit_11->text());
+  settings.setValue("lineEdit_12", ui->lineEdit_12->text());
 
-    settings.setValue("horizontalScrollBar", ui->horizontalScrollBar->value());
-    settings.setValue("horizontalScrollBar_2", ui->horizontalScrollBar_2->value());
-    settings.setValue("horizontalScrollBar_3", ui->horizontalScrollBar_3->value());
-    settings.setValue("horizontalScrollBar_4", ui->horizontalScrollBar_4->value());
-    settings.setValue("horizontalScrollBar_5", ui->horizontalScrollBar_5->value());
-    settings.setValue("horizontalScrollBar_6", ui->horizontalScrollBar_6->value());
-    settings.setValue("horizontalScrollBar_7", ui->horizontalScrollBar_7->value());
-    settings.setValue("horizontalScrollBar_8", ui->horizontalScrollBar_8->value());
-    settings.setValue("horizontalScrollBar_9", ui->horizontalScrollBar_9->value());
-    settings.setValue("horizontalScrollBar_10", ui->horizontalScrollBar_10->value());
-    settings.setValue("horizontalScrollBar_11", ui->horizontalScrollBar_11->value());
-    settings.endGroup();
+  settings.setValue("horizontalScrollBar", ui->horizontalScrollBar->value());
+  settings.setValue("horizontalScrollBar_2",
+                    ui->horizontalScrollBar_2->value());
+  settings.setValue("horizontalScrollBar_3",
+                    ui->horizontalScrollBar_3->value());
+  settings.setValue("horizontalScrollBar_4",
+                    ui->horizontalScrollBar_4->value());
+  settings.setValue("horizontalScrollBar_5",
+                    ui->horizontalScrollBar_5->value());
+  settings.setValue("horizontalScrollBar_6",
+                    ui->horizontalScrollBar_6->value());
+  settings.setValue("horizontalScrollBar_7",
+                    ui->horizontalScrollBar_7->value());
+  settings.setValue("horizontalScrollBar_8",
+                    ui->horizontalScrollBar_8->value());
+  settings.setValue("horizontalScrollBar_9",
+                    ui->horizontalScrollBar_9->value());
+  settings.setValue("horizontalScrollBar_10",
+                    ui->horizontalScrollBar_10->value());
+  settings.setValue("horizontalScrollBar_11",
+                    ui->horizontalScrollBar_11->value());
+  settings.endGroup();
 }
-
 
 void Viewer::on_pushButton_clicked() {
   fileName = QFileDialog::getOpenFileName(this, tr("Open Obj File"), path_,
@@ -127,9 +147,8 @@ void Viewer::on_pushButton_clicked() {
     qDebug() << fileName;
     ////updates
     file_proccessing(fileName);
-  }
-  else {
-      error_message("Нет файла");
+  } else {
+    error_message("Нет файла");
   }
 }
 
@@ -165,8 +184,10 @@ void Viewer::reset_obj() {
   obj.count_of_vertexes = 0;
   obj.count_of_facets = 0;
   obj.facet_elem = 0;
-  if (obj.vertexes != NULL) free(obj.vertexes);
-  if (obj.polygons != NULL) free(obj.polygons);
+  if (obj.vertexes != NULL)
+    free(obj.vertexes);
+  if (obj.polygons != NULL)
+    free(obj.polygons);
   obj.vertexes = NULL;
   obj.polygons = NULL;
 }
@@ -190,7 +211,8 @@ void Viewer::file_proccessing(QString fileName) {
     ////scaling block
     double max_el = 0.0;
     for (int i = 0; i < obj.count_of_vertexes; i++) {
-      if (max_el < obj.vertexes[i]) max_el = obj.vertexes[i];
+      if (max_el < obj.vertexes[i])
+        max_el = obj.vertexes[i];
     }
 
     for (int i = 0; i < (obj.count_of_vertexes) * 3; i++) {
@@ -240,11 +262,11 @@ void Viewer::on_pushButton_4_clicked() {
 void Viewer::on_pushButton_2_clicked() {
   QString file = QFileDialog::getSaveFileName(this, "Save as...", "name.jpg",
                                               "JPEG (*.jpeg) ;; BMP (*.bmp) ");
-  if(file != "") {
+  if (file != "") {
     QImage image = ui->widget->grabFramebuffer();
     image.save(file, nullptr, 80);
   } else {
-      error_message("Нет папки");
+    error_message("Нет папки");
   }
 }
 
@@ -266,7 +288,6 @@ void Viewer::error_message(QString message) {
   QMessageBox messageBox;
   messageBox.setFixedSize(500, 200);
   messageBox.information(0, "Info", message);
-
 }
 
 void Viewer::gif_timer() {
@@ -287,7 +308,8 @@ void Viewer::gif_create() {
     ui->pushButton_3->setEnabled(true);
   }
   ++time_;
-  if (!ui->pushButton_3->isEnabled()) ui->pushButton_3->setText(QString::number(time_ / 10));
+  if (!ui->pushButton_3->isEnabled())
+    ui->pushButton_3->setText(QString::number(time_ / 10));
 }
 
 void Viewer::on_horizontalScrollBar_8_valueChanged(int value) {

@@ -5,7 +5,7 @@
 
 #include "QMouseEvent"
 
-scene::scene(QWidget* parent) : QOpenGLWidget(parent) {
+scene::scene(QWidget *parent) : QOpenGLWidget(parent) {
   fon_r_ = 0.30, fon_g_ = 0.30, fon_b_ = 0.30;
   perspective = true;
   stipple = false;
@@ -46,12 +46,12 @@ void scene::set_persp() {
   update();
 }
 void scene::set() { data_loaded_ = 1; }
-void scene::set_vertex_arr(double* arr) { vertex_arr_ = arr; }
-void scene::set_facets_arr(int* arr) { facets_arr_ = arr; }
+void scene::set_vertex_arr(double *arr) { vertex_arr_ = arr; }
+void scene::set_facets_arr(int *arr) { facets_arr_ = arr; }
 void scene::set_lines(int lines) { lines_ = lines; }
-void scene::mousePressEvent(QMouseEvent* e) { mPos_ = e->pos(); }
+void scene::mousePressEvent(QMouseEvent *e) { mPos_ = e->pos(); }
 
-void scene::mouseMoveEvent(QMouseEvent* e) {
+void scene::mouseMoveEvent(QMouseEvent *e) {
   xRot_ = 1 / M_PI * (e->pos().y() - mPos_.y());
   yRot_ = 1 / M_PI * (e->pos().x() - mPos_.x());
   update();
@@ -79,8 +79,10 @@ void scene::draw() {
       glDrawElements(GL_POINTS, lines_, GL_UNSIGNED_INT, facets_arr_);
     }
     glDisableClientState(GL_VERTEX_ARRAY);
-    if (stipple) glDisable(GL_LINE_STIPPLE);
-    if (smooth) glDisable(GL_POINT_SMOOTH);
+    if (stipple)
+      glDisable(GL_LINE_STIPPLE);
+    if (smooth)
+      glDisable(GL_POINT_SMOOTH);
   }
 
   //    glDrawArrays(GL_TRIANGLES, 1, 12);  //  Данный вариант рисует
