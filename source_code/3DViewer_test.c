@@ -33,7 +33,8 @@ START_TEST(parser_test_1) {
   for (int i = 0; i < vertex_count_test; i++) {
     ck_assert_int_eq(arr_of_vertexes_test[i], obj.vertexes[i]);
   }
-  free_obj(&obj);
+  free(obj.polygons);
+  free(obj.vertexes);
 }
 END_TEST
 
