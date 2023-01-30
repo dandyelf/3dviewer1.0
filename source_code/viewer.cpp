@@ -141,10 +141,19 @@ void Viewer::settings_save() {
 }
 
 void Viewer::on_pushButton_clicked() {
-  fileName = QFileDialog::getOpenFileName(this, tr("Open Obj File"), path_,
+
+  QString fileName2 = QFileDialog::getOpenFileName(this, tr("Open Obj File"), path_,
                                           tr("OBJ Files (*.obj)"));
-  if (fileName != "") {
-    qDebug() << fileName;
+  if (fileName2 != "") {
+    fileName = fileName2;
+    qDebug() << fileName2;
+    path_ = fileName;
+
+    this->setWindowTitle("3D Viewer ~ " + fileName);
+
+    ui->label_7->setText(path_.section('/', -1, -1));
+    ui->label_8->setText("Число вершин");
+    ui->label_10->setText("Число линий");
     ////updates
     file_proccessing(fileName);
   } else {
@@ -193,20 +202,13 @@ void Viewer::reset_obj() {
 }
 
 void Viewer::file_proccessing(QString fileName) {
-  path_ = fileName;
 
-  this->setWindowTitle("3D Viewer ~ " + fileName);
-
-  ui->label_7->setText(path_.section('/', -1, -1));
-  ui->label_8->setText("Число вершин");
-  ui->label_10->setText("Число линий");
 
   QByteArray tmp = fileName.toLocal8Bit();
   char *file = tmp.data();
 
   reset_obj();
   int err = StartPars(file, &obj);
-
   if (!err) {
     ////scaling block
     double max_el = 0.0;

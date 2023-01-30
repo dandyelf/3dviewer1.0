@@ -16,9 +16,9 @@ int parse_num_vertex_facets(const char *filename, obj_t *obj) {
         count_facets(buffer, obj);
       }
     }
+    fclose(fp);
   }
   obj->facet_elem *= 2;
-  fclose(fp);
   return err;
 }
 
@@ -94,8 +94,8 @@ int parse_file(const char *filename, obj_t *obj) {
         }
       }
     }
+    fclose(fp);
   }
-  fclose(fp);
   return err;
 }
 
